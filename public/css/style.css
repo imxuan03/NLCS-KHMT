@@ -1,4 +1,9 @@
 /* CSS Chung  */
+*{
+    padding: 0;
+    margin: 0;
+}
+
 body {
     font-family: "Roboto", sans-serif;
     font-size: 13px;
@@ -40,7 +45,7 @@ body {
     max-height: 50px;
 }
 
-.header .inner-menu >ul{
+.header .inner-menu ul{
     list-style: none;
     padding: 0;
     margin: 0;
@@ -50,13 +55,109 @@ body {
     flex-wrap: wrap;
 }
 
-.header .inner-menu >ul >li {
+.header .inner-menu ul li {
     margin-left: 20px;
 }
 
 .header a{
     color: black;
 }
+
+    /* nav bars  */
+.nav__pc{
+    font-weight: 600;
+    font-size: 16px;
+}
+.nav__bars{
+    color: black;
+    margin: 0;
+    padding: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.nav__overplay{
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+    animation: fadeIn linear 0.2s;
+}
+
+.nav__mobile{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 100%;
+    background: white;
+    transform: translate(100%);
+    opacity: 0;
+    transition: all linear 0.2s;
+    
+}
+
+.nav__mobile-list{
+    margin-top: 50px;
+    list-style-type: none;
+}   
+
+.nav__mobile-link{
+    text-decoration: none;
+    
+    display: block;
+    padding: 8px 0 8px 20px;
+}
+
+.nav__mobile-close{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: black;
+    position: absolute;
+    top: 0.2rem;
+    left: 1rem;
+    cursor: pointer;
+}
+
+.nav__input:checked ~ .nav__overplay {
+    display: block;
+}
+
+.nav__input:checked ~ .nav__mobile {
+    transform: translate(0%);
+    opacity: 1;
+}
+
+
+@media (max-width: 1200px) {
+
+    .nav__bars{
+        display: block;
+    }
+    .nav__pc{
+        display: none;
+    }
+
+
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+
 /* end header  */
 
 /* footer  */
@@ -67,6 +168,10 @@ body {
     padding: 10px;
 }
 
+.footer .footer-menu-icon{
+    padding: 0 15px;
+}
+
 .footer .inner-menu ul{
     list-style: none;
 }
@@ -75,7 +180,7 @@ body {
     color: white;
 }
 
-.footer div, li{
+.footer div,.footer  li{
     margin-bottom: 16px;
 }
 /* end footer  */

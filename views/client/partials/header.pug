@@ -1,23 +1,47 @@
 Header.header 
     .container 
         .row.align-items-center 
-            .col-3 
+            .col-xl-3.col-3 
                 .inner-logo 
                     a(href="/")
                         img(src="/images/logo.png", alt="Logo")
-            .col-9 
-                .inner-menu 
-                    ul 
+            .col-xl-9.col-8
+                .inner-menu
+                    ul
                         li 
                             a(href="") Đăng nhập  
                         li 
                             a(href="") Đăng ký
-                    ul 
-                        li 
-                            a(href="/") TRANG CHỦ
-                        li 
-                            a(href="") CHUYẾN BAY CỦA TÔI
-                        li 
-                            a(href="/flights") DỊCH VỤ CHUYẾN BAY
-                        li 
-                            a(href="") DỊCH VỤ KHÁC
+
+                    .nav__pc 
+                        ul    
+                            li 
+                                a(href="/") TRANG CHỦ
+                            li 
+                                a(href="") CHUYẾN BAY CỦA TÔI
+                            li 
+                                a(href="/flights") DỊCH VỤ CHUYẾN BAY
+                            li 
+                                a(href="") DỊCH VỤ KHÁC
+            
+        
+            label(class="col-1 nav__bars" for="nav-mobile-input")
+                <i class="fa-solid fa-bars"></i>
+
+            input(type="checkbox" name="" class="nav__input" id="nav-mobile-input" hidden) 
+
+            label(for="nav-mobile-input" class="nav__overplay") 
+
+            .nav__mobile
+                label(for="nav-mobile-input" class="nav__mobile-close")
+                    <i class="fa-regular fa-circle-xmark"></i>
+                ul.nav__mobile-list    
+                    li 
+                        a(href="/" class="nav__mobile-link") TRANG CHỦ
+                    li 
+                        a(href="" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI
+                    li 
+                        a(href="/flights" class="nav__mobile-link") DỊCH VỤ CHUYẾN BAY
+                    li 
+                        a(href="" class="nav__mobile-link") DỊCH VỤ KHÁC
+                    

@@ -1,20 +1,25 @@
 const express = require('express')
-const route = require("./routes/client/index.route")
-const routeAdmin = require("./routes/admin/index.route");
 const mongoose = require('mongoose');
-const systemConfig = require("./config/system");
+
 require('dotenv').config() //gọi file .env
 
-mongoose.connect('mongodb://127.0.0.1:27017/flyticket');
+const route = require("./routes/client/index.route")
+const routeAdmin = require("./routes/admin/index.route");
+const systemConfig = require("./config/system");
+const database = require("./config/database");
 
-const Flight = mongoose.model('Flight', {
-  title: String,
-  description: String,
-  price: Number
-})
+database.connect(); //Gọi hàm connect để kết nối database
+
+
+
+// const Flight = mongoose.model('Flight', {
+//   title: String,
+//   description: String,
+//   price: Number
+// })
 
 const port = process.env.PORT;
-const app = express()
+const app = express();
 
 app.set('views', './views')
 app.set('view engine', 'pug')
