@@ -1,7 +1,9 @@
 extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
 
 block main 
-    h1 hello world 123
-    h1 hello world 123
-    h1 hello world 123
-    h1 hello world 123
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Trang chủ")
+        
