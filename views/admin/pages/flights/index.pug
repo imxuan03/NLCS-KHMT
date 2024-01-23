@@ -1,8 +1,14 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/change-multi.pug
+include ../../mixins/alert.pug
 
 block main 
+    
+    +alert-success(5000)
+    +alert-error(5000)
 
     h2(class="mb-4") Danh sách chuyến bay
     .card.mb-3 
@@ -14,15 +20,25 @@ block main
                 .col-6 
                     +search(keyword)
                 
-
     .card.mb-3 
         .card-header Danh sách 
         .card-body
+            .row 
+                .col-8
+                    +change-multi(`/${prefixAdmin}/flights/change-multi?_method=PATCH`)
+                .col-4
+                    a(
+                        href=`/${prefixAdmin}/flights/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
             table(
                 class="table table-hover table-sm"
+                checkbox-multi
             )
                 thead 
                     tr
+                        th 
+                            input(type="checkbox" name="checkall")
                         th STT
                         th Hình ảnh
                         th Chuyến 
@@ -37,6 +53,12 @@ block main
                     if(flights.length>0)
                         each item, index in flights
                             tr 
+                                td 
+                                    input(
+                                        type="checkbox"
+                                        name="id"
+                                        value=item.id
+                                    )
                                 td #{index+1}
                                 td 
                                     img(src=item.thumbnail, alt=item.title width="100px" height="auto")
@@ -48,18 +70,28 @@ block main
                                 td #{item.availableSeats}
                                 td
                                     if(item.status == "active")
-                                        button(class="badge badge-success"
+                                        button(
+                                            class="badge badge-success"
                                             button-change-status
-                                            data-status=item.status 
-                                            data-id=item.id        
+                                            data-status=item.status
+                                            data-id=item.id
+
                                         ) Hoạt động
                                     else 
-                                        button(class="badge badge-danger"
+                                        button(
+                                            class="badge badge-danger"
                                             button-change-status
-                                            data-status=item.status 
-                                            data-id=item.id    
+                                            data-status=item.status
+                                            data-id=item.id
                                         ) Dừng Hoạt động 
-                                td #{item.position} 
+                                td 
+                                    input(
+                                        type="number"
+                                        value=item.position 
+                                        style="width: 60px"
+                                        min="1"
+                                        name="position"
+                                    ) 
                                 td 
                                     a(
                                         href=`/${prefixAdmin}/flights/detail/${item.id}`
@@ -78,3 +110,20 @@ block main
                     else 
                         tr 
                             td(colspan="7" class="text-center") Không có sản phẩm nào
+
+    //- form ẩn cho change status 
+    form(
+        id="form-change-status"
+        method="POST"
+        action=""
+        data-path=`/${prefixAdmin}/flights/change-status`
+    )
+    //- form xoá sản phẩm 
+    form(
+        id="form-delete-item"
+        method="POST"
+        action=""
+        data-path=`/${prefixAdmin}/flights/delete`
+    )
+
+    +pagination(pagination)
