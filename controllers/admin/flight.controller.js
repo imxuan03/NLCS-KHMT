@@ -3,6 +3,7 @@ const Flight = require("../../models/flight.model");
 const filterStatusHelper = require("../../helpers/filter-status");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
+const systemConfig = require("../../config/system");
 // [GET] /admin/flights 
 module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
@@ -118,4 +119,29 @@ module.exports.create = async (req, res) => {
     res.render("admin/pages/flights/create",{
         pageTitle: "Tạo mới chuyến bay",
     });
+}
+
+// [Post] /admin/flights/create
+module.exports.createPost = async (req, res) => {
+
+    req.body.price = parseInt(req.body.price);
+    if(req.body.position===""){
+        const countFlight = await Flight.countDocuments();
+        req.body.position = countFlight+1;
+    }else{
+        req.body.position = parseInt(req.body.position);
+    }
+
+    //check xem có ảnh gửi lên hay không
+    //và đổi tên lại để có thể truy cập vào ảnh
+    if(req.file && req.file.filename){
+        req.body.thumbnail = `/uploads/${ req.file.filename}`
+    }
+
+    const flight = new Flight(req.body);
+    await flight.save();
+
+    
+    req.flash('success', `Thêm sản phẩm thành công!`);
+    res.redirect(`/${systemConfig.prefixAdmin}/flights`)
 }

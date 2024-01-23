@@ -1,5 +1,159 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/alert.pug
 
 block main 
-    h1 tạo mới chuyến bay
+    +alert-error(5000)
+    +alert-success(5000)
+    h1(class="mb-4") Tạo mới chuyến bay
+
+    form(
+        action=`/${prefixAdmin}/flights/create`
+        id="form-create-flight"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+        div(class="form-group")
+            label(for="title") Chuyến bay
+            input(
+                type="text"
+                class="form-control col-8"
+                id="title"
+                name="title"
+                placeholder="TP HCM - Cần Thơ"
+                required
+            )
+        div(class="form-group")
+            label(for="desc") Mô tả
+            textarea(
+                class="form-control col-8"
+                id="desc"
+                name="description"
+                rows="5"
+            )
+        div(class="form-group")
+            label(for="price") Giá
+            input(
+                type="number"
+                class="form-control col-3"
+                id="price"
+                name="price"
+                value="0"
+                min="0"      
+            )
+        .row 
+            div(class="form-group col-6")
+                label(for="departureCity") Cất cánh tại
+                input(
+                    type="text"
+                    class="form-control"
+                    id="departureCity"
+                    name="departureCity"      
+                )
+            div(class="form-group col-6")
+                label(for="arrivalCity") Hạ cánh tại
+                input(
+                    type="text"
+                    class="form-control"
+                    id="arrivalCity"
+                    name="arrivalCity"      
+                )
+        .row
+            div(class="form-group col-6")
+                label(for="departureDate") Ngày cất cánh
+                input(
+                    type="date"
+                    class="form-control"
+                    id="departureDate"
+                    name="departureDate"      
+                )
+            div(class="form-group col-6")
+                label(for="arrivalDate") Ngày hạ cánh
+                input(
+                    type="date"
+                    class="form-control"
+                    id="arrivalDate"
+                    name="arrivalDate"      
+                )
+        .row
+            div(class="form-group col-6")
+                label(for="departureTime") Thời gian cất cánh
+                input(
+                    type="time"
+                    class="form-control"
+                    id="departureTime"
+                    name="departureTime"      
+                )
+            div(class="form-group col-6")
+                label(for="arrivalTime") Thời gian hạ cánh
+                input(
+                    type="time"
+                    class="form-control"
+                    id="arrivalTime"
+                    name="arrivalTime"      
+                )
+            
+        div(class="form-group")
+            label(for="availableSeats") Số lượng ghế
+            input(
+                type="number"
+                class="form-control col-3"
+                id="availableSeats"
+                name="availableSeats"
+                value="0"
+                min="0"      
+            )
+        div(
+            class="form-group"
+            upload-image
+        )
+            label(for="thumbnail") Ảnh
+            input(
+                type="file"
+                class="form-control-file"
+                id="thumbnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+            )
+            img(
+                src=""
+                class="image-preview"
+                upload-image-preview
+            )
+        div(class="form-group")
+            label(for="position") Vị trí
+            input(
+                type="number"
+                class="form-control col-3"
+                id="position"
+                name="position"
+                placeholder="Tự động tăng"
+                min="1"
+            )
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusActive"
+                name="status"
+                value="active"
+                checked
+            )
+            label(for="statusActive" class="form-check-label") Hoạt động
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusInActive"
+                name="status"
+                value="inactive"
+            )
+            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Tạo mới
+
+        
+        
