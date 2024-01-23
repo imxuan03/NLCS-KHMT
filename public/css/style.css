@@ -37,7 +37,7 @@ body {
     position: sticky;
     top: 0px;
     z-index: 9999;
-    background-color: white;
+    background-color:white;
 }
 
 .header .inner-logo img{
@@ -184,3 +184,116 @@ body {
     margin-bottom: 16px;
 }
 /* end footer  */
+
+
+/*start section-one  */
+
+.section-one{
+    position: relative;
+}
+.carousel{
+    width: 100%;
+    height: 100%;
+}
+.section-one .section-one-content{
+    position: absolute;
+    top: 0;
+    padding-left: 60%;
+    top: 20%;
+}
+.section-one .section-one-content form{
+    /* background: #df3c38; */
+    background: linear-gradient(107.2deg, rgb(150, 15, 15) 10.6%, rgb(247, 0, 0) 91.1%);
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    border: 1px solid #333;
+    min-width: 400px;
+}
+
+.section-one .section-one-content form{
+    color: white;
+}
+
+.section-one .section-one-content form h2{
+    display: flex;
+    justify-content: center;
+}
+
+.section-one .section-one-content form button{
+    margin-bottom:33px;
+    border: 1px solid #ffdd00;
+    background-color: #f5df2e;
+    width: 30%;
+    background-image: linear-gradient(315deg, #f5df2e 0%, #f07654 74%);
+}
+
+.section-one .section-one-content form .form-submit{
+    display: flex;
+    justify-content: center;
+}
+
+    /* Các hình ảnh làm cho form đẹp hơn */
+.section-one .section-one-content form .footerFormSearch{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.section-one .section-one-content form .formSearch11{
+    position: absolute;
+    width: 105%;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-one .section-one-content form .formSearch12{
+    position: absolute;
+    width: 105%;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+@media (max-width: 1200px) {
+
+    .section-one .section-one-content{
+        position: relative;
+    }
+    .section-one .section-one-content form{
+        position: absolute;
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+        left: 0;
+        top: -150px;
+        z-index: 999;
+    }
+
+    .section-one .section-one-content .overflow{
+        display: hidden;
+        height: 150px;
+    }
+
+
+    /* CSS các hình ảnh của form */
+    .section-one .section-one-content form .footerFormSearch{
+        display: none;
+    }
+    .section-one .section-one-content form .formSearch11{
+        display: none;
+    }
+    .section-one .section-one-content form .formSearch12{
+        display: none;
+    }
+    .section-one .section-one-content form button{
+        margin-bottom:0;
+    }
+}
+
+/*end section-one  */

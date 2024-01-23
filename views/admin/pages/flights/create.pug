@@ -42,49 +42,48 @@ block main
             )
         .row 
             div(class="form-group col-6")
-                label(for="departureCity") Cất cánh tại
+                label(for="departureCity") Điểm khởi hành
                 input(
                     type="text"
                     class="form-control"
                     id="departureCity"
                     name="departureCity"      
                 )
-            div(class="form-group col-6")
-                label(for="arrivalCity") Hạ cánh tại
-                input(
-                    type="text"
-                    class="form-control"
-                    id="arrivalCity"
-                    name="arrivalCity"      
-                )
-        .row
-            div(class="form-group col-6")
-                label(for="departureDate") Ngày cất cánh
+            div(class="form-group col-3")
+                label(for="departureDate") Ngày khởi hành
                 input(
                     type="date"
                     class="form-control"
                     id="departureDate"
                     name="departureDate"      
                 )
-            div(class="form-group col-6")
-                label(for="arrivalDate") Ngày hạ cánh
-                input(
-                    type="date"
-                    class="form-control"
-                    id="arrivalDate"
-                    name="arrivalDate"      
-                )
-        .row
-            div(class="form-group col-6")
-                label(for="departureTime") Thời gian cất cánh
+            div(class="form-group col-3")
+                label(for="departureTime") Thời gian khởi hành
                 input(
                     type="time"
                     class="form-control"
                     id="departureTime"
                     name="departureTime"      
                 )
+        .row 
             div(class="form-group col-6")
-                label(for="arrivalTime") Thời gian hạ cánh
+                label(for="arrivalCity") Điểm đến
+                input(
+                    type="text"
+                    class="form-control"
+                    id="arrivalCity"
+                    name="arrivalCity"      
+                )
+            div(class="form-group col-3")
+                label(for="arrivalDate") Ngày đến
+                input(
+                    type="date"
+                    class="form-control"
+                    id="arrivalDate"
+                    name="arrivalDate"      
+                )
+            div(class="form-group col-3")
+                label(for="arrivalTime") Thời gian đến
                 input(
                     type="time"
                     class="form-control"

@@ -2,8 +2,94 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-    .container.my-3 
-        .row 
-            .col-12 
-                +box-head("Trang chủ")
+    //- .container.my-3 
+    //-     .row 
+    //-         .col-12 
+    //-             +box-head("Trang chủ")
+    .section-one
+        #carouselIndicators.carousel.slide.carousel(data-ride="carousel")
+            ol.carousel-indicators
+                li(data-target="#carouselIndicators", data-slide-to="0", class="active")
+                li(data-target="#carouselIndicators", data-slide-to="1")
+                li(data-target="#carouselIndicators", data-slide-to="2")
+                li(data-target="#carouselIndicators", data-slide-to="3")
+                li(data-target="#carouselIndicators", data-slide-to="4")
+                li(data-target="#carouselIndicators", data-slide-to="5")
+
+            .carousel-inner
+                .carousel-item.active
+                    img.d-block.w-100(src="images/carousel/carousel1.jpg", alt="slide1")
+                .carousel-item
+                    img.d-block.w-100(src="images/carousel/carousel2.jpg", alt="slide2")
+                .carousel-item
+                    img.d-block.w-100(src="images/carousel/carousel3.jpg", alt="slide3")
+                .carousel-item
+                    img.d-block.w-100(src="images/carousel/carousel4.jpg", alt="slide4")
+                .carousel-item
+                    img.d-block.w-100(src="images/carousel/carousel5.jpg", alt="slide5")
+                .carousel-item
+                    img.d-block.w-100(src="images/carousel/carousel6.jpeg", alt="slide6")
+
+        .container.section-one-content
+            form(
+                action=
+                id=
+                method="POST"
+            )
+                h2 Tìm chuyến bay
+                img(src="images/formSearch1.png" class="formSearch11", alt="")
+                .row 
+                    div(class="form-group col-6")
+                        <i class="fa-solid fa-plane-departure"></i>
+                        label(for="departureCity") Nhập điểm khơi hành
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="departureCity"
+                            name="departureCity"
+                            placeholder="Điểm khởi hành"   
+                        )
+                    div(class="form-group col-6")
+                        label(for="departureDate") Ngày khởi hành
+                        input(
+                            type="date"
+                            class="form-control"
+                            id="departureDate"
+                            name="departureDate"    
+                        )
+                .row
+                    div(class="form-group col-6")
+                        <i class="fa-solid fa-plane-arrival"></i>
+                        label(for="arrivalCity") Nhập điểm đến
+                        input(
+                            type="text"
+                            class="form-control"
+                            id="arrivalCity"
+                            name="arrivalCity"  
+                            placeholder="Điểm đến"    
+                        )
+                    div(class="form-group col-6")
+                        label(for="arrivalDate") Ngày đến
+                        input(
+                            type="date"
+                            class="form-control"
+                            id="arrivalDate"
+                            name="arrivalDate"      
+                        )
+                div(class="form-group form-submit")
+                    button(
+                        type="submit"
+                        class="btn"
+                    ) Tìm chuyến bay
+                img(src="images/footerFormSearch.png" class="footerFormSearch", alt="")
+                img(src="images/formSearch1.png" class="formSearch12", alt="")
+
+            div(class="overflow") 
+    .container
+        h1 hl
+        h1 hl
+        h1 hl
+        h1 hl
+        h1 hl
+        h1 hl
         
