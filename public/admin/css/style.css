@@ -1,3 +1,4 @@
+/* CSS chung */
 *{
   padding: 0;
   margin: 0;
@@ -7,7 +8,7 @@ body {
   font-size: 13px;
 }
 
-
+/* End CSS chung */
 /* Header */
 .header {
     background: #202020;
@@ -109,3 +110,57 @@ body {
 }
 
 /* end image-preview  */
+
+/* Trang chi tiết */
+
+.detail-flight{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-desc-flight{
+  flex: 2;
+  margin-right: 15px;
+}
+
+.detail-box-head-desc{
+  border-bottom: 3px solid #6d6e71;
+}
+
+.detail-body-desc{
+  margin-top: 15px;
+  border-radius: 8px;
+  padding: 25px 15px;
+  background-color: rgb(255, 211, 213);
+}
+/* ------------------------ */
+.detail-price-flight{
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.detail-price-flight-header{
+  background: linear-gradient(107.2deg, rgb(237, 52, 52) 10.6%, rgb(247, 0, 0) 91.1%);
+  display: flex;
+  justify-content: center;
+  color: white;
+  padding: 8px;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.detail-price-flight-body{
+  margin-left: 15px;
+}
+
+.detail-price-flight-body-desc{
+  margin: 0 15px 8px 0;
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* End Trang chi tiết */

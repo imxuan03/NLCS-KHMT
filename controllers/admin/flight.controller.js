@@ -31,7 +31,18 @@ module.exports.index = async (req, res) => {
 
     //End Pagination
 
+    // Sort 
+    let sort= {};
+    
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey]=req.query.sortValue;
+    }else{
+        sort.position = "desc";
+    }
+    // end sort 
+
     const flights = await Flight.find(find)
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
@@ -125,6 +136,8 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
 
     req.body.price = parseInt(req.body.price);
+    req.body.availableSeats = parseInt(req.body.availableSeats);
+    
     if(req.body.position===""){
         const countFlight = await Flight.countDocuments();
         req.body.position = countFlight+1;
@@ -144,4 +157,62 @@ module.exports.createPost = async (req, res) => {
     
     req.flash('success', `Thêm sản phẩm thành công!`);
     res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+}
+
+// [GET] /admin/flights/edit/:id
+module.exports.edit = async (req, res) => {
+    const id = req.params.id;
+    
+    const record = await Flight.findOne({
+        _id:id,
+        deleted:false,
+    })
+    
+    res.render("admin/pages/flights/edit",{
+        pageTitle: "Chỉnh sửa chuyến bay",
+        record: record,
+    });
+}
+
+// [PATCH] /admin/flights/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+
+    req.body.price = parseInt(req.body.price);
+    req.body.availableSeats = parseInt(req.body.availableSeats);
+    req.body.position = parseInt(req.body.position);
+    
+    //check xem có ảnh gửi lên hay không
+    //và đổi tên lại để có thể truy cập vào ảnh
+    if(req.file && req.file.filename){
+        req.body.thumbnail = `/uploads/${ req.file.filename}`
+    }
+
+    await Flight.updateOne({_id: id}, req.body);
+
+    
+    req.flash('success', `Thêm sản phẩm thành công!`);
+    res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+}
+
+// [GET] /admin/flights/detail/:id
+module.exports.detail = async (req, res) => {
+    try {
+        const id = req.params.id;
+    
+        const record = await Flight.findOne({
+            _id:id,
+            deleted:false,
+        })
+        
+        res.render("admin/pages/flights/detail",{
+            pageTitle: "Chi tiết chuyến bay",
+            record: record,
+        });
+
+    } catch (error) {
+        const id = req.params.id;
+        req.flash('error', `Không tồn tại sản phẩm có id: ${id}`);
+        res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+    }
 }

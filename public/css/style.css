@@ -224,7 +224,7 @@ body {
     margin-bottom:33px;
     border: 1px solid #ffdd00;
     background-color: #f5df2e;
-    width: 30%;
+    width: 300px;
     background-image: linear-gradient(315deg, #f5df2e 0%, #f07654 74%);
 }
 
@@ -271,13 +271,13 @@ body {
         padding: 10px;
         width: 100%;
         left: 0;
-        top: -150px;
+        top: -100px;
         z-index: 999;
     }
 
     .section-one .section-one-content .overflow{
         display: hidden;
-        height: 150px;
+        height: 250px;
     }
 
 
@@ -294,6 +294,20 @@ body {
     .section-one .section-one-content form button{
         margin-bottom:0;
     }
+}
+
+@media (max-width: 768px) {
+    .section-one .section-one-content form{
+        top: -15px;
+        margin: 0;
+        padding: 10px;
+        z-index: 999;
+        border-radius: 8px;
+    }
+    .section-one .section-one-content .overflow{
+        height: 300px;
+    }
+
 }
 
 /*end section-one  */

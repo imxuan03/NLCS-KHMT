@@ -4,10 +4,10 @@ include ../../mixins/alert.pug
 block main 
     +alert-error(5000)
     +alert-success(5000)
-    h2(class="mb-4") Tạo mới chuyến bay
+    h2(class="mb-4") Chỉnh sửa chuyến bay
 
     form(
-        action=`/${prefixAdmin}/flights/create`
+        action=`/${prefixAdmin}/flights/edit/${record.id}?_method=PATCH`
         id="form-create-flight"
         method="POST"
         enctype="multipart/form-data"
@@ -21,6 +21,7 @@ block main
                 name="title"
                 placeholder="TP HCM - Cần Thơ"
                 required
+                value=record.title
             )
         div(class="form-group")
             label(for="desc") Mô tả
@@ -29,7 +30,7 @@ block main
                 id="desc"
                 name="description"
                 rows="5"
-            )
+            ) !{record.description}
         div(class="form-group")
             label(for="price") Giá
             input(
@@ -37,8 +38,8 @@ block main
                 class="form-control col-3"
                 id="price"
                 name="price"
-                value="0"
-                min="0"      
+                min="0" 
+                value=record.price     
             )
         .row 
             div(class="form-group col-6")
@@ -47,7 +48,8 @@ block main
                     type="text"
                     class="form-control"
                     id="departureCity"
-                    name="departureCity"      
+                    name="departureCity" 
+                    value=record.departureCity   
                 )
             div(class="form-group col-3")
                 label(for="departureDate") Ngày khởi hành
@@ -55,7 +57,8 @@ block main
                     type="date"
                     class="form-control"
                     id="departureDate"
-                    name="departureDate"      
+                    name="departureDate"  
+                    value=record.departureDate       
                 )
             div(class="form-group col-3")
                 label(for="departureTime") Thời gian khởi hành
@@ -63,7 +66,8 @@ block main
                     type="time"
                     class="form-control"
                     id="departureTime"
-                    name="departureTime"      
+                    name="departureTime"   
+                    value=record.departureTime      
                 )
         .row 
             div(class="form-group col-6")
@@ -73,6 +77,7 @@ block main
                     class="form-control"
                     id="arrivalCity"
                     name="arrivalCity"      
+                    value=record.arrivalCity 
                 )
             div(class="form-group col-3")
                 label(for="arrivalDate") Ngày đến
@@ -80,7 +85,8 @@ block main
                     type="date"
                     class="form-control"
                     id="arrivalDate"
-                    name="arrivalDate"      
+                    name="arrivalDate"  
+                    value=record.arrivalDate     
                 )
             div(class="form-group col-3")
                 label(for="arrivalTime") Thời gian đến
@@ -89,6 +95,7 @@ block main
                     class="form-control"
                     id="arrivalTime"
                     name="arrivalTime"      
+                    value=record.arrivalTime
                 )
             
         div(class="form-group")
@@ -98,8 +105,8 @@ block main
                 class="form-control col-3"
                 id="availableSeats"
                 name="availableSeats"
-                value="0"
-                min="0"      
+                min="0"   
+                value=record.availableSeats   
             )
         div(
             class="form-group"
@@ -115,7 +122,7 @@ block main
                 upload-image-input
             )
             img(
-                src=""
+                src=record.thumbnail
                 class="image-preview"
                 upload-image-preview
             )
@@ -128,6 +135,7 @@ block main
                 name="position"
                 placeholder="Tự động tăng"
                 min="1"
+                value=record.position 
             )
         div(class="form-group form-check form-check-inline")
             input(
@@ -136,7 +144,7 @@ block main
                 id="statusActive"
                 name="status"
                 value="active"
-                checked
+                checked=(record.status == "active" ? true : false)
             )
             label(for="statusActive" class="form-check-label") Hoạt động
         div(class="form-group form-check form-check-inline")
@@ -146,13 +154,14 @@ block main
                 id="statusInActive"
                 name="status"
                 value="inactive"
+                checked=(record.status == "inactive" ? true : false)
             )
             label(for="statusInActive" class="form-check-label") Dừng hoạt động
         div(class="form-group")
             button(
                 type="submit"
                 class="btn btn-primary"
-            ) Tạo mới
+            ) Cập nhật
 
         
         

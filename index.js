@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const path = require('path');
 
 
 require('dotenv').config() //gọi file .env
@@ -31,6 +32,10 @@ app.use(cookieParser('NHAKDLZNX'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 // end flash 
+
+//TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+// End TinyMCE
 
 // parse application/x-www-form-urlencoded
 //https://www.npmjs.com/package/body-parser
