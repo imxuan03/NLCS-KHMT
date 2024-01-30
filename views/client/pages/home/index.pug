@@ -81,11 +81,21 @@ block main
                 img(src="images/formSearch1.png" class="formSearch12", alt="")
 
             div(class="overflow") 
-    .container
-        h1 hl
-        h1 hl
-        h1 hl
-        h1 hl
-        h1 hl
-        h1 hl
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Danh sách sản phẩm")
+        
+        .row 
+            each item in flights
+                .col-4.mb-3 
+                    .product-item 
+                        .inner-image 
+                            img(src=item.thumbnail, alt="")
+                        .inner-content 
+                            h3.inner-title
+                                a(href=`/products/detail/${item.slug}`) #{item.title}
+                            .inner-price-neww #{item.price}
+
+        
         
