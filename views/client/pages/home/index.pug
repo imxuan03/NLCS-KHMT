@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug 
 include ../../mixins/box-head.pug
+include ../../mixins/sort.pug
+include ../../mixins/pagination.pug
 
 block main 
     .section-one
@@ -84,18 +86,30 @@ block main
     .container.my-3 
         .row 
             .col-12 
-                +box-head("Danh sách sản phẩm")
+                +box-head("Danh sách các chuyến bay")
         
+        .card.mb-3  
+        .card-header Sắp xếp 
+        .card-body 
+            .row 
+                .col-4 
+                    +sort()  
+                .col-6
         .row 
             each item in flights
                 .col-4.mb-3 
-                    .product-item 
-                        .inner-image 
-                            img(src=item.thumbnail, alt="")
-                        .inner-content 
-                            h3.inner-title
-                                a(href=`/products/detail/${item.slug}`) #{item.title}
-                            .inner-price-neww #{item.price}
+                    .flight-item
 
+                        .inner-content 
+                            .inner-title 
+                                h4 #{item.title}
+                                p Khởi hành #{item.departureDate}
+                            
+                            .inner-price    
+                                p Giá chỉ từ
+                                p.price #{item.price} VNĐ*
+                        button Đặt vé ngay
+
+        +pagination(pagination)
         
         
