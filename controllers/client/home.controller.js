@@ -1,10 +1,31 @@
 const Flight =require("../../models/flight.model");
 const paginationHelper = require("../../helpers/pagination");
+const searchFEHelper = require("../../helpers/searchFE");
 // [GET] / 
 module.exports.index = async (req, res) => {
+    const objectSearch = searchFEHelper(req.query);
+
     const find = {
         deleted: false
     }
+
+    //Search FE
+    if(req.query.departureCity){
+        find.departureCity = objectSearch.regexDepartureCity;
+    }
+
+    if(req.query.arrivalCity){
+        find.arrivalCity = objectSearch.regexArrivalCity;
+    }
+
+    if(req.query.departureDate){
+        find.departureDate = objectSearch.departureDate;
+    }
+
+    if(req.query.arrivalDate){
+        find.arrivalDate = objectSearch.arrivalDate;
+    }
+    //End Search FE
 
     //Pagination
     let initPagination = {

@@ -56,3 +56,51 @@ if(buttonPagination.length>0){
     });
 }
 //End Paginantion
+
+// form Search  
+const formSearch = document.querySelector("[form-search]")
+
+if(formSearch){
+    formSearch.addEventListener("submit", (e)=>{
+
+        let url = new URL(window.location.href);
+
+        //ngăn ngừa hành vi mặc định, tránh load lại trang
+        e.preventDefault();
+        
+        //Điểm đi
+        const departureCity = e.target.elements.departureCity.value;
+        const departureDate = e.target.elements.departureDate.value;
+        //Điểm đến
+        const arrivalCity = e.target.elements.arrivalCity.value;
+        const arrivalDate = e.target.elements.arrivalDate.value;
+
+        if(departureCity !=""){
+            url.searchParams.set("departureCity", departureCity);
+        }else{
+            url.searchParams.delete("departureCity");
+        }
+
+        if(departureDate !=""){
+            url.searchParams.set("departureDate", departureDate);
+        }else{
+            url.searchParams.delete("departureDate");
+        }
+
+        if(arrivalCity !=""){
+            url.searchParams.set("arrivalCity", arrivalCity);
+        }else{
+            url.searchParams.delete("arrivalCity");
+        }
+
+        if(arrivalDate !=""){
+            url.searchParams.set("arrivalDate", arrivalDate);
+        }else{
+            url.searchParams.delete("arrivalDate");
+        }
+
+        // //chuyển hướng theo url đó
+        window.location.href = url.href;
+    }); 
+}
+// end form Search 
