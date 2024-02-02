@@ -191,7 +191,7 @@ module.exports.editPatch = async (req, res) => {
     await Flight.updateOne({_id: id}, req.body);
 
     
-    req.flash('success', `Thêm sản phẩm thành công!`);
+    req.flash('success', `Chỉnh sửa phẩm thành công!`);
     res.redirect(`/${systemConfig.prefixAdmin}/flights`)
 }
 
