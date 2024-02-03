@@ -111,7 +111,7 @@ body {
 
 /* end image-preview  */
 
-/* Trang chi tiết */
+/* detail-flight Trang chi tiết chuyến bay*/
 
 .detail-flight{
   display: flex;
@@ -163,4 +163,41 @@ body {
   border-radius: 5px;
 }
 
-/* End Trang chi tiết */
+/* End detail-flight Trang chi tiết */
+
+/* detail-account Trang chi tiết */
+
+.detail-account{
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-desc-account{
+  flex: 2;
+  margin-right: 15px;
+}
+/* =====================================  */
+.detail-avatar-account{
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.detail-avatar-account .detail-avatar-account-img{
+  margin: 15px;
+}
+
+.detail-avatar-account .detail-avatar-account-detail{
+  margin-top: 20px;
+  text-align: center;
+}
+
+.detail-avatar-account .detail-avatar-account-img .avatar{
+  width: 100%;
+  min-width: 200px;
+  height: auto;
+}
+
+/*end detail-account Trang chi tiết */

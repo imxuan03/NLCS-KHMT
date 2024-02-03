@@ -94,3 +94,17 @@ module.exports.deleteAccount = async (req, res) => {
     res.redirect("back");
 
 }
+
+// [DELETE] /admin/accounts/detail/:id
+module.exports.detail = async (req, res) => {
+    const record = await Account.findOne({
+        _id: req.params.id,
+        deleted: false,
+    })
+
+    res.render('admin/pages/accounts/detail', {
+        pageTitle: "Thông tin chi tiết tài khoản",
+        record: record,
+    })
+
+}
