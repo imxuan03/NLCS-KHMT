@@ -13,5 +13,7 @@ module.exports.requireAuthAdmin = async (req, res, next) => {
         return;
     }
 
+    res.locals.user = user;  //đưa user ra local
+
     next();
 }

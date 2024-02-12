@@ -1,0 +1,106 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    h2(class="mb-4") Thông tin chi tiết tài khoản
+
+    .detail-account 
+        .detail-desc-account
+            div(class="form-group")
+                label(for="fullName") Họ tên *
+                input(
+                    type="text"
+                    class="form-control"
+                    id="fullName"
+                    name="fullName"
+                    value=user.fullName
+                    readonly
+                )
+            div(class="form-group")
+                label(for="email") Email *
+                input(
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value=user.email
+                    readonly
+                )
+            div(class="form-group")
+                label(for="password") Mật khẩu *
+                input(
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                )
+            div(class="form-group")
+                label(for="phone") Số điện thoại
+                input(
+                    type="text"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    value=user.phone
+                    readonly
+                )
+                //- ////=============== 
+            p Quyền truy cập
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="role_admin"
+                    name="role_id"
+                    value="admin"
+                    checked=(user.role_id == "admin" ? true : false)
+                    disabled 
+                )
+                label(for="role_admin" class="form-check-label") Quản trị viên
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="role_content_admin"
+                    name="role_id"
+                    value="contentAdmin"
+                    checked=(user.role_id == "contentAdmin" ? true : false)
+                    disabled 
+                )
+                label(for="role_content_admin" class="form-check-label") Quản trị nội dung
+            br
+                //- ==/////////================== 
+            p Trạng thái 
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="statusActive"
+                    name="status"
+                    value="active"
+                    checked=(user.status == "active" ? true : false)
+                    disabled 
+                )
+                label(for="statusActive" class="form-check-label") Hoạt động
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio"
+                    class="form-check-input"
+                    id="statusInActive"
+                    name="status"
+                    value="inactive"
+                    checked=(user.status == "inactive" ? true : false)
+                    disabled 
+                )
+                label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            
+            div 
+                a(
+                    href=`/${prefixAdmin}/my-account/edit`
+                    class="btn btn-primary"
+                ) Chỉnh sửa thông tin cá nhân
+        .detail-avatar-account
+            .detail-avatar-account-detail
+                h6 Ảnh đại diện
+            .detail-avatar-account-img
+                img(src=user.avatar, class="avatar" alt="")
