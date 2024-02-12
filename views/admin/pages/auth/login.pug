@@ -1,0 +1,88 @@
+extends ../../layouts/auth.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-error(5000)
+    +alert-success(5000)
+
+    .container-bubbles
+        .bubbles 
+            span(style="--i:11")
+            span(style="--i:12")
+            span(style="--i:24")
+            span(style="--i:10")
+            span(style="--i:14")
+            span(style="--i:23")
+            span(style="--i:18")
+            span(style="--i:16")
+            span(style="--i:19")
+            span(style="--i:20")
+            span(style="--i:22")
+            span(style="--i:25")
+            span(style="--i:18")
+            span(style="--i:21")
+            span(style="--i:15")
+            span(style="--i:13")
+            span(style="--i:26")
+            span(style="--i:17")
+            span(style="--i:13")
+            span(style="--i:28")
+            span(style="--i:11")
+            span(style="--i:12")
+            span(style="--i:24")
+            span(style="--i:10")
+            span(style="--i:14")
+            span(style="--i:23")
+            span(style="--i:18")
+            span(style="--i:16")
+            span(style="--i:19")
+            span(style="--i:20")
+            span(style="--i:22")
+            span(style="--i:25")
+            span(style="--i:18")
+            span(style="--i:21")
+            span(style="--i:15")
+            span(style="--i:13")
+            span(style="--i:26")
+            span(style="--i:17")
+            span(style="--i:13")
+            span(style="--i:28")
+
+
+    .container.my-5
+                h1(class="text-center") Đăng nhập
+                form(
+                    action=`/${prefixAdmin}/auth/login`
+                    method="POST"
+                )
+                    div(class="form-group")
+                        input(
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="Email"
+                            required
+                        )
+                        <i class="fa-solid fa-user"></i>
+                    div(class="form-group")
+                        input(
+                            type="password"
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Mật khẩu"
+                            required
+                        )
+                        <i class="fa-solid fa-lock"></i>
+                    div(class="form-group")
+                        button(
+                            type="submit"
+                            class="btn btn-dark btn-block login-submit-btn"
+                        ) Đăng nhập
+    
+    .infor 
+        h6 Đăng nhập tài khoản Admin Vietjet Air 
+        p Programer: Nguyễn Thanh Xuân
+
+            

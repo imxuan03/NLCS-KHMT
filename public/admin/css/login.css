@@ -1,0 +1,158 @@
+/* CSS chung */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    min-height: 100vh;
+    background: #0c192c;
+  }
+  
+  /* End CSS chung */
+
+  .container-bubbles{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .bubbles{
+    position: relative;
+    display: flex;
+  }
+
+  .bubbles span{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: #4fc3dc;
+    margin:0 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 10px #4fc3dc44,
+    0 0 50px #4fc3dc ,
+    0 0 100px #4fc3dc ;
+    animation: animate 15s linear infinite;
+    animation-duration: calc(120s / var(--i));
+  }
+  .bubbles span:nth-child(even){
+    background: #ff2d75;
+    box-shadow: 0 0 0 10px #ff2d7544,
+    0 0 50px #ff2d75 ,
+    0 0 100px #ff2d75 ;
+  }
+
+  @keyframes animate{
+    0%{
+        transform:  translateY(100vh) scale(0);
+    }
+    100%{
+        transform: translateY(-10vh) scale(1);
+    }
+  }
+
+
+.container.my-5 {
+    position: absolute; /* Thiết lập vị trí relative cho phần chứa form */
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    color: white;
+    max-width: 350px;
+
+    border-radius: 10px;
+    background:transparent;
+    border:  2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.container.my-5 .form-group{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.container.my-5 .form-group input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border:  2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+}
+
+.form-group input::placeholder{
+    color: #fff;
+}
+
+.form-group i {
+    position: absolute;
+    right: 35px;
+    top: 35%;
+
+}
+
+.container.my-5 .form-group button{
+    color: black;
+    font-weight: bold;
+    background: white;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    border:  2px solid rgba(255, 255, 255, .2);
+}
+
+/* ======================================================== */
+.infor{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    padding: 20px;
+}
+
+  /* show alert  */
+  [show-alert]{
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 9999;
+  }
+  
+  [show-alert].alert-hidden{
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;;
+    animation-fill-mode:both;
+  }
+  
+  @keyframes alert-hidden{
+    from{
+      right: 15px;
+    }to{
+      right: -100%;
+      display: none;
+    }
+  }
+  
+  [show-alert] [close-alert]{
+    background: #ffffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  /* end show alert  */
