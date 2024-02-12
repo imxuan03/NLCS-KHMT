@@ -59,5 +59,20 @@ module.exports.index = async (req, res) => {
     })
 }
 
-
-
+// [GET] /detail/:slug 
+module.exports.detail = async (req, res) => {
+    try {
+        const slug = req.params.slug;
+        const record = await Flight.findOne({
+            slug: slug,
+            deleted: false,
+            status: "active"
+        })
+        res.render('client/pages/home/detail', {
+            pageTitle: "Chi tiết sản phẩm",
+            record:record
+        })
+    } catch (error) {
+        res.redirect("/")
+    }
+}

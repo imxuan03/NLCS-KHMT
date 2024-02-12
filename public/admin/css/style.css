@@ -140,6 +140,7 @@ body {
   flex: 1;
   border-radius: 5px;
   border: 1px solid black;
+  height: fit-content;
 }
 
 .detail-price-flight-header{
@@ -165,7 +166,7 @@ body {
 
 /* End detail-flight Trang chi tiết */
 
-/* detail-account Trang chi tiết */
+/* detail-account Trang chi tiết tài khoản */
 
 .detail-account{
   display: flex;
@@ -200,4 +201,4 @@ body {
   height: auto;
 }
 
-/*end detail-account Trang chi tiết */
+/*end detail-account Trang chi tiết tài khoản */

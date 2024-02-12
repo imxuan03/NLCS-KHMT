@@ -10,7 +10,10 @@ header.header
           a(
             href=`/${prefixAdmin}/my-account`
             class="btn btn-primary btn-sm mr-2"
-          ) #{user.fullName}
+          ) 
+            .d-flex.align-items-center
+              img(src=user.avatar, alt="", style="width:30px; height:30px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+              p(class="ml-2 mb-0") #{user.fullName}
           a(
             href=`/${prefixAdmin}/auth/logout`
             class="btn btn-danger btn-sm"

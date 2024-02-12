@@ -97,15 +97,15 @@ block main
             each item in flights
                 .col-4.mb-3 
                     .flight-item
-
-                        .inner-content 
-                            .inner-title 
-                                h4 #{item.title}
-                                p Khởi hành #{item.departureDate}
-                            
-                            .inner-price    
-                                p Giá chỉ từ
-                                p.price #{item.price} VNĐ*
+                        a(href=`/detail/${item.slug}`) 
+                            .inner-content 
+                                .inner-title 
+                                    h4 #{item.title}
+                                    p Khởi hành #{item.departureDate}
+                                
+                                .inner-price    
+                                    p Giá chỉ từ
+                                    p.price #{item.price} VNĐ*
                         button(type="submit") Đặt vé ngay
 
         +pagination(pagination)

@@ -1,5 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/filter-status.pug
+
 
 block main 
 
@@ -13,10 +15,11 @@ block main
         .card-body 
             .row 
                 .col-8 
+                    +filter-status(filterStatus)
                 .col-4.text-right 
                     a(
                         href=`/${prefixAdmin}/accounts/create`
-                        class="btn btn-outline-success"
+                        class="btn btn-outline-success mb-2"
                     ) + Thêm mới
 
 

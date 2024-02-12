@@ -1,4 +1,5 @@
 const Account = require("../../models/account.model");
+const filterStatusHelper = require("../../helpers/filter-status");
 
 const md5 = require('md5');
 const generate = require("../../helpers/generate");
@@ -7,13 +8,21 @@ const systemConfig = require("../../config/system");
 
 // [GET] /admin/accounts 
 module.exports.index = async (req, res) => {
-    const records = await Account.find({
-        deleted: false,
-    })
+    const filterStatus = filterStatusHelper(req.query);
+
+    const find = {
+        deleted: false
+    }
+
+    if(req.query.status){
+        find.status = req.query.status;
+    }
     
+    const records = await Account.find(find)
     
     res.render('admin/pages/accounts/index', {
         pageTitle: "Danh Sách Tài Khoản",
+        filterStatus:filterStatus,
         records: records,
     })
 }
@@ -28,7 +37,7 @@ module.exports.create = async (req, res) => {
 // [POST] /admin/accounts/create 
 module.exports.createPost = async (req, res) => {
 
-    req.body.password = md5( req.body.password);
+    req.body.password = md5(req.body.password);
     
     //Làm token mới mỗi khi tạo ra một tài khoản mới
     req.body.token = generate.generateRandomString(30);
@@ -63,7 +72,7 @@ module.exports.edit = async (req, res) => {
 // [PATCH] /admin/accounts/edit/:id
 module.exports.editPatch = async (req, res) => {
     if(req.body.password){
-        req.body.password = md5( req.body.password);
+        req.body.password = md5(req.body.password);
     }else{
         delete req.body.password;
     }
