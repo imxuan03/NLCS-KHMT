@@ -6,7 +6,8 @@ module.exports.index = async (req, res) => {
     const objectSearch = searchFEHelper(req.query);
 
     const find = {
-        deleted: false
+        deleted: false,
+        status: "active",
     }
 
     //Search FE
