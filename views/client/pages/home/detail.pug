@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/alert.pug
 block main 
+    +alert-success(5000)
     .container
         h2(class="mb-4 pt-4") Thông tin chi tiết chuyến bay
         .detail-flight 
