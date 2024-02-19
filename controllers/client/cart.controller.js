@@ -1,4 +1,40 @@
 const Cart = require("../../models/cart.model");
+const Flight = require("../../models/flight.model");
+
+// [GET] /cart
+module.exports.index = async  (req, res) => {
+    
+    const cartId = req.cookies.cartId;
+
+    const cart = await Cart.findOne({
+        _id:cartId
+    })
+
+    if(cart.flights.length>0){
+        for(const item of cart.flights){
+            const flightId = item.flight_id;
+
+            const flightInfor = await Flight.findOne({
+                _id : flightId
+            });
+
+            //thêm một key vào object item
+            item.flightInfor = flightInfor;
+
+            item.totalPrice = item.quantity * item.flightInfor.price
+        }
+    }
+    
+    //tính tổng tiền cả giỏ hàng
+    cart.totalPrice = cart.flights.reduce((sum, item) => sum+item.totalPrice, 0);
+
+    res.render('client/pages/cart/index', {
+        pageTitle: "Chuyến bay của tôi",
+        cartDetail: cart
+    })
+}
+
+
 
 // [POST] /cart/add/:flightId
 module.exports.addPost = async  (req, res) => {
@@ -45,4 +81,3 @@ module.exports.addPost = async  (req, res) => {
 
     res.redirect("back");
 }
-

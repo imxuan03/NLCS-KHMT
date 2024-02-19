@@ -18,7 +18,7 @@ Header.header
                             li 
                                 a(href="/") TRANG CHỦ
                             li 
-                                a(href="/myflight") CHUYẾN BAY CỦA TÔI
+                                a(href="/cart") CHUYẾN BAY CỦA TÔI (#{miniCart ? miniCart.totalQuantity : "0"})
                             li 
                                 a(href="/service/serviceFlight") DỊCH VỤ CHUYẾN BAY
                             li 
@@ -39,7 +39,7 @@ Header.header
                     li 
                         a(href="/" class="nav__mobile-link") TRANG CHỦ
                     li 
-                        a(href="/myflight" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI
+                        a(href="/cart" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI (#{miniCart ? miniCart.totalQuantity : "0"})
                     li 
                         a(href="/service/serviceFlight" class="nav__mobile-link") DỊCH VỤ CHUYẾN BAY
                     li 

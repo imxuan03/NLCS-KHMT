@@ -1,5 +1,4 @@
 const homeRoutes = require("./home.route");
-const myflightRoutes = require("./myflight");
 const serviceRoutes = require("./service");
 const cartRoutes = require("./cart.route");
 
@@ -12,9 +11,9 @@ module.exports = (app) => {
 
     app.use('/', homeRoutes)
 
-    app.use('/myflight',myflightRoutes );
-      
+    app.use('/cart', cartRoutes);  
+    
     app.use('/service', serviceRoutes);
 
-    app.use('/cart', cartRoutes);
+    
 }

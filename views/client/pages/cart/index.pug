@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug 
+
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Chuyến bay của tôi")
+        
+        .row 
+            .col-12 
+                table(class="table table-bordered")
+                    thead 
+                        tr 
+                            th STT 
+                            th Ảnh 
+                            th Chuyến bay 
+                            th Giá
+                            th Số lượng
+                            th Tổng tiền 
+                            th Hành động
+                    tbody 
+                        if(cartDetail.flights.length > 0)
+                            each item, index in cartDetail.flights
+                                tr 
+                                    td #{index+1}
+                                    td 
+                                        img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
+                                    td 
+                                        a(href=`/flights/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
+                                    td #{item.flightInfor.price} VNĐ
+                                    td 
+                                        input(
+                                            type="number"
+                                            name="quantity"
+                                            value=item.quantity
+                                            min="1"
+                                            flight-id=item.flight_id
+                                            style="width:60px"
+                                        )
+                                    td #{item.totalPrice} VNĐ
+                                    td 
+                                        a(
+                                            href=`/cart/delete/${item.flight_id}`
+                                            class="btn btn-danger"
+                                        ) Xóa
+                        
+                        else
+                            p Chưa có vé nào được đặt
+                        
+                       
+                h3(class="text-right") Tổng tiền vé: #{cartDetail.totalPrice}
+                div(class="text-right mt-3 mb-3")
+                    a(href="checkout" class="btn btn-success") THANH TOÁN
+    
