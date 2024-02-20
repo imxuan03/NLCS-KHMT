@@ -9,7 +9,7 @@ module.exports.generateRandomString = (length) => {
     }
   
     return result;
-  };
+};
   
 
   module.exports.generateRandomNumber = (length) => {
@@ -23,5 +23,5 @@ module.exports.generateRandomString = (length) => {
     }
   
     return result;
-  };
+};
   

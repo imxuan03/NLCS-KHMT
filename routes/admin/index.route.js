@@ -36,7 +36,4 @@ module.exports = (app)=>{
         authMiddleware.requireAuth, 
         myAccountRoutes
     );
-
-    
-    
 }
