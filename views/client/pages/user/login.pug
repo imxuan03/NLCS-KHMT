@@ -8,7 +8,7 @@ block main
 
     .container
         .row.justify-content-center
-            .col-4
+            .col-8.col-md-5.col-xl-4
                 h2(class="text-center") Đăng nhập tài khoản
                 form(
                     action=`/user/login`
@@ -33,8 +33,15 @@ block main
                             name="password"
                             required
                         )
+
+                    div(class="form-group")
+                        a(href="/user/password/forgot" class="mb-3") Quên mật khẩu?
+
                     div(class="form-group")
                         button(
                             type="submit"
                             class="btn btn-primary btn-block"
                         ) Đăng nhập
+                    
+                div(class="form-group")
+                    a(href="/user/register" class="mb-3") Đăng ký tài khoản mới   
