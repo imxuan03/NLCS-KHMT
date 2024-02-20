@@ -8,10 +8,14 @@ Header.header
             .col-xl-9.col-8
                 .inner-menu
                     ul
-                        li 
-                            a(href="/user/login") Đăng nhập  
-                        li 
-                            a(href="/user/register") Đăng ký
+                        if(user)
+                            li 
+                                a(href="/user/logout") Đăng xuất
+                        else
+                            li 
+                                a(href="/user/login") Đăng nhập  
+                            li 
+                                a(href="/user/register") Đăng ký
 
                     .nav__pc 
                         ul    
