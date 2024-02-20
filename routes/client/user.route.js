@@ -5,6 +5,7 @@ const controller = require("../../controllers/client/user.controller")
 
 //validate
 const validate = require("../../validates/client/user.validate");
+const authMiddleWare = require("../../middlewares/client/auth.middleware");
 
 router.get('/register', controller.register);
 
@@ -43,5 +44,7 @@ router.post
     validate.resetPasswordPost,
     controller.resetPasswordPost
 );
+
+router.get('/infor',authMiddleWare.requireAuth, controller.infor);
 
 module.exports = router;
