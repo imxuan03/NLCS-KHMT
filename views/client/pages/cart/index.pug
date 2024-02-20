@@ -49,12 +49,14 @@ block main
                                             href=`/cart/delete/${item.flight_id}`
                                             class="btn btn-danger"
                                         ) Xóa
-                        
                         else
-                            p Chưa có vé nào được đặt
+                            tr 
+                                td(colspan="7" class="text-center") Vé máy bay chưa thêm vào!
                         
                        
-                h3(class="text-right") Tổng tiền vé: #{cartDetail.totalPrice}
-                div(class="text-right mt-3 mb-3")
-                    a(href="checkout" class="btn btn-success") THANH TOÁN
+                if(cartDetail.totalPrice >0 )
+                    h3(class="text-right") Tổng tiền vé: #{cartDetail.totalPrice} VNĐ
+                    div(class="text-right mt-3 mb-3")
+                        a(href="checkout" class="btn btn-success") THANH TOÁN
     
+    script(src="/js/cart.js") 

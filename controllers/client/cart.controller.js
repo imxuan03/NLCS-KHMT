@@ -81,3 +81,43 @@ module.exports.addPost = async  (req, res) => {
 
     res.redirect("back");
 }
+
+// [GET] /cart/delete/:flightId
+module.exports.delete = async  (req, res) => {
+    const cartId = req.cookies.cartId;
+    const flightId = req.params.flightId;
+
+    await Cart.updateOne(
+        {
+            _id: cartId
+        },
+        {
+            //dùng để xóa 1 chuyến bay ra khỏi Cart
+            "$pull" : {flights: {"flight_id" : flightId}}
+        },
+    );
+
+
+    req.flash('success', 'Xóa đặt vé thành công!');
+    res.redirect("back");
+}
+
+// [GET] /cart/update/:flightId/:quantity
+module.exports.update = async  (req, res) => {
+    const cartId = req.cookies.cartId;
+    const flightId = req.params.flightId;
+    const quantity = req.params.quantity;
+
+    await Cart.updateOne(
+        {
+            _id: cartId,
+            'flights.flight_id': flightId
+        },
+        {
+            'flights.$.quantity' : quantity
+        }
+    );
+
+    req.flash('success', 'Cập nhật số lượng!');
+    res.redirect("back");
+}
