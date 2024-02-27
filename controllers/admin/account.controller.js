@@ -104,7 +104,7 @@ module.exports.deleteAccount = async (req, res) => {
 
 }
 
-// [DELETE] /admin/accounts/detail/:id
+// [GET] /admin/accounts/detail/:id
 module.exports.detail = async (req, res) => {
     const record = await Account.findOne({
         _id: req.params.id,

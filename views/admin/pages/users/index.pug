@@ -1,0 +1,97 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/filter-status.pug
+
+
+block main 
+
+    +alert-success(5000)
+    +alert-error(5000)
+    
+    h2(class="mb-4") Danh sách tài khoản 
+
+    .card.mb-3 
+        .card-header Danh sách 
+        .card-body 
+            .row 
+                .col-8.mb-3 
+                    +filter-status(filterStatus)
+
+            table(class="table table-hover table-sm")
+                thead
+                    tr
+                        th STT
+                        th Ảnh đại diện
+                        th Họ tên
+                        th Quyền truy cập
+                        th Email
+                        th  Cập nhật trạng thái
+                        th Hành động
+
+                tbody
+                    each record, index in records
+                        tr
+                            td #{index+1}
+                            td  
+                                if(record.avatar)
+                                    img(
+                                        src=record.avatar
+                                        alt=record.fullName
+                                        width="100px"
+                                        height="auto"
+                                    )
+                                else 
+                                    img(
+                                        src="/admin/images/avatarAlter/userAvatar.jpg"
+                                        alt=record.fullName
+                                        width="100px"
+                                        height="auto"
+                                    )
+                            td #{record.fullName}
+                            td
+                                if(record.role_id === "admin")
+                                    p Quản trị viên 
+                                else 
+                                    p Quản trị nội dung
+                            td #{record.email}
+                            td
+                                if(record.status == "active")
+                                    button(
+                                        class="badge badge-success"
+                                        button-change-status
+                                        data-status=record.status
+                                        data-id=record.id
+
+                                    ) Hoạt động
+                                else 
+                                    button(
+                                        class="badge badge-danger"
+                                        button-change-status
+                                        data-status=record.status
+                                        data-id=record.id
+                                    ) Dừng Hoạt động 
+                            td
+                                a(
+                                    class="btn btn-secondary btn-sm"
+                                    href=`/${prefixAdmin}/users/detail/${record.id}`
+                                ) Chi tiết
+                                button(
+                                    class="btn btn-danger btn-sm ml-1"
+                                    button-delete 
+                                    data-id = record.id
+                                ) Xóa 
+    
+    //- form ẩn cho change status 
+    form(
+        id="form-change-status"
+        method="POST"
+        action=""
+        data-path=`/${prefixAdmin}/users/change-status`
+    )
+    //- form xoá tài khoản
+    form(
+        id="form-delete-item"
+        method="POST"
+        action=""
+        data-path=`/${prefixAdmin}/users/delete`
+    )                          
