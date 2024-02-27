@@ -7,12 +7,23 @@ Header.header
                         img(src="/images/logo.png", alt="Logo")
             .col-xl-9.col-8
                 .inner-menu
-                    ul
+                    ul.ul-user-header
                         if(user)
-                            li 
-                                a(href="/user/infor") #{user.fullName}
+                            li  
+                                a(href="/user/infor")
+                                    div(
+                                        class="btn btn-sm mr-2 d-flex align-items-center"
+                                        style="background-color: #dedede;"
+                                    )
+                                        if(user.avatar)
+                                            img(src=user.avatar, alt="", style="width:22px; height:22px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+                                        else 
+                                            img(src="/admin/images/avatarAlter/userAvatar.jpg", alt="", style="width:22px; height:22px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+
+                                        p(class="ml-2 mb-0 mr-1") #{user.fullName}  
                             li 
                                 a(href="/user/logout") Đăng xuất
+                                   
                         else
                             li 
                                 a(href="/user/login") Đăng nhập  
