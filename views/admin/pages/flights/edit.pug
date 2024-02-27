@@ -121,11 +121,18 @@ block main
                 accept="image/*"
                 upload-image-input
             )
-            img(
-                src=record.thumbnail
-                class="image-preview"
-                upload-image-preview
-            )
+            if(record.thumbnail)
+                img(
+                    src=record.thumbnail
+                    class="image-preview"
+                    upload-image-preview
+                )
+            else 
+                img(
+                    src="/admin/images/avatarAlter/flightAlter.jpg"
+                    class="image-preview"
+                    upload-image-preview
+                )
         div(class="form-group")
             label(for="position") Vị trí
             input(

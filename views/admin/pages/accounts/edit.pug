@@ -62,11 +62,18 @@ block main
                 accept="image/*"
                 upload-image-input
             )
-            img(
-                src=record.avatar
-                class="image-preview"
-                upload-image-preview
-            )
+            if(record.avatar)
+                img(
+                    src=record.avatar
+                    class="image-preview"
+                    upload-image-preview
+                )
+            else    
+                img(
+                    src="/admin/images/avatarAlter/userAvatar.jpg"
+                    class="image-preview"
+                    upload-image-preview
+                )
             //- ////=============== 
         p Quyền truy cập
         div(class="form-group form-check form-check-inline")

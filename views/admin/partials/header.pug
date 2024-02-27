@@ -9,10 +9,15 @@ header.header
         div(class="text-right")
           a(
             href=`/${prefixAdmin}/my-account`
-            class="btn btn-primary btn-sm mr-2"
+            class="btn btn-sm mr-2"
+            style="background-color: #dedede;"
           ) 
             .d-flex.align-items-center
-              img(src=user.avatar, alt="", style="width:30px; height:30px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+              if(user.avatar)
+                img(src=user.avatar, alt="", style="width:22px; height:22px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+              else 
+                img(src="/admin/images/avatarAlter/userAvatar.jpg", alt="", style="width:22px; height:22px; border-radius:50%; display: block; margin: 0 auto; object-fit: cover;")
+
               p(class="ml-2 mb-0") #{user.fullName}
           a(
             href=`/${prefixAdmin}/auth/logout`

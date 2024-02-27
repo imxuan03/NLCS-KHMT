@@ -67,7 +67,10 @@ block main
                                     )
                                 td #{index+1}
                                 td 
-                                    img(src=item.thumbnail, alt=item.title width="100px" height="auto")
+                                    if(item.thumbnail)
+                                        img(src=item.thumbnail, alt=item.title width="100px" height="auto")
+                                    else
+                                        img(src="/admin/images/avatarAlter/flightAlter.jpg", alt=item.title width="100px" height="auto")
                                 td #{item.title}
                                 td #{item.price}$
                                 td 

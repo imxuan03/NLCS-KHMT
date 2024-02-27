@@ -38,13 +38,21 @@ block main
                     each record, index in records
                         tr
                             td #{index+1}
-                            td
-                                img(
-                                    src=record.avatar
-                                    alt=record.fullName
-                                    width="100px"
-                                    height="auto"
-                                )
+                            td  
+                                if(record.avatar)
+                                    img(
+                                        src=record.avatar
+                                        alt=record.fullName
+                                        width="100px"
+                                        height="auto"
+                                    )
+                                else 
+                                    img(
+                                        src="/admin/images/avatarAlter/userAvatar.jpg"
+                                        alt=record.fullName
+                                        width="100px"
+                                        height="auto"
+                                    )
                             td #{record.fullName}
                             td
                                 if(record.role_id === "admin")

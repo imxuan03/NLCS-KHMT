@@ -62,11 +62,18 @@ block main
                 accept="image/*"
                 upload-image-input
             )
-            img(
-                src=user.avatar
-                class="image-preview"
-                upload-image-preview
-            )
+            if(user.avatar)
+                img(
+                    src=user.avatar
+                    class="image-preview"
+                    upload-image-preview
+                )
+            else 
+                img(
+                    src="/admin/images/avatarAlter/userAvatar.jpg"
+                    class="image-preview"
+                    upload-image-preview
+                )
         div(class="form-group")
             button(
                 type="submit"

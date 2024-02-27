@@ -103,4 +103,7 @@ block main
             .detail-avatar-account-detail
                 h6 Ảnh đại diện
             .detail-avatar-account-img
-                img(src=user.avatar, class="avatar" alt="")
+                if(user.avatar)
+                    img(src=user.avatar, class="avatar" alt="")
+                else
+                    img(src="/admin/images/avatarAlter/userAvatar.jpg", class="avatar" alt="")

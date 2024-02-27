@@ -218,3 +218,31 @@ module.exports.infor = async  (req, res) => {
         pageTitle: "Thông tin cá nhân"
     });
 }
+
+// [GET] /user/edit
+module.exports.edit = async  (req, res) => {
+  
+    res.render("client/pages/user/edit",{
+        pageTitle: "Cập nhật thông tin cá nhân"
+    });
+}
+
+
+// [PATCH] /admin/my-account/edit
+module.exports.editPatch = async (req, res) => {
+    if(req.body.password){
+        req.body.password = md5( req.body.password);
+    }else{
+        delete req.body.password;
+    }
+
+    // Đặt tên lại theo đường dẫn 
+    if(req.file && req.file.filename){
+        req.body.avatar = `/uploads/${ req.file.filename}`
+    }
+
+    await User.updateOne({_id: res.locals.user.id}, req.body)
+
+    req.flash('success', `Chỉnh sửa tài khoản thành công!`);
+    res.redirect(`/user/infor`);
+}

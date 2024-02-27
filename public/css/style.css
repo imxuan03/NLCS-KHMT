@@ -453,3 +453,55 @@ body {
   }
   
   /* end show alert  */
+
+  /* detail-account Trang chi tiết tài khoản */
+
+.detail-account{
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .detail-desc-account{
+    flex: 2;
+    margin-right: 15px;
+  }
+  /* =====================================  */
+  .detail-avatar-account{
+    flex: 1;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  
+  .detail-avatar-account .detail-avatar-account-img{
+    margin: 15px;
+  }
+  
+  .detail-avatar-account .detail-avatar-account-detail{
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .detail-avatar-account .detail-avatar-account-img .avatar{
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+  }
+  
+  /*end detail-account Trang chi tiết tài khoản */
+
+  /* image-preview  */
+.image-preview{
+    width: 150px;
+    height: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .image-preview[src=""] {
+    display: none;
+  }
+  
+  /* end image-preview  */
