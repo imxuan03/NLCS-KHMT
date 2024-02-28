@@ -35,7 +35,12 @@ Header.header
                             li 
                                 a(href="/") TRANG CHỦ
                             li 
-                                a(href="/cart") CHUYẾN BAY CỦA TÔI (#{miniCart ? miniCart.totalQuantity : "0"})
+                                a(href="/cart") GIỎ HÀNG (#{miniCart ? miniCart.totalQuantity : "0"})
+                            li 
+                                if(user)
+                                    a(href="/user/myflight") CHUYẾN BAY CỦA TÔI
+                                else
+                                    a(href="/myflight") CHUYẾN BAY CỦA TÔI
                             li 
                                 a(href="/service/serviceFlight") DỊCH VỤ CHUYẾN BAY
                             li 
@@ -56,7 +61,12 @@ Header.header
                     li 
                         a(href="/" class="nav__mobile-link") TRANG CHỦ
                     li 
-                        a(href="/cart" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI (#{miniCart ? miniCart.totalQuantity : "0"})
+                        a(href="/cart" class="nav__mobile-link") GIỎ HÀNG(#{miniCart ? miniCart.totalQuantity : "0"})
+                    li 
+                        if(user)
+                            a(href="/user/myflight" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI
+                        else
+                            a(href="/myflight" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI 
                     li 
                         a(href="/service/serviceFlight" class="nav__mobile-link") DỊCH VỤ CHUYẾN BAY
                     li 

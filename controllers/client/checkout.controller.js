@@ -2,6 +2,8 @@ const Cart = require("../../models/cart.model");
 const Flight = require("../../models/flight.model");
 const Order = require("../../models/order.model");
 
+const generateHelper = require("../../helpers/generate");
+
 // [GET] /checkout
 module.exports.index = async (req, res) => {
     const cartId = req.cookies.cartId;
@@ -94,6 +96,8 @@ module.exports.order = async (req, res) => {
         userInfor: userInfor,
         flights: flights
     }
+
+    objectOrder.id_order=generateHelper.generateIdOrder(6);
 
     const order = new Order(objectOrder);
     await order.save();

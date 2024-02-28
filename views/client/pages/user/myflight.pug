@@ -2,15 +2,16 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-    .container.my-3 
+    .container.pt-3.pb-3
         .row 
             .col-12 
-                +box-head("Đặt hàng thành công")
+                +box-head("Chuyến bay đã đặt")
         
         .row 
             .col-12 
-                div(class="alert alert-success")
-                    | Chúc mừng bạn đã đặt vé máy bay thành công! Hi vọng bạn sẽ có những trải nghiệm tuyệt vời tại VietJetAir.   
+                if(flights.length>0)
+                    div(class="alert alert-success")
+                        | Chúc mừng bạn đã đặt vé máy bay thành công! Hi vọng bạn sẽ có những trải nghiệm tuyệt vời tại VietJetAir.   
 
         if(order)
             .row 
@@ -43,8 +44,8 @@ block main
                             th Số lượng
                             th Tổng tiền 
                     tbody 
-                        if(order.flights.length > 0)
-                            each item, index in order.flights
+                        if(flights.length > 0)
+                            each item, index in flights
                                 tr 
                                     td #{index+1}
                                     td 
@@ -56,8 +57,10 @@ block main
                                     td #{item.flightInfor.price} VNĐ
                                     td #{item.quantity}
                                     td #{item.totalPrice} VNĐ
-                        
+                        else 
+                            tr 
+                                td(colspan="7" class="text-center") Chưa có vé nào được đặt!
                        
-                if(order.totalPrice >0 )
-                    h3(class="text-right") Tổng tiền vé: #{order.totalPrice} VNĐ
+                if(totalOrder >0 )
+                    h3(class="text-right") Tổng tiền vé: #{totalOrder} VNĐ
                      

@@ -7,10 +7,10 @@ block main
     +alert-success(5000)
     +alert-error(5000)
 
-    .container.my-3 
+    .container.pb-3.pt-3
         .row 
             .col-12 
-                +box-head("Chuyến bay của tôi")
+                +box-head("Giỏ hàng")
         
         .row 
             .col-12 
@@ -30,9 +30,12 @@ block main
                                 tr 
                                     td #{index+1}
                                     td 
-                                        img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
+                                        if(item.flightInfor.thumbnail)
+                                            img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
+                                        else 
+                                            img(src="/images/avatarAlter/flightAlter.jpg", alt="Chuyến bay 1" width="80px")
                                     td 
-                                        a(href=`/flights/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
+                                        a(href=`/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
                                     td #{item.flightInfor.price} VNĐ
                                     td 
                                         input(
@@ -51,7 +54,7 @@ block main
                                         ) Xóa
                         else
                             tr 
-                                td(colspan="7" class="text-center") Vé máy bay chưa thêm vào!
+                                td(colspan="7" class="text-center") Vé máy bay chưa được thêm vào!
                         
                        
                 if(cartDetail.totalPrice >0 )

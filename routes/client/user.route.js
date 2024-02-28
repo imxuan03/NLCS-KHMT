@@ -58,7 +58,11 @@ router.get('/edit',authMiddleWare.requireAuth, controller.edit);
 router.patch(
     '/edit', 
     upload.single('avatar'),
+    authMiddleWare.requireAuth,
     controller.editPatch
 );
+
+router.get('/myflight',authMiddleWare.requireAuth, controller.myflight);
+
 
 module.exports = router;
