@@ -3,6 +3,7 @@ const serviceRoutes = require("./service");
 const cartRoutes = require("./cart.route");
 const checkoutRoutes = require("./checkout.route");
 const userRoutes = require("./user.route");
+const myflightRoutes = require("./myflight.route");
 
 //middleware
 const cartMiddleware = require("../../middlewares/client/cart.middleware");
@@ -23,6 +24,8 @@ module.exports = (app) => {
     app.use('/checkout', checkoutRoutes);
 
     app.use('/user', userRoutes);
+
+    app.use('/myflight', myflightRoutes);
 
     
 }

@@ -76,10 +76,10 @@ module.exports.addPost = async  (req, res) => {
                 $push: {flights: objectCart }
             }
         );
-        req.flash('success', 'Đặt vé thành công!');
+        
     }
-
-    res.redirect("back");
+    req.flash('success', 'Đặt vé thành công!');
+    res.redirect(`/cart`);
 }
 
 // [GET] /cart/delete/:flightId

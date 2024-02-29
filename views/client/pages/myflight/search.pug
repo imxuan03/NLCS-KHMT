@@ -1,0 +1,69 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+    .container.pt-3.pb-3
+        .row 
+            .col-12 
+                +box-head("Chuyến bay đã đặt")
+        
+        .row 
+            .col-12 
+                if(order.flights.length>0)
+                    div(class="alert alert-success")
+                        | Chúc mừng bạn đã đặt vé máy bay thành công! Hi vọng bạn sẽ có những trải nghiệm tuyệt vời tại VietJetAir.   
+
+        if(order)
+            .row 
+                .col-12 
+                    h4(class="mb-2") Thông tin cá nhân 
+                    table(class="table table-borderd")
+                        tbody 
+                            tr 
+                                td Họ tên 
+                                td 
+                                    b #{order.userInfor.fullName}
+                            tr 
+                                td Số điện thoại 
+                                td 
+                                    b #{order.userInfor.phone}
+                            tr 
+                                td Địa chỉ
+                                td 
+                                    b #{order.userInfor.address}
+                    
+        .row 
+            .col-12 
+                table(class="table table-bordered")
+                    thead 
+                        tr 
+                            th STT 
+                            th Ảnh 
+                            th Chuyến bay 
+                            th Giá
+                            th Số lượng
+                            th Tổng tiền 
+                    tbody 
+                        if(order.flights.length > 0)
+                            each item, index in order.flights
+                                tr 
+                                    td #{index+1}
+                                    td 
+                                        if(item.flightInfor.thumbnail)
+                                            img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
+                                        else
+                                            img(src="/images/avatarAlter/flightAlter.jpg" , alt="Chuyến bay 1" width="80px")
+                                    td #{item.flightInfor.title}
+                                    td #{item.flightInfor.price} VNĐ
+                                    td #{item.quantity}
+                                    td #{item.totalPrice} VNĐ
+                        else 
+                            tr 
+                                td(colspan="7" class="text-center") Chưa có vé nào được đặt!
+                       
+                if(order.totalPrice >0 )
+                    h3(class="text-right") Tổng tiền vé: #{order.totalPrice} VNĐ
+                     

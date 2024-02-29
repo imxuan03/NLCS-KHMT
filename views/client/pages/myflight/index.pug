@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug 
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+    .container.pt-3.pb-3 
+        .row 
+            .col-4 
+                .myflight-container 
+                    h4 CHUYẾN BAY CỦA TÔI
+                    p Bạn muốn xem chuyến bay đã đặt, đổi lịch trình bay hay mua thêm dịch vụ hành lý, chỗ ngồi, suất ăn..., vui lòng điền thông tin bên dưới:
+                    form(
+                        action="/myflight/search"
+                        method="get"
+                    ) 
+                        div(class="form-group")
+                            label(for="id_order") Mã đơn vé
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="id_order"
+                                name="id_order" 
+                                required    
+                            )
+                        div(class="form-group")
+                            label(for="fullName") Họ và tên
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="fullName"
+                                name="fullName" 
+                                required    
+                            )
+                        div(class="form-group form-submit")
+                            button(
+                                type="submit"
+                                class="btn"
+                            ) Tìm kiếm
+
+            .col-8 
+                .myflight-image
+                    img(src="/images/myflight1.jpg", alt="")
