@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main 
+    
+    +alert-success(5000)
+    +alert-error(5000)
+
+    h2(class="mb-4") Danh sách đơn vé
+
+    .card.mb-3 
+        .card-header Danh sách 
+        .card-body
+            table(
+                class="table table-hover table-sm"
+            )
+                thead 
+                    tr
+                        th STT
+                        th Hình ảnh
+                        th Chuyến bay 
+                        th Giá
+                        th Ngày đi - Ngày đến
+                        th Số lượng chỗ
+                        th Trạng thái 
+                        th Vị trí
+                        th Hành động
+
+                tbody 
+                    
