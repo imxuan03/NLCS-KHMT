@@ -38,9 +38,11 @@ block main
                     thead 
                         tr 
                             th STT 
+                            th Mã đơn vé
                             th Ảnh 
                             th Chuyến bay 
                             th Giá
+                            th Ngày đi - Ngày đến
                             th Số lượng
                             th Tổng tiền 
                     tbody 
@@ -48,6 +50,7 @@ block main
                             each item, index in flights
                                 tr 
                                     td #{index+1}
+                                    td(colspan="1") #{order.id_order}
                                     td 
                                         if(item.flightInfor.thumbnail)
                                             img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
@@ -55,6 +58,9 @@ block main
                                             img(src="/images/avatarAlter/flightAlter.jpg" , alt="Chuyến bay 1" width="80px")
                                     td #{item.flightInfor.title}
                                     td #{item.flightInfor.price} VNĐ
+                                    td 
+                                        div Khởi hành: #{item.flightInfor.departureDate} , #{item.flightInfor.departureTime}
+                                        div Đến: #{item.flightInfor.arrivalDate} , #{item.flightInfor.arrivalTime}
                                     td #{item.quantity}
                                     td #{item.totalPrice} VNĐ
                         else 

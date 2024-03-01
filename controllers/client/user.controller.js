@@ -43,6 +43,25 @@ module.exports.registerPost = async  (req, res) => {
 
     res.cookie("tokenUser", user.tokenUser);
 
+
+    //Lưu user_id vào collection carts
+    await Cart.updateOne(
+        {
+            _id: req.cookies.cartId
+        },{
+            user_id: user.id
+        }
+    )
+    //Lưu cart_id vào collection user
+            //Lưu user_id vào collection carts
+    await User.updateOne(
+        {
+            _id: user.id
+        },{
+            cart_id: req.cookies.cartId
+        }
+    )
+
     res.redirect("/");
 
 }
@@ -85,22 +104,17 @@ module.exports.loginPost = async  (req, res) => {
 
     res.cookie("tokenUser", user.tokenUser);
 
-    //Lưu user_id vào collection carts
-    await Cart.updateOne(
-        {
-            _id: req.cookies.cartId
-        },{
-            user_id: user.id
-        }
-    )
+    if(user.cart_id){
+        res.cookie("cartId",user.cart_id);
+    }
 
     res.redirect("/");
-
 }
 
 // [GET] /user/logout
 module.exports.logout =  (req, res) => {
     res.clearCookie("tokenUser");
+    res.clearCookie("cartId");
     
     res.redirect("/");
 }

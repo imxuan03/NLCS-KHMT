@@ -21,6 +21,7 @@ block main
                             th Ảnh 
                             th Chuyến bay 
                             th Giá
+                            th Ngày đi - Ngày đến
                             th Số lượng
                             th Tổng tiền 
                             th Hành động
@@ -37,6 +38,9 @@ block main
                                     td 
                                         a(href=`/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
                                     td #{item.flightInfor.price} VNĐ
+                                    td 
+                                        div Khởi hành: #{item.flightInfor.departureDate} , #{item.flightInfor.departureTime}
+                                        div Đến: #{item.flightInfor.arrivalDate} , #{item.flightInfor.arrivalTime}
                                     td 
                                         input(
                                             type="number"
