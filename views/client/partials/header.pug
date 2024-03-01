@@ -59,16 +59,28 @@ Header.header
                     <i class="fa-regular fa-circle-xmark"></i>
                 ul.nav__mobile-list    
                     li 
-                        a(href="/" class="nav__mobile-link") TRANG CHỦ
+                        
+                        a(href="/" class="nav__mobile-link") 
+                            <i class="fa-solid fa-house mr-3"></i>
+                            span TRANG CHỦ
                     li 
-                        a(href="/cart" class="nav__mobile-link") GIỎ HÀNG(#{miniCart ? miniCart.totalQuantity : "0"})
+                        a(href="/cart" class="nav__mobile-link")
+                            <i class="fa-solid fa-cart-shopping mr-3"></i>
+                            span GIỎ HÀNG(#{miniCart ? miniCart.totalQuantity : "0"})
                     li 
                         if(user)
-                            a(href="/user/myflight" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI
+                            a(href="/user/myflight" class="nav__mobile-link") 
+                                <i class="fa-solid fa-plane-departure  mr-3"></i>
+                                span CHUYẾN BAY CỦA TÔI
                         else
-                            a(href="/myflight" class="nav__mobile-link") CHUYẾN BAY CỦA TÔI 
+                            a(href="/myflight" class="nav__mobile-link") 
+                                <i class="fa-solid fa-plane-departure  mr-3"></i>
+                                span CHUYẾN BAY CỦA TÔI
                     li 
-                        a(href="/service/serviceFlight" class="nav__mobile-link") DỊCH VỤ CHUYẾN BAY
+                        a(href="/service/serviceFlight" class="nav__mobile-link")
+                            <i class="fa-solid fa-briefcase mr-3"></i>
+                            span DỊCH VỤ CHUYẾN BAY
                     li 
-                        a(href="/service/extendService" class="nav__mobile-link") DỊCH VỤ KHÁC
-                    
+                        a(href="/service/extendService" class="nav__mobile-link")   
+                            <i class="fa-brands fa-servicestack mr-3"></i>
+                            span DỊCH VỤ KHÁC
