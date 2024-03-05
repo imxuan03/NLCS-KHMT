@@ -109,11 +109,16 @@ body {
 }   
 
 .nav__mobile-link{
+    margin: 2px 10px;
     text-decoration: none;
-    
+    border-radius: 8px;
     display: block;
     padding: 8px 0 8px 20px;
 }
+.nav__mobile-link:hover{
+    background-color: rgba(180, 158, 158, 0.952);
+}
+
 
 .nav__mobile-close{
     font-size: 1.4rem;

@@ -15,7 +15,7 @@ body {
     padding: 10px 0;
     position: sticky;
     top: 0;
-      z-index: 999;
+    z-index: 999;
   }
   
   .header .inner-logo a {
@@ -27,20 +27,21 @@ body {
   
   /* Body */
   .body .sider {
-    width: 150px;
+    width: 20%;
     background: #323232;
     color: #fff;
     height: calc(100vh - 56px);
     position: fixed;
-    top: 56px;
+    top: 59px;
     left: 0;
+    z-index: 9999;
   }
   
   .body .main {
     margin: 15px;
     position: relative;
-    left: 150px;
-    width: calc(100% - 180px);
+    left: 20%;
+    width: calc(100% - 22%);
   }
   /* End Body */
   
@@ -56,6 +57,11 @@ body {
     display: block;
     padding: 6px 10px;
     border-bottom: 1px solid #515151;
+    margin: 10px 10px;
+    border-radius: 8px;
+  }
+  .sider .inner-menu ul li a:hover {
+    background-color: rgb(163, 23, 23);
   }
   /* End Sider */
 
