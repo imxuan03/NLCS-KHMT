@@ -30,16 +30,47 @@ block main
                 name="description"
                 rows="5"
             )
-        div(class="form-group")
-            label(for="price") Giá
-            input(
-                type="number"
-                class="form-control col-3"
-                id="price"
-                name="price"
-                value="0"
-                min="0"      
-            )
+        .row
+            div(class="form-group col-3")
+                label(for="firstPrice") Giá hạng thương gia
+                input(
+                    type="number"
+                    class="form-control"
+                    id="firstPrice"
+                    name="firstPrice"
+                    value="0"
+                    min="0"
+                )
+            div(class="form-group col-3")
+                label(for="ecoPrice") Giá hạng phổ thông
+                input(
+                    type="number"
+                    class="form-control"
+                    id="ecoPrice"
+                    name="ecoPrice"
+                    value="0"
+                    min="0"
+                )
+            div(class="form-group col-3")
+                label(for="businessPrice") Giá hạng kinh doanh
+                input(
+                    type="number"
+                    class="form-control"
+                    id="businessPrice"
+                    name="businessPrice"
+                    value="0"
+                    min="0"
+                )
+            div(class="form-group col-3")
+                label(for="vipPrice") Giá hạng VIP
+                input(
+                    type="number"
+                    class="form-control"
+                    id="vipPrice"
+                    name="vipPrice"
+                    value="0"
+                    min="0"
+                )
         .row 
             div(class="form-group col-6")
                 label(for="departureCity") Điểm khởi hành

@@ -135,28 +135,50 @@ module.exports.create = async (req, res) => {
 // [Post] /admin/flights/create
 module.exports.createPost = async (req, res) => {
 
-    req.body.price = parseInt(req.body.price);
-    req.body.availableSeats = parseInt(req.body.availableSeats);
-    
-    if(req.body.position===""){
-        const countFlight = await Flight.countDocuments();
-        req.body.position = countFlight+1;
-    }else{
-        req.body.position = parseInt(req.body.position);
+    try {
+
+        const firstPrice = parseInt(req.body.firstPrice);
+        const ecoPrice = parseInt(req.body.ecoPrice);
+        const businessPrice = parseInt(req.body.businessPrice);
+        const vipPrice = parseInt(req.body.vipPrice);
+
+
+        const price = [
+            { priceName: 'firstPrice', price: firstPrice },
+            { priceName: 'ecoPrice', price: ecoPrice },
+            { priceName: 'businessPrice', price: businessPrice },
+            { priceName: 'vipPrice', price: vipPrice }
+        ];
+
+        req.body.availableSeats = parseInt(req.body.availableSeats);
+        
+        if(req.body.position===""){
+            const countFlight = await Flight.countDocuments();
+            req.body.position = countFlight+1;
+        }else{
+            req.body.position = parseInt(req.body.position);
+        }
+
+        //check xem có ảnh gửi lên hay không
+        //và đổi tên lại để có thể truy cập vào ảnh
+        if(req.file && req.file.filename){
+            req.body.thumbnail = `/uploads/${ req.file.filename}`
+        }
+
+        req.body.price = price;
+        const flight = new Flight(req.body);
+        await flight.save();
+        
+        
+        req.flash('success', `Thêm sản phẩm thành công!`);
+        res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+    } catch (error) {
+        // Xử lý lỗi
+        console.error('Lỗi khi tạo chuyến bay:', error);
+        req.flash('error', `Đã xảy ra lỗi khi tạo chuyến bay: ${error.message}`);
+        res.redirect(`/${systemConfig.prefixAdmin}/flights/create`);
     }
-
-    //check xem có ảnh gửi lên hay không
-    //và đổi tên lại để có thể truy cập vào ảnh
-    if(req.file && req.file.filename){
-        req.body.thumbnail = `/uploads/${ req.file.filename}`
-    }
-
-    const flight = new Flight(req.body);
-    await flight.save();
-
     
-    req.flash('success', `Thêm sản phẩm thành công!`);
-    res.redirect(`/${systemConfig.prefixAdmin}/flights`)
 }
 
 // [GET] /admin/flights/edit/:id
@@ -178,7 +200,20 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
 
-    req.body.price = parseInt(req.body.price);
+    const firstPrice = parseInt(req.body.firstPrice);
+    const ecoPrice = parseInt(req.body.ecoPrice);
+    const businessPrice = parseInt(req.body.businessPrice);
+    const vipPrice = parseInt(req.body.vipPrice);
+
+
+    const price = [
+        { priceName: 'firstPrice', price: firstPrice },
+        { priceName: 'ecoPrice', price: ecoPrice },
+        { priceName: 'businessPrice', price: businessPrice },
+        { priceName: 'vipPrice', price: vipPrice }
+    ];
+
+
     req.body.availableSeats = parseInt(req.body.availableSeats);
     req.body.position = parseInt(req.body.position);
     
@@ -187,7 +222,7 @@ module.exports.editPatch = async (req, res) => {
     if(req.file && req.file.filename){
         req.body.thumbnail = `/uploads/${ req.file.filename}`
     }
-
+    req.body.price = price;
     await Flight.updateOne({_id: id}, req.body);
 
     

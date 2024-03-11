@@ -6,7 +6,13 @@ const flightSchema = new mongoose.Schema(
     {
         title: String, 
         description: String,
-        price: Number,
+        price: [
+            {
+                priceName: String,
+                price: Number,
+                _id: false
+            }
+        ],
         departureCity: String,
         arrivalCity: String,
         departureDate: {

@@ -19,7 +19,19 @@ block main
                 h6 #{record.title} 
                 p(style="margin-bottom:8px;") Ngày đi: #{record.departureDate} | #{record.departureTime}
                 p(style="margin-bottom:8px;") Ngày đến: #{record.arrivalDate} | #{record.arrivalTime}
-                div(class="detail-price-flight-body-desc") Giá: #{record.price}
+                p(style="margin-bottom:8px;") Giá vé:
+                div(class="detail-price-flight-body-desc")
+                    each i in record.price 
+                        if( i.price > 0 )
+                            if(i.priceName=="firstPrice")
+                                p(style="margin:0;" class="text-danger") Giá hạng thương gia:
+                            if(i.priceName=="ecoPrice")
+                                p(style="margin:0;" class="text-danger") Giá hạng phổ thông:
+                            if(i.priceName=="businessPrice")
+                                p(style="margin:0;" class="text-danger") Giá hạng kinh doanh:
+                            if(i.priceName=="vipPrice")
+                                p(style="margin:0;" class="text-danger") Giá hạng VIP:
+                            p(style="margin:0;") #{i.price}VNĐ
                 div(class="detail-price-flight-body-desc") Số lượng chỗ: #{record.availableSeats}
                 if(record.status)
                     div(class="mb-4 detail-price-flight-body-desc")

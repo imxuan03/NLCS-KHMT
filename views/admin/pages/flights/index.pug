@@ -36,7 +36,7 @@ block main
                     a(
                         href=`/${prefixAdmin}/flights/create`
                         class="btn btn-outline-success"
-                    ) + Thêm mới
+                    ) + Thêm mới chuyến bay
             table(
                 class="table table-hover table-sm"
                 checkbox-multi
@@ -50,7 +50,7 @@ block main
                         th Chuyến bay 
                         th Giá
                         th Ngày đi - Ngày đến
-                        th Số lượng chỗ
+                        th SL ghế   
                         th Trạng thái 
                         th Vị trí
                         th Hành động
@@ -72,7 +72,19 @@ block main
                                     else
                                         img(src="/admin/images/avatarAlter/flightAlter.jpg", alt=item.title width="100px" height="auto")
                                 td #{item.title}
-                                td #{item.price}$
+                                td 
+                                    each i in item.price 
+                                        if( i.price > 0 )
+                                            if(i.priceName=="firstPrice")
+                                                p(style="margin:0;" class="text-danger") Giá hạng thương gia:
+                                            if(i.priceName=="ecoPrice")
+                                                p(style="margin:0;" class="text-danger") Giá hạng phổ thông:
+                                            if(i.priceName=="businessPrice")
+                                                p(style="margin:0;" class="text-danger") Giá hạng kinh doanh:
+                                            if(i.priceName=="vipPrice")
+                                                p(style="margin:0;" class="text-danger") Giá hạng VIP:
+                                            p(style="margin:0;") #{i.price}VNĐ
+
                                 td 
                                     div Khởi hành: #{item.departureDate} , #{item.departureTime}
                                     div Đến: #{item.arrivalDate} , #{item.arrivalTime}

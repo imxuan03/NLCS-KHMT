@@ -265,60 +265,66 @@ module.exports.editPatch = async (req, res) => {
 
 // [GET] /user/myflight
 module.exports.myflight = async  (req, res) => {
-    if(req.cookies.tokenUser){
-        var user = await User.findOne({
-            tokenUser: req.cookies.tokenUser,
-            deleted: false,
-        }).select("-password");
-
-        if(user){
-            res.locals.user = user;
-        }
-    }
-
-    //truy cập vào Cart (user_id) -> truy cập vào Order (cart_id)
-
-    const cart = await Cart.findOne({
-        user_id: user.id
-    })
-
+    try {
+        if(req.cookies.tokenUser){
+            var user = await User.findOne({
+                tokenUser: req.cookies.tokenUser,
+                deleted: false,
+            }).select("-password");
     
-    const orders = await Order.find({
-        cart_id: cart.id,
-    })
-
-    //Để lấy thông tin order đó (user, .....)
-    const order = await Order.findOne({
-        cart_id: cart.id,
-    })
-
-
-    //chạy cho nhiều đơn order khác nhau, nhưng cùng một user order
-    let totalOrder = 0;
-    let flights = []; // lưu một mảng các order từ các đơn hàng khác nhau, nhưng cùng một user order
-    for(const eachOrder of orders){
-        for(const flight of eachOrder.flights){
-            const flightInfor = await Flight.findOne({
-                _id: flight.flight_id
-            });
-
-            //thêm key vào mỗi flight trong flights
-            flight.flightInfor = flightInfor;
-            flight.totalPrice = flight.quantity * flight.price;
-
-            flights.push(flight);
-
+            if(user){
+                res.locals.user = user;
+            }
         }
-        totalOrder += eachOrder.flights.reduce((sum, item) => sum+item.totalPrice, 0);
-       
-    }
-
-    orders.totalPrice = totalOrder;
     
-    res.render("client/pages/user/myflight",{
-        pageTitle: "Chuyến bay của tôi",
-        flights:flights,
-        order:order,
-        totalOrder:orders.totalPrice,
-    });
+        //truy cập vào Cart (user_id) -> truy cập vào Order (cart_id)
+    
+        const cart = await Cart.findOne({
+            user_id: user.id
+        })
+    
+        
+        const orders = await Order.find({
+            cart_id: cart.id,
+        })
+    
+        //Để lấy thông tin order đó (user, .....)
+        const order = await Order.findOne({
+            cart_id: cart.id,
+        })
+    
+    
+        //chạy cho nhiều đơn order khác nhau, nhưng cùng một user order
+        let totalOrder = 0;
+        let flights = []; // lưu một mảng các order từ các đơn hàng khác nhau, nhưng cùng một user order
+        for(const eachOrder of orders){
+            for(const flight of eachOrder.flights){
+                const flightInfor = await Flight.findOne({
+                    _id: flight.flight_id
+                });
+    
+                //thêm key vào mỗi flight trong flights
+                flight.flightInfor = flightInfor;
+                flight.totalPrice = flight.quantity * flight.price;
+    
+                flights.push(flight);
+    
+            }
+            totalOrder += eachOrder.flights.reduce((sum, item) => sum+item.totalPrice, 0);
+           
+        }
+    
+        orders.totalPrice = totalOrder;
+        
+        res.render("client/pages/user/myflight",{
+            pageTitle: "Chuyến bay của tôi",
+            flights:flights,
+            order:order,
+            totalOrder:orders.totalPrice,
+        });
+    } catch (error) {
+        req.flash('error', `Đã xảy ra lỗi dữ liệu.`);
+        res.redirect("back");
+    }
+    
 }

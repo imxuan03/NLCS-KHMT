@@ -23,7 +23,6 @@ block main
                         th STT
                         th Ảnh đại diện
                         th Họ tên
-                        th Quyền truy cập
                         th Email
                         th  Cập nhật trạng thái
                         th Hành động
@@ -48,11 +47,6 @@ block main
                                         height="auto"
                                     )
                             td #{record.fullName}
-                            td
-                                if(record.role_id === "admin")
-                                    p Quản trị viên 
-                                else 
-                                    p Quản trị nội dung
                             td #{record.email}
                             td
                                 if(record.status == "active")
