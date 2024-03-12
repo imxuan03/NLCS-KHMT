@@ -293,12 +293,11 @@ module.exports.myflight = async  (req, res) => {
             cart_id: cart.id,
         })
     
-    
         //chạy cho nhiều đơn order khác nhau, nhưng cùng một user order
         let totalOrder = 0;
         let flights = []; // lưu một mảng các order từ các đơn hàng khác nhau, nhưng cùng một user order
         for(const eachOrder of orders){
-            for(const flight of eachOrder.flights){
+            for(const flight of eachOrder.flights ){
                 const flightInfor = await Flight.findOne({
                     _id: flight.flight_id
                 });
@@ -306,7 +305,7 @@ module.exports.myflight = async  (req, res) => {
                 //thêm key vào mỗi flight trong flights
                 flight.flightInfor = flightInfor;
                 flight.totalPrice = flight.quantity * flight.price;
-    
+                flight.id_order = eachOrder.id_order;
                 flights.push(flight);
     
             }
@@ -319,7 +318,7 @@ module.exports.myflight = async  (req, res) => {
         res.render("client/pages/user/myflight",{
             pageTitle: "Chuyến bay của tôi",
             flights:flights,
-            order:order,
+            order:order, 
             totalOrder:orders.totalPrice,
         });
     } catch (error) {

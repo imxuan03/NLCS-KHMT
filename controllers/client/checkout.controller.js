@@ -24,7 +24,20 @@ module.exports.index = async (req, res) => {
                 //thêm một key vào object item
                 item.flightInfor = flightInfor;
 
-                item.totalPrice = item.quantity * item.flightInfor.price
+
+                //price các loại
+                let price = 0 ;
+                if(item.typeTicket == "firstPrice"){
+                    price  = item.flightInfor.price[0].price;
+                }else if (item.typeTicket == "ecoPrice"){
+                    price  = item.flightInfor.price[1].price;
+                }else if (item.typeTicket == "businessPrice"){
+                    price  = item.flightInfor.price[2].price;
+                }else if (item.typeTicket == "vipPrice"){
+                    price  = item.flightInfor.price[3].price;
+                }
+                item.price = price;
+                item.totalPrice = item.quantity * price;
             }
         }
 
@@ -53,7 +66,7 @@ module.exports.success = async (req, res) => {
             const flightInfor = await Flight.findOne({
                 _id: flight.flight_id
             });
-
+            
             //thêm key vào mỗi flight trong flights
             flight.flightInfor = flightInfor;
             flight.totalPrice = flight.quantity * flight.price;
@@ -86,20 +99,7 @@ module.exports.order = async (req, res) => {
         let flights = [];
 
         for (const flight of cart.flights) {
-            const objectFlight = {
-                flight_id: flight.flight_id,
-                price: 0,
-                quantity: flight.quantity
-            }
-
-            const flightInfor = await Flight.findOne({
-                _id: flight.flight_id
-            })
-
-            objectFlight.price = flightInfor.price;
-
-            flights.push(objectFlight)
-
+            flights.push(flight)
         }
 
         const objectOrder = {

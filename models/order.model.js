@@ -14,7 +14,8 @@ const orderSchema = new mongoose.Schema(
             {
                 flight_id: String,
                 price: Number,
-                quantity: Number
+                quantity: Number,
+                typeTicket: String,
             }
         ]
     }, 

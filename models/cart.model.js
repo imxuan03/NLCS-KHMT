@@ -7,6 +7,8 @@ const cartSchema = new mongoose.Schema(
             {
                 flight_id: String,
                 quantity: Number,
+                typeTicket: String,
+                price:Number,
             }
         ],
     }, 

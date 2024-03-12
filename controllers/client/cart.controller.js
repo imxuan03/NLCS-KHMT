@@ -20,14 +20,25 @@ module.exports.index = async (req, res) => {
 
                 //thêm một key vào object item
                 item.flightInfor = flightInfor;
-
-                item.totalPrice = item.quantity * item.flightInfor.price
+                
+                //price các loại
+                let price = 0 ;
+                if(item.typeTicket == "firstPrice"){
+                    price  = item.flightInfor.price[0].price;
+                }else if (item.typeTicket == "ecoPrice"){
+                    price  = item.flightInfor.price[1].price;
+                }else if (item.typeTicket == "businessPrice"){
+                    price  = item.flightInfor.price[2].price;
+                }else if (item.typeTicket == "vipPrice"){
+                    price  = item.flightInfor.price[3].price;
+                }
+                item.price = price;
+                item.totalPrice = item.quantity * price;
             }
         }
 
         //tính tổng tiền cả giỏ hàng
         cart.totalPrice = cart.flights.reduce((sum, item) => sum + item.totalPrice, 0);
-
         res.render('client/pages/cart/index', {
             pageTitle: "Chuyến bay của tôi",
             cartDetail: cart
@@ -39,20 +50,22 @@ module.exports.index = async (req, res) => {
 
 }
 
-
-
 // [POST] /cart/add/:flightId
 module.exports.addPost = async (req, res) => {
     try {
         const cartId = req.cookies.cartId;
         const flightId = req.params.flightId;
         const quantity = parseInt(req.body.quantity);
+        const typeTicket = req.body.typeTicket;
 
         const cart = await Cart.findOne({
-            _id: cartId
+            _id: cartId,
         });
+        
+        // nếu mà chuyến bay đó đã tồn tại rồi thì nếu thêm vào sẽ thay đổi số lượng đặt
 
-        const existFlightInCart = cart.flights.find(item => item.flight_id == flightId);
+        //với cùng chuyến (khác loại vé) ==> cũng lưu riêng biệt 
+        const existFlightInCart = cart.flights.find(item => item.flight_id == flightId && item.typeTicket == typeTicket);
 
 
         if (existFlightInCart) {
@@ -69,10 +82,29 @@ module.exports.addPost = async (req, res) => {
             );
 
         } else {
+
+            const flight = await Flight.findOne({
+                _id:flightId,
+            })
+            
+            let price = 0;
+            if(typeTicket == "firstPrice"){
+                price = flight.price[0].price;
+            }else if(typeTicket=="ecoPrice"){
+                price = flight.price[1].price;
+            }else if(typeTicket=="businessPrice"){
+                price = flight.price[2].price;
+            }else if(typeTicket=="vipPrice"){
+                price = flight.price[3].price;
+            }
+            
             const objectCart = {
                 flight_id: flightId,
                 quantity: quantity,
+                typeTicket:typeTicket,
+                price:price,
             };
+        
 
             await Cart.updateOne(
                 {

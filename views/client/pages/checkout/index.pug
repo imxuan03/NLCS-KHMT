@@ -19,6 +19,7 @@ block main
                             th STT 
                             th Ảnh 
                             th Chuyến bay 
+                            th Loại vé
                             th Giá
                             th Số lượng
                             th Tổng tiền 
@@ -33,7 +34,17 @@ block main
                                         else
                                             img(src="/images/avatarAlter/flightAlter.jpg" , alt="Chuyến bay 1" width="80px")
                                     td #{item.flightInfor.title}
-                                    td #{item.flightInfor.price} VNĐ
+                                    td 
+                                        if(item.typeTicket=="firstPrice")
+                                            p Hạng thương gia
+                                        if(item.typeTicket=="ecoPrice")
+                                            p Hạng phổ thông
+                                        if(item.typeTicket=="businessPrice")
+                                            p Hạng kinh doanh
+                                        if(item.typeTicket=="vipPrice")
+                                            p Hạng VIP
+                                    td 
+                                        p #{item.price} VNĐ
                                     td #{item.quantity}
                                     td #{item.totalPrice} VNĐ
                         

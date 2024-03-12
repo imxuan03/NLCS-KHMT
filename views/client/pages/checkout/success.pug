@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-    .container.my-3 
+    .container.mp-3 
         .row 
             .col-12 
                 +box-head("Đặt hàng thành công")
@@ -37,8 +37,10 @@ block main
                     thead 
                         tr 
                             th STT 
+                            th Mã đơn vé
                             th Ảnh 
                             th Chuyến bay 
+                            th Loại vé
                             th Giá
                             th Số lượng
                             th Tổng tiền 
@@ -47,13 +49,23 @@ block main
                             each item, index in order.flights
                                 tr 
                                     td #{index+1}
+                                    td(colspan="1") #{order.id_order}
                                     td 
                                         if(item.flightInfor.thumbnail)
                                             img(src=item.flightInfor.thumbnail , alt="Chuyến bay 1" width="80px")
                                         else
                                             img(src="/images/avatarAlter/flightAlter.jpg" , alt="Chuyến bay 1" width="80px")
                                     td #{item.flightInfor.title}
-                                    td #{item.flightInfor.price} VNĐ
+                                    td 
+                                        if(item.typeTicket=="firstPrice")
+                                            p Hạng thương gia
+                                        if(item.typeTicket=="ecoPrice")
+                                            p Hạng phổ thông
+                                        if(item.typeTicket=="businessPrice")
+                                            p Hạng kinh doanh
+                                        if(item.typeTicket=="vipPrice")
+                                            p Hạng VIP
+                                    td #{item.price} VNĐ
                                     td #{item.quantity}
                                     td #{item.totalPrice} VNĐ
                         
