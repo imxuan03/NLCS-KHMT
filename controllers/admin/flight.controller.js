@@ -13,17 +13,17 @@ module.exports.index = async (req, res) => {
         deleted: false
     }
 
-    if(req.query.status){
+    if (req.query.status) {
         find.status = req.query.status;
     }
 
-    if(req.query.keyword){
+    if (req.query.keyword) {
         find.title = objectSearch.regex;
     }
 
     //Pagination
     let initPagination = {
-        currentPage : 1,
+        currentPage: 1,
         limitItems: 4
     }
     const countProducts = await Flight.countDocuments(find);
@@ -32,11 +32,11 @@ module.exports.index = async (req, res) => {
     //End Pagination
 
     // Sort 
-    let sort= {};
-    
-    if(req.query.sortKey && req.query.sortValue){
-        sort[req.query.sortKey]=req.query.sortValue;
-    }else{
+    let sort = {};
+
+    if (req.query.sortKey && req.query.sortValue) {
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else {
         sort.position = "desc";
     }
     // end sort 
@@ -46,11 +46,11 @@ module.exports.index = async (req, res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
-    res.render("admin/pages/flights/index",{
+    res.render("admin/pages/flights/index", {
         pageTitle: "Dịch Vụ Chuyến Bay",
-        flights:flights,
-        filterStatus:filterStatus,
-        keyword:objectSearch.keyword,
+        flights: flights,
+        filterStatus: filterStatus,
+        keyword: objectSearch.keyword,
         pagination: objectPagination
     });
 }
@@ -127,14 +127,13 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/flights/create
 module.exports.create = async (req, res) => {
-    res.render("admin/pages/flights/create",{
+    res.render("admin/pages/flights/create", {
         pageTitle: "Tạo mới chuyến bay",
     });
 }
 
 // [Post] /admin/flights/create
 module.exports.createPost = async (req, res) => {
-
     try {
 
         const firstPrice = parseInt(req.body.firstPrice);
@@ -151,46 +150,97 @@ module.exports.createPost = async (req, res) => {
         ];
 
         req.body.availableSeats = parseInt(req.body.availableSeats);
-        
-        if(req.body.position===""){
+
+        if (req.body.position === "") {
             const countFlight = await Flight.countDocuments();
-            req.body.position = countFlight+1;
-        }else{
+            req.body.position = countFlight + 1;
+        } else {
             req.body.position = parseInt(req.body.position);
         }
 
         //check xem có ảnh gửi lên hay không
         //và đổi tên lại để có thể truy cập vào ảnh
-        if(req.file && req.file.filename){
-            req.body.thumbnail = `/uploads/${ req.file.filename}`
+        if (req.file && req.file.filename) {
+            req.body.thumbnail = `/uploads/${req.file.filename}`
         }
 
+        //Quản lí cho đặt các chuyến bay trong tuần lặp lại
+        //Hàng tuần vào các thứ nào đó
+        const scheduleFlight = req.body.scheduleFlight;
+
+        const startDateRepeteString = req.body.startDateRepete;
+        const startDateRepete = new Date(startDateRepeteString);
+
+        const endDateRepeteString = req.body.endDateRepete;
+        const endDateRepete = new Date(endDateRepeteString);
+
+        const startMonth = startDateRepete.getMonth();
+        const startYear = startDateRepete.getFullYear();
+        const startDate = startDateRepete.getDate();
+
+        const endMonth = endDateRepete.getMonth();
+        const endYear = endDateRepete.getFullYear();
+        const endDate = endDateRepete.getDate();
+
+        let chosenDays = [];
+        if(req.body.monday)
+            chosenDays.push("1");
+        if(req.body.tuesday)
+            chosenDays.push("2");
+        if(req.body.wednesday)
+            chosenDays.push("3");
+        if(req.body.thursday)
+            chosenDays.push("4");
+        if(req.body.friday)
+            chosenDays.push("5");
+        if(req.body.saturday)
+            chosenDays.push("6");
+        if(req.body.sunday)
+            chosenDays.push("0");
+
+        // Tạo một đối tượng Date từ ngày bắt đầu
+        let currentDate = new Date(startYear, startMonth, startDate);
+
+        // Lặp qua từng ngày từ ngày bắt đầu đến ngày kết thúc
+        while (currentDate <= new Date(endYear, endMonth, endDate)) {
+            const dayOfWeek = currentDate.getDay();
+
+            // Kiểm tra nếu là thứ 2 hoặc thứ 3
+            // if (chosenDays.includes(dayOfWeek.toString())) {
+            //     console.log("Date:", currentDate.getDate(), "-", currentDate.getMonth() + 1, "-", currentDate.getFullYear());
+            //     console.log("======");
+            // }
+
+            // Tăng ngày hiện tại thêm 1 ngày
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        
         req.body.price = price;
-        const flight = new Flight(req.body);
-        await flight.save();
-        
-        
-        req.flash('success', `Thêm sản phẩm thành công!`);
-        res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+        // const flight = new Flight(req.body);
+        // await flight.save();
+
+        res.send("ok")
+        // req.flash('success', `Thêm sản phẩm thành công!`);
+        // res.redirect(`/${systemConfig.prefixAdmin}/flights`)
     } catch (error) {
         // Xử lý lỗi
         console.error('Lỗi khi tạo chuyến bay:', error);
         req.flash('error', `Đã xảy ra lỗi khi tạo chuyến bay: ${error.message}`);
         res.redirect(`/${systemConfig.prefixAdmin}/flights/create`);
     }
-    
 }
 
 // [GET] /admin/flights/edit/:id
 module.exports.edit = async (req, res) => {
     const id = req.params.id;
-    
+
     const record = await Flight.findOne({
-        _id:id,
-        deleted:false,
+        _id: id,
+        deleted: false,
     })
-    
-    res.render("admin/pages/flights/edit",{
+
+    res.render("admin/pages/flights/edit", {
         pageTitle: "Chỉnh sửa chuyến bay",
         record: record,
     });
@@ -216,16 +266,16 @@ module.exports.editPatch = async (req, res) => {
 
     req.body.availableSeats = parseInt(req.body.availableSeats);
     req.body.position = parseInt(req.body.position);
-    
+
     //check xem có ảnh gửi lên hay không
     //và đổi tên lại để có thể truy cập vào ảnh
-    if(req.file && req.file.filename){
-        req.body.thumbnail = `/uploads/${ req.file.filename}`
+    if (req.file && req.file.filename) {
+        req.body.thumbnail = `/uploads/${req.file.filename}`
     }
     req.body.price = price;
-    await Flight.updateOne({_id: id}, req.body);
+    await Flight.updateOne({ _id: id }, req.body);
 
-    
+
     req.flash('success', `Chỉnh sửa phẩm thành công!`);
     res.redirect(`/${systemConfig.prefixAdmin}/flights`)
 }
@@ -234,13 +284,13 @@ module.exports.editPatch = async (req, res) => {
 module.exports.detail = async (req, res) => {
     try {
         const id = req.params.id;
-    
+
         const record = await Flight.findOne({
-            _id:id,
-            deleted:false,
+            _id: id,
+            deleted: false,
         })
-        
-        res.render("admin/pages/flights/detail",{
+
+        res.render("admin/pages/flights/detail", {
             pageTitle: "Chi tiết chuyến bay",
             record: record,
         });

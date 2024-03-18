@@ -80,23 +80,6 @@ block main
                     id="departureCity"
                     name="departureCity"      
                 )
-            div(class="form-group col-3")
-                label(for="departureDate") Ngày khởi hành
-                input(
-                    type="date"
-                    class="form-control"
-                    id="departureDate"
-                    name="departureDate"      
-                )
-            div(class="form-group col-3")
-                label(for="departureTime") Thời gian khởi hành
-                input(
-                    type="time"
-                    class="form-control"
-                    id="departureTime"
-                    name="departureTime"      
-                )
-        .row 
             div(class="form-group col-6")
                 label(for="arrivalCity") Điểm đến
                 input(
@@ -104,22 +87,6 @@ block main
                     class="form-control"
                     id="arrivalCity"
                     name="arrivalCity"      
-                )
-            div(class="form-group col-3")
-                label(for="arrivalDate") Ngày đến
-                input(
-                    type="date"
-                    class="form-control"
-                    id="arrivalDate"
-                    name="arrivalDate"      
-                )
-            div(class="form-group col-3")
-                label(for="arrivalTime") Thời gian đến
-                input(
-                    type="time"
-                    class="form-control"
-                    id="arrivalTime"
-                    name="arrivalTime"      
                 )
             
         div(class="form-group")
@@ -179,6 +146,78 @@ block main
                 value="inactive"
             )
             label(for="statusInActive" class="form-check-label") Dừng hoạt động
+        .card.mb-3 
+            .card-header Chọn lịch trình bay
+            .card-body
+                .row
+                    div(class="form-group col-3")
+                        <label for="scheduleFlight">Lịch trình lặp lại: </label>
+                        <select name="scheduleFlight" id="scheduleFlight">
+                            <option value="weekly" selected>Hàng tuần</option>
+                            <option value="monthly">Hàng tháng</option>
+                        </select>
+
+                    div(class="form-group col-12 days-checkboxes")
+                        <label for="monday"> Thứ 2</label>
+                        <input type="checkbox" class="mr-2" id="monday" name="monday" value="monday">
+                        <label for="tuesday "> Thứ 3</label>
+                        <input type="checkbox" class="mr-2" id="tuesday" name="tuesday" value="tuesday">
+                        <label for="wednesday "> Thứ 4</label>
+                        <input type="checkbox"  class="mr-2" id="wednesday" name="wednesday" value="wednesday">
+                        <label for="thursday "> Thứ 5</label>
+                        <input type="checkbox" class="mr-2" id="thursday" name="thursday" value="thursday">
+                        <label for="friday"> Thứ 6</label>
+                        <input type="checkbox" class="mr-2" id="friday" name="friday" value="friday">
+                        <label for="saturday"> Thứ 7</label>
+                        <input type="checkbox" class="mr-2" id="saturday" name="saturday" value="saturday">
+                        <label for="sunday"> Chủ nhật</label>
+                        <input type="checkbox" class="mr-2" id="sunday" name="sunday" value="sunday">
+                    div(class="form-group col-12 days-dropdowns" style="display:none;")
+                        <label for="cars">Chọn </label>
+                        <select name="cars" id="cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                        </select>
+                hr
+                .row
+                    div(class="form-group col-4")
+                        label(for="startDateRepete" class="mr-3") Ngày có hiệu lực lực từ:
+                        input(
+                            type="date"
+                            id="startDateRepete"
+                            name="startDateRepete"      
+                        )
+                    div(class="form-group col-4")
+                        label(for="endDateRepete" class="mr-3") Ngày hết hiệu lực:
+                        input(
+                            type="date"
+                            id="endDateRepete"
+                            name="endDateRepete"      
+                        )
+                hr
+                div(id="form-time-multi")
+                    .row 
+                        div(class="form-group col-3")
+                            label(for="departureTime") Thời gian khởi hành
+                            input(
+                                type="time"
+                                class="form-control"
+                                id="departureTime"
+                                name="departureTime"      
+                            )
+                        div(class="form-group col-3")
+                            label(for="arrivalTime") Thời gian đến
+                            input(
+                                type="time"
+                                class="form-control"
+                                id="arrivalTime"
+                                name="arrivalTime"      
+                            )
+                        <button class="removeButton" type="button">Xóa</button>
+                <button id="addButton" type="button">Thêm</button>
+
         div(class="form-group")
             button(
                 type="submit"

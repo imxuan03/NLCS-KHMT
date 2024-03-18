@@ -3,15 +3,15 @@ const buttonStatus = document.querySelectorAll("[button-status]");
 
 let url = new URL(window.location.href);
 
-if(buttonStatus.length>0){
+if (buttonStatus.length > 0) {
     buttonStatus.forEach(button => {
-        button.addEventListener("click", ()=>{
+        button.addEventListener("click", () => {
             const status = button.getAttribute("button-status");
 
             // url.searchParams.set("status", status);
-            if(status !=""){
+            if (status != "") {
                 url.searchParams.set("status", status);
-            }else{
+            } else {
                 url.searchParams.delete("status");
             }
 
@@ -26,8 +26,8 @@ if(buttonStatus.length>0){
 // form Search  
 const formSearch = document.querySelector("#form-search")
 
-if(formSearch){
-    formSearch.addEventListener("submit", (e)=>{
+if (formSearch) {
+    formSearch.addEventListener("submit", (e) => {
 
         let url = new URL(window.location.href);
 
@@ -36,27 +36,27 @@ if(formSearch){
 
         const value = e.target.elements.keyword.value;
 
-        if(value !=""){
+        if (value != "") {
             url.searchParams.set("keyword", value);
-        }else{
+        } else {
             url.searchParams.delete("keyword");
         }
 
         //chuyển hướng theo url đó
         window.location.href = url.href;
-    }); 
+    });
 }
 // end form Search 
 
 //Pagination
 const buttonPagination = document.querySelectorAll("[button-pagination]")
-if(buttonPagination.length>0){
+if (buttonPagination.length > 0) {
     let url = new URL(window.location.href);
 
-    buttonPagination.forEach(button=>{
-        button.addEventListener("click", ()=>{
+    buttonPagination.forEach(button => {
+        button.addEventListener("click", () => {
             const page = button.getAttribute("button-pagination");
-               
+
             url.searchParams.set("page", page);
 
             //chuyển hướng theo url đó
@@ -71,18 +71,18 @@ if(buttonPagination.length>0){
 // Change Status 
 const buttonChangeStatus = document.querySelectorAll("[button-change-status]");
 
-if(buttonChangeStatus.length>0){
+if (buttonChangeStatus.length > 0) {
     const formChangeStatus = document.querySelector("#form-change-status");
     const path = formChangeStatus.getAttribute("data-path");
 
-    buttonChangeStatus.forEach(button =>{
-        button.addEventListener("click", ()=>{
+    buttonChangeStatus.forEach(button => {
+        button.addEventListener("click", () => {
             const statusCurrent = button.getAttribute("data-status");
             const id = button.getAttribute("data-id");
 
-            const statusChange = statusCurrent == "active"?"inactive":"active";
-            
-            const action = path +  `/${statusChange}/${id}?_method=PATCH`
+            const statusChange = statusCurrent == "active" ? "inactive" : "active";
+
+            const action = path + `/${statusChange}/${id}?_method=PATCH`
 
             formChangeStatus.setAttribute("action", action);
 
@@ -97,18 +97,18 @@ if(buttonChangeStatus.length>0){
 // checkbox multi 
 const checkboxMulti = document.querySelector("[checkbox-multi]");
 
-if(checkboxMulti){
+if (checkboxMulti) {
     const inputCheckAll = checkboxMulti.querySelector("input[name='checkall']");
     const inputsId = checkboxMulti.querySelectorAll("input[name='id']")
 
-    
-    inputCheckAll.addEventListener("click", ()=>{
-        
-        if(inputCheckAll.checked){
+
+    inputCheckAll.addEventListener("click", () => {
+
+        if (inputCheckAll.checked) {
             inputsId.forEach(input => {
                 input.checked = true;
             })
-        }else{
+        } else {
             inputsId.forEach(input => {
                 input.checked = false;
             })
@@ -120,9 +120,9 @@ if(checkboxMulti){
         input.addEventListener("click", () => {
             const countChecked = checkboxMulti.querySelectorAll("input[name='id']:checked").length;
 
-            if(countChecked == inputsId.length){
+            if (countChecked == inputsId.length) {
                 inputCheckAll.checked = true;
-            }else{
+            } else {
                 inputCheckAll.checked = false;
             }
         })
@@ -135,51 +135,50 @@ if(checkboxMulti){
 //form-change-multi
 const formChangeMulti = document.querySelector("[form-change-multi]");
 
-if(formChangeMulti){
-    formChangeMulti.addEventListener("submit", (e)=>{
+if (formChangeMulti) {
+    formChangeMulti.addEventListener("submit", (e) => {
         //ngăn chặn submit lên lập tức khi bấm vào 
         e.preventDefault();
 
         //lấy ra các ô đã check
         const checkboxMulti = document.querySelector("[checkbox-multi]");
         const inputsChecked = checkboxMulti.querySelectorAll("input[name='id']:checked");
-        
+
         //xem coi bạn có check vào nút delete all hay không
         const typeChange = e.target.elements.type.value;
-        if(typeChange=="delete-all"){
+        if (typeChange == "delete-all") {
             const isConfirm = confirm("Bạn có chắc muốn xóa những sản phẩm này?");
-            
-            if(!isConfirm){
+
+            if (!isConfirm) {
                 return;
             }
         }
 
-        if(inputsChecked.length>0){
+        if (inputsChecked.length > 0) {
             //tạo ra một cái mảng để lưu trữ các id của các checkbox được tích vào
             let ids = [];
             const inputIds = formChangeMulti.querySelector("input[name='ids']");
 
-            inputsChecked.forEach(input =>{
+            inputsChecked.forEach(input => {
                 const id = input.value
-                
 
-                if(typeChange== "change-position"){
+
+                if (typeChange == "change-position") {
                     const position = input.closest("tr").querySelector("input[name='position']").value
                     // console.log(position)
                     ids.push(`${id}-${position}`);
-                }else
-                {
-                     ids.push(id); 
+                } else {
+                    ids.push(id);
                 }
             })
 
 
             inputIds.value = ids.join(", ");
 
-            
+
             formChangeMulti.submit();
 
-        }else{
+        } else {
             alert("Vui lòng chọn ít nhất một bản ghi!");
         }
 
@@ -190,26 +189,26 @@ if(formChangeMulti){
 
 
 //delete item
-const buttonDelete= document.querySelectorAll("[button-delete]");
+const buttonDelete = document.querySelectorAll("[button-delete]");
 
-if(buttonDelete.length>0){
+if (buttonDelete.length > 0) {
 
     const formDeleteItem = document.querySelector("#form-delete-item");
     const path = formDeleteItem.getAttribute("data-path");
 
-    buttonDelete.forEach(button =>{
-        button.addEventListener("click", ()=>{
+    buttonDelete.forEach(button => {
+        button.addEventListener("click", () => {
             const confirmDelete = confirm("Bạn có chắc chắn muốn xóa bản ghi này?");
-            if(confirmDelete){
+            if (confirmDelete) {
                 const id = button.getAttribute("data-id");
 
-                const action = path +  `/${id}?_method=DELETE`
+                const action = path + `/${id}?_method=DELETE`
 
                 formDeleteItem.setAttribute("action", action);
 
                 formDeleteItem.submit();
             }
-            
+
         })
     })
 
@@ -220,16 +219,16 @@ if(buttonDelete.length>0){
 
 //show alert
 const showAlert = document.querySelector("[show-alert]");
-if(showAlert){
+if (showAlert) {
     const time = parseInt(showAlert.getAttribute("data-time")) || 3000;
     const closeAlert = showAlert.querySelector("[close-alert]");
 
-    setTimeout(()=>{
+    setTimeout(() => {
         showAlert.classList.add("alert-hidden");
     }, time);
-    
-    
-    closeAlert.addEventListener("click", ()=>{
+
+
+    closeAlert.addEventListener("click", () => {
         showAlert.classList.add("alert-hidden");
     })
 
@@ -238,12 +237,12 @@ if(showAlert){
 
 //upload image
 const uploadImage = document.querySelector("[upload-image]");
-if(uploadImage){
+if (uploadImage) {
     const uploadImageInput = uploadImage.querySelector("[upload-image-input]");
     const uploadImagPreview = uploadImage.querySelector("[upload-image-preview]");
 
-    uploadImageInput.addEventListener("change", (e)=>{
-        if(e.target.files.length){
+    uploadImageInput.addEventListener("change", (e) => {
+        if (e.target.files.length) {
             const image = URL.createObjectURL(e.target.files[0]);
 
             uploadImagPreview.src = image;
@@ -255,7 +254,7 @@ if(uploadImage){
 // Sort 
 const sort = document.querySelector("[sort]");
 
-if(sort){
+if (sort) {
     let url = new URL(window.location.href);
 
     const sortSelect = sort.querySelector("[sort-select]");
@@ -269,12 +268,12 @@ if(sort){
         url.searchParams.set("sortKey", sortKey);
         url.searchParams.set("sortValue", sortValue);
 
-            //chuyển hướng theo url đó
+        //chuyển hướng theo url đó
         window.location.href = url.href;
     })
 
     //xóa sắp xếp
-    sortClear.addEventListener("click", ()=> {
+    sortClear.addEventListener("click", () => {
         url.searchParams.delete("sortKey");
         url.searchParams.delete("sortValue");
 
@@ -284,10 +283,65 @@ if(sort){
     //hiển thị lựa chọn
     const sortKey = url.searchParams.get("sortKey");
     const sortValue = url.searchParams.get("sortValue");
-    if(sortKey&&sortValue){
+    if (sortKey && sortValue) {
         const stringSort = `${sortKey}-${sortValue}`;
         const optionSelected = sortSelect.querySelector(`option[value='${stringSort}']`);
-        optionSelected.selected=true;
+        optionSelected.selected = true;
     }
 }
 // End Sort 
+
+
+//Create chuyến bay chọn lịch trình theo tháng hay theo tuần
+
+$(document).ready(function () {
+    // Xử lý sự kiện thay đổi của dropdown
+    $('#scheduleFlight').change(function () {
+        // Nếu chọn "Hàng tháng", ẩn các ô chọn ngày trong tuần
+        if ($(this).val() === 'monthly') {
+            $('.days-checkboxes').hide();
+            $('.days-dropdowns').show();
+        } else {
+            // Nếu chọn "Hàng tuần", hiện các ô chọn ngày trong tuần
+            $('.days-checkboxes').show();
+            $('.days-dropdowns').hide();
+        }
+    });
+});
+
+
+    //thêm ở nhiều thời gian khác nhau
+
+    function addRow() {
+        var formContainer = document.getElementById('form-time-multi');
+        var clone = formContainer.firstElementChild.cloneNode(true); // Clone first row
+        // Clear input values in the cloned row
+        clone.querySelectorAll('input').forEach(function(input) {
+            input.value = '';
+        });
+        formContainer.appendChild(clone); // Append cloned row
+    }
+
+    // Function to remove the row when remove button is clicked
+    function removeRow(event) {
+        event.preventDefault();
+        var formContainer = document.getElementById('form-time-multi');
+        var rows = formContainer.getElementsByClassName('row');
+        if (rows.length > 1) {
+            event.target.parentNode.remove();
+        }
+    }
+
+    // Event listener for the add button
+    document.getElementById('addButton').addEventListener('click', function() {
+        addRow();
+    });
+
+    // Event delegation for remove button
+    document.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('removeButton')) {
+            removeRow(event);
+        }
+    });
+
+//End Create chuyến bay chọn lịch trình theo tháng hay theo tuần
