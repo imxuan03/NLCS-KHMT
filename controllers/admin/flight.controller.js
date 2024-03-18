@@ -1,5 +1,6 @@
 const Flight = require("../../models/flight.model");
 
+const priceHelper = require("../../helpers/price");
 const filterStatusHelper = require("../../helpers/filter-status");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
@@ -136,18 +137,8 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
     try {
 
-        const firstPrice = parseInt(req.body.firstPrice);
-        const ecoPrice = parseInt(req.body.ecoPrice);
-        const businessPrice = parseInt(req.body.businessPrice);
-        const vipPrice = parseInt(req.body.vipPrice);
-
-
-        let price = [
-            { priceName: 'firstPrice', price: firstPrice },
-            { priceName: 'ecoPrice', price: ecoPrice },
-            { priceName: 'businessPrice', price: businessPrice },
-            { priceName: 'vipPrice', price: vipPrice }
-        ];
+        //gọi từ Helper price
+        let price = priceHelper(req.body);
 
         req.body.availableSeats = parseInt(req.body.availableSeats);
 
