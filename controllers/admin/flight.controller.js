@@ -142,7 +142,7 @@ module.exports.createPost = async (req, res) => {
         const vipPrice = parseInt(req.body.vipPrice);
 
 
-        const price = [
+        let price = [
             { priceName: 'firstPrice', price: firstPrice },
             { priceName: 'ecoPrice', price: ecoPrice },
             { priceName: 'businessPrice', price: businessPrice },
@@ -183,46 +183,85 @@ module.exports.createPost = async (req, res) => {
         const endDate = endDateRepete.getDate();
 
         let chosenDays = [];
-        if(req.body.monday)
+        if (req.body.monday)
             chosenDays.push("1");
-        if(req.body.tuesday)
+        if (req.body.tuesday)
             chosenDays.push("2");
-        if(req.body.wednesday)
+        if (req.body.wednesday)
             chosenDays.push("3");
-        if(req.body.thursday)
+        if (req.body.thursday)
             chosenDays.push("4");
-        if(req.body.friday)
+        if (req.body.friday)
             chosenDays.push("5");
-        if(req.body.saturday)
+        if (req.body.saturday)
             chosenDays.push("6");
-        if(req.body.sunday)
+        if (req.body.sunday)
             chosenDays.push("0");
+        
+        // //=======================================================
 
-        // Tạo một đối tượng Date từ ngày bắt đầu
-        let currentDate = new Date(startYear, startMonth, startDate);
 
+        let departureTime = req.body.departureTime;
+        let arrivalTime = req.body.arrivalTime;
         // Lặp qua từng ngày từ ngày bắt đầu đến ngày kết thúc
-        while (currentDate <= new Date(endYear, endMonth, endDate)) {
-            const dayOfWeek = currentDate.getDay();
+        for (let i = 0; i < Math.min(departureTime.length, arrivalTime.length); i++) {
+            // Tạo một đối tượng Date từ ngày bắt đầu
+            let currentDate = new Date(startYear, startMonth, startDate);
+            while (currentDate <= new Date(endYear, endMonth, endDate)) {
+                const dayOfWeek = currentDate.getDay();
 
-            // Kiểm tra nếu là thứ 2 hoặc thứ 3
-            // if (chosenDays.includes(dayOfWeek.toString())) {
-            //     console.log("Date:", currentDate.getDate(), "-", currentDate.getMonth() + 1, "-", currentDate.getFullYear());
-            //     console.log("======");
-            // }
+                // Kiểm tra nếu là thứ 2 hoặc thứ 3
+                if (chosenDays.includes(dayOfWeek.toString())) {
+                    req.body.departureTime = departureTime[i];
+                    req.body.arrivalTime = arrivalTime[i];
 
-            // Tăng ngày hiện tại thêm 1 ngày
-            currentDate.setDate(currentDate.getDate() + 1);
+                    // //time bắt đầu
+                    let [hourDepart, minuteDepart] = departureTime[i].split(":")
+                    hourDepart = parseInt(hourDepart);
+                    minuteDepart = parseInt(minuteDepart);
+
+                    //time đến 
+                    let [hourArrival, minuteArrival] = arrivalTime[i].split(":")
+                    hourArrival = parseInt(hourArrival);
+                    minuteArrival = parseInt(minuteArrival);
+
+
+                    const month = currentDate.getMonth() + 1
+                    let stringDateDepart = currentDate.getFullYear() + "-" + month + "-" + currentDate.getDate();
+                    req.body.departureDate = stringDateDepart;
+
+                    //tính xem giờ đến nó có thuộc ngày mới hay không
+                    let stringDateArrival = "";
+                    if (hourArrival < hourDepart) {
+                        //nó đã qua ngày hôm sau rồi
+                        const currentDateArrival = new Date(currentDate);
+                        currentDateArrival.setDate(currentDateArrival.getDate() + 1);
+
+                        const month = currentDateArrival.getMonth() + 1;
+
+                        stringDateArrival = currentDateArrival.getFullYear() + "-" + month + "-" + currentDateArrival.getDate();
+                        req.body.arrivalDate = stringDateArrival;
+                    } else {
+                        //vẫn ngày đó
+                        const month = currentDate.getMonth() + 1
+                        stringDateArrival = currentDate.getFullYear() + "-" + month + "-" + currentDate.getDate();
+                        req.body.arrivalDate = stringDateArrival;
+                    }
+
+                    req.body.price = price;
+                    const flight = new Flight(req.body);
+                    await flight.save();
+                }
+
+                // Tăng ngày hiện tại thêm 1 ngày
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
         }
 
-        
-        req.body.price = price;
-        // const flight = new Flight(req.body);
-        // await flight.save();
+        req.flash('success', `Thêm sản phẩm thành công!`);
+        res.redirect(`/${systemConfig.prefixAdmin}/flights`)
+        // ===================================================
 
-        res.send("ok")
-        // req.flash('success', `Thêm sản phẩm thành công!`);
-        // res.redirect(`/${systemConfig.prefixAdmin}/flights`)
     } catch (error) {
         // Xử lý lỗi
         console.error('Lỗi khi tạo chuyến bay:', error);

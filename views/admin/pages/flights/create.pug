@@ -198,7 +198,7 @@ block main
                         )
                 hr
                 div(id="form-time-multi")
-                    .row 
+                    .row(class="mb-3")
                         div(class="form-group col-3")
                             label(for="departureTime") Thời gian khởi hành
                             input(
@@ -215,8 +215,8 @@ block main
                                 id="arrivalTime"
                                 name="arrivalTime"      
                             )
-                        <button class="removeButton" type="button">Xóa</button>
-                <button id="addButton" type="button">Thêm</button>
+                        <button class="removeButton btn btn-danger" type="button" >Xóa</button>
+                <button id="addButton" type="button" class="btn btn-primary" >Thêm</button>
 
         div(class="form-group")
             button(
