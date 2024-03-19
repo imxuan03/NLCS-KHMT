@@ -17,14 +17,35 @@ block main
                 thead 
                     tr
                         th STT
-                        th Hình ảnh
-                        th Chuyến bay 
-                        th Giá
-                        th Ngày đi - Ngày đến
-                        th Số lượng chỗ
-                        th Trạng thái 
-                        th Vị trí
-                        th Hành động
-
+                        th Mã đơn vé
+                        th Thông tin khách hàng
+                        th Chi tiết các chuyến bay đã đặt
+                        th Tổng tiền 
                 tbody 
-                    
+                    each record, index in records
+                        tr
+                            td #{index+1}
+                            td #{record.id_order}
+                            td 
+                                p Họ tên: #{record.userInfor.fullName}
+                                p Sđt: #{record.userInfor.phone}
+                                p Địa chỉ: #{record.userInfor.address}
+
+                            
+                            td
+                                each flight in record.flights
+                                    .row
+                                        .col
+                                            a(href=`/${prefixAdmin}/flights/detail/${flight.flight_id}`)  #{flight.flightName }
+                                        .col
+                                            p Số lượng: #{flight.quantity}
+                                        .col
+                                            if(flight.typeTicket=="firstPrice")
+                                                p Loại vé: Thương gia
+                                            if(flight.typeTicket=="ecoPrice")
+                                               p Loại vé: Phổ thông
+                                            if(flight.typeTicket=="businessPrice")
+                                                p Loại vé: Kinh doanh
+                                            if(flight.typeTicket=="vipPrice")
+                                                p Loại vé: VIP
+                            td #{record.totalPrice}
