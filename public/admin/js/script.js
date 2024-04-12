@@ -292,6 +292,25 @@ if (sort) {
 // End Sort 
 
 
+// //VND Price - adjust price format
+
+document.querySelectorAll('.vnd-price').forEach(function(element) {
+    var vndPrice = element.innerText;
+    
+    // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
+
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    const newPrice = VND.format(vndPrice);
+    element.innerText = newPrice;
+});
+
+//end VND Price - adjust price format
+
+
 //Create chuyến bay chọn lịch trình theo tháng hay theo tuần
 
 $(document).ready(function () {
@@ -345,3 +364,4 @@ $(document).ready(function () {
     });
 
 //End Create chuyến bay chọn lịch trình theo tháng hay theo tuần
+
