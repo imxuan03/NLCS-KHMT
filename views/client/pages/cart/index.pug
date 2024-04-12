@@ -48,7 +48,7 @@ block main
                                         if(item.typeTicket=="vipPrice")
                                             p Hạng VIP
                                     td 
-                                        p #{item.price} VNĐ
+                                        p.vnd-price #{item.price}
                                     td 
                                         div Khởi hành: #{item.flightInfor.departureDate} , #{item.flightInfor.departureTime}
                                         div Đến: #{item.flightInfor.arrivalDate} , #{item.flightInfor.arrivalTime}
@@ -61,7 +61,7 @@ block main
                                             flight-id=item.flight_id
                                             style="width:60px"
                                         )
-                                    td #{item.totalPrice} VNĐ
+                                    td.vnd-price #{item.totalPrice}
                                     td 
                                         a(
                                             href=`/cart/delete/${item.flight_id}`
@@ -73,7 +73,9 @@ block main
                         
                        
                 if(cartDetail.totalPrice >0 )
-                    h3(class="text-right") Tổng tiền vé: #{cartDetail.totalPrice} VNĐ
+                    div.container.text-right
+                        h3(style="display: inline-block;" class="mr-2") Tổng tiền vé:
+                        h3.vnd-price(style="display: inline-block;") #{cartDetail.totalPrice}
                     div(class="text-right mt-3 mb-3")
                         a(href="checkout" class="btn btn-success") THANH TOÁN
     

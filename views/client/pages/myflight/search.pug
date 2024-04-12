@@ -44,6 +44,7 @@ block main
                             th Mã đơn vé
                             th Ảnh 
                             th Chuyến bay 
+                            th Loại vé
                             th Giá
                             th Ngày đi - Ngày đến
                             th Số lượng
@@ -69,16 +70,17 @@ block main
                                             p Hạng kinh doanh
                                         if(item.typeTicket=="vipPrice")
                                             p Hạng VIP
-                                    td #{item.price}
+                                    td.vnd-price #{item.price}
                                     td 
                                         div Khởi hành: #{item.flightInfor.departureDate} , #{item.flightInfor.departureTime}
                                         div Đến: #{item.flightInfor.arrivalDate} , #{item.flightInfor.arrivalTime}
                                     td #{item.quantity}
-                                    td #{item.totalPrice} VNĐ
+                                    td.vnd-price #{item.totalPrice}
                         else 
                             tr 
                                 td(colspan="7" class="text-center") Chưa có vé nào được đặt!
                        
                 if(order.totalPrice >0 )
-                    h3(class="text-right") Tổng tiền vé: #{order.totalPrice} VNĐ
-                     
+                    div.container.text-right
+                        h3(style="display: inline-block;" class="mr-2") Tổng tiền vé:
+                        h3.vnd-price(style="display: inline-block;") #{order.totalPrice}

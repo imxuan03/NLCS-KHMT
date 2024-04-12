@@ -65,11 +65,12 @@ block main
                                             p Hạng kinh doanh
                                         if(item.typeTicket=="vipPrice")
                                             p Hạng VIP
-                                    td #{item.price} VNĐ
+                                    td.vnd-price #{item.price}
                                     td #{item.quantity}
-                                    td #{item.totalPrice} VNĐ
+                                    td.vnd-price #{item.totalPrice}
                         
                        
                 if(order.totalPrice >0 )
-                    h3(class="text-right") Tổng tiền vé: #{order.totalPrice} VNĐ
-                     
+                    div.container.text-right
+                        h3(style="display: inline-block;" class="mr-2") Tổng tiền vé:
+                        h3.vnd-price(style="display: inline-block;") #{order.totalPrice}
