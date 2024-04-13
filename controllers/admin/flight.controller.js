@@ -157,7 +157,6 @@ module.exports.createPost = async (req, res) => {
 
         //Quản lí cho đặt các chuyến bay trong tuần lặp lại
         //Hàng tuần vào các thứ nào đó
-        const scheduleFlight = req.body.scheduleFlight;
 
         const startDateRepeteString = req.body.startDateRepete;
         const startDateRepete = new Date(startDateRepeteString);

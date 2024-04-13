@@ -311,23 +311,7 @@ document.querySelectorAll('.vnd-price').forEach(function(element) {
 //end VND Price - adjust price format
 
 
-//Create chuyến bay chọn lịch trình theo tháng hay theo tuần
-
-$(document).ready(function () {
-    // Xử lý sự kiện thay đổi của dropdown
-    $('#scheduleFlight').change(function () {
-        // Nếu chọn "Hàng tháng", ẩn các ô chọn ngày trong tuần
-        if ($(this).val() === 'monthly') {
-            $('.days-checkboxes').hide();
-            $('.days-dropdowns').show();
-        } else {
-            // Nếu chọn "Hàng tuần", hiện các ô chọn ngày trong tuần
-            $('.days-checkboxes').show();
-            $('.days-dropdowns').hide();
-        }
-    });
-});
-
+//Create chuyến bay chọn lịch trình  theo tuần
 
     //thêm ở nhiều thời gian khác nhau
 
