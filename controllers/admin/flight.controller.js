@@ -25,7 +25,7 @@ module.exports.index = async (req, res) => {
     //Pagination
     let initPagination = {
         currentPage: 1,
-        limitItems: 4
+        limitItems: 8
     }
     const countProducts = await Flight.countDocuments(find);
     const objectPagination = paginationHelper(initPagination, req.query, countProducts);
@@ -188,14 +188,27 @@ module.exports.createPost = async (req, res) => {
             chosenDays.push("6");
         if (req.body.sunday)
             chosenDays.push("0");
-        
         // //=======================================================
 
 
         let departureTime = req.body.departureTime;
         let arrivalTime = req.body.arrivalTime;
+
+
+        let soLuongVongLap = 0;
+        // Kiểm tra xem departureTime ,arrivalTime là mảng hay không
+        if (!Array.isArray(departureTime) || !Array.isArray(arrivalTime)) {
+            console.log('Không phải là mảng (chỉ 1 phần tử)');
+            soLuongVongLap = 1;
+            req.body.departureTime = departureTime;
+            req.body.arrivalTime = arrivalTime;
+        } else {
+            console.log('Là mảng');
+            soLuongVongLap = Math.min(departureTime.length, arrivalTime.length);
+        }
+
         // Lặp qua từng ngày từ ngày bắt đầu đến ngày kết thúc
-        for (let i = 0; i < Math.min(departureTime.length, arrivalTime.length); i++) {
+        for (let i = 0; i < soLuongVongLap; i++) {
             // Tạo một đối tượng Date từ ngày bắt đầu
             let currentDate = new Date(startYear, startMonth, startDate);
             while (currentDate <= new Date(endYear, endMonth, endDate)) {
@@ -203,18 +216,34 @@ module.exports.createPost = async (req, res) => {
 
                 // Kiểm tra nếu là thứ 2 hoặc thứ 3
                 if (chosenDays.includes(dayOfWeek.toString())) {
-                    req.body.departureTime = departureTime[i];
-                    req.body.arrivalTime = arrivalTime[i];
+                    if (Array.isArray(departureTime) || Array.isArray(arrivalTime)) {
+                        req.body.departureTime = departureTime[i];
+                        req.body.arrivalTime = arrivalTime[i];
 
-                    // //time bắt đầu
-                    let [hourDepart, minuteDepart] = departureTime[i].split(":")
-                    hourDepart = parseInt(hourDepart);
-                    minuteDepart = parseInt(minuteDepart);
+                        // //time bắt đầu
+                        var [hourDepart, minuteDepart] = departureTime[i].split(":")
+                        hourDepart = parseInt(hourDepart);
+                        minuteDepart = parseInt(minuteDepart);
 
-                    //time đến 
-                    let [hourArrival, minuteArrival] = arrivalTime[i].split(":")
-                    hourArrival = parseInt(hourArrival);
-                    minuteArrival = parseInt(minuteArrival);
+                        //time đến 
+                        var [hourArrival, minuteArrival] = arrivalTime[i].split(":")
+                        hourArrival = parseInt(hourArrival);
+                        minuteArrival = parseInt(minuteArrival);
+                    }
+
+                    if(!Array.isArray(departureTime) || !Array.isArray(arrivalTime)){
+                        var [hourDepart, minuteDepart] = departureTime.split(":")
+                        hourDepart = parseInt(hourDepart);
+                        minuteDepart = parseInt(minuteDepart);
+                        
+
+                        //time đến 
+                        var [hourArrival, minuteArrival] = arrivalTime.split(":")
+                        hourArrival = parseInt(hourArrival);
+                        minuteArrival = parseInt(minuteArrival);
+                        
+                    }
+
 
 
                     const month = currentDate.getMonth() + 1
