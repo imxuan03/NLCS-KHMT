@@ -1,4 +1,5 @@
 const Flight =require("../../models/flight.model");
+const Order = require("../../models/order.model");
 const paginationHelper = require("../../helpers/pagination");
 const searchFEHelper = require("../../helpers/searchFE");
 // [GET] / 
@@ -69,9 +70,43 @@ module.exports.detail = async (req, res) => {
             deleted: false,
             status: "active"
         })
+
+        // #####################################################################
+        // ràng buộc số lượng vé khi add cart
+        const orders = await Order.find({});
+
+        let orderedQuantity = {}
+        orderedQuantity.orderedFirstPriceQuantity= 0;
+        orderedQuantity.orderedEcoPriceQuantity= 0;
+        orderedQuantity.orderedBusinessPriceQuantity= 0;
+        orderedQuantity.orderedVipPriceQuantity= 0;
+
+        orders.forEach(order => {
+            order.flights.forEach(flight => {
+                if(flight.typeTicket == 'firstPrice' && record._id == flight.flight_id){
+                    orderedQuantity.orderedFirstPriceQuantity+=flight.quantity;
+                }else if(flight.typeTicket == 'ecoPrice' && record._id == flight.flight_id){
+                    orderedQuantity.orderedEcoPriceQuantity+=flight.quantity;
+                }else if(flight.typeTicket == 'businessPrice' && record._id == flight.flight_id){
+                    orderedQuantity.orderedBusinessPriceQuantity+=flight.quantity;
+                }else if(flight.typeTicket == 'vipPrice' && record._id == flight.flight_id){
+                    orderedQuantity.orderedVipPriceQuantity+=flight.quantity;
+                }
+            });
+    
+        });
+
+
+        // #####################################################################
+
+
+
+
+
         res.render('client/pages/home/detail', {
             pageTitle: "Chi tiết sản phẩm",
-            record:record
+            record:record,
+            orderedQuantity:orderedQuantity,
         })
     } catch (error) {
         res.redirect("/")

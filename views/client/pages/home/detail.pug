@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
     +alert-success(5000)
+    +alert-error(5000)
     .container
         h2(class="mb-4 pt-4") Thông tin chi tiết chuyến bay
         .detail-flight 
@@ -26,13 +27,13 @@ block main
                         each i in record.price 
                             if( i.price > 0 )
                                 if(i.priceName=="firstPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng thương gia:
+                                    p(style="margin:0;" class="text-danger") Giá hạng thương gia: (Số ghế còn lại #{20-orderedQuantity.orderedFirstPriceQuantity})
                                 if(i.priceName=="ecoPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng phổ thông:
+                                    p(style="margin:0;" class="text-danger") Giá hạng phổ thông: (Số ghế còn lại #{150-orderedQuantity.orderedEcoPriceQuantity})
                                 if(i.priceName=="businessPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng kinh doanh:
+                                    p(style="margin:0;" class="text-danger") Giá hạng kinh doanh: (Số ghế còn lại #{20-orderedQuantity.orderedBusinessPriceQuantity})
                                 if(i.priceName=="vipPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng VIP:
+                                    p(style="margin:0;" class="text-danger") Giá hạng VIP: (Số ghế còn lại #{10-orderedQuantity.orderedVipPriceQuantity})
                                 p(style="margin:0;" class="vnd-price") #{i.price}
                     div(class="detail-price-flight-body-desc") Số lượng chỗ: #{record.availableSeats}
                     if(record.status)
@@ -59,10 +60,14 @@ block main
                         )
                         <label for="typeTicket">Chọn loại vé: </label>
                             <select name="typeTicket" id="typeTicket">
-                            <option value="firstPrice">Thương gia</option>
-                            <option value="ecoPrice">Phổ thông</option>
-                            <option value="businessPrice">Kinh doanh</option>
-                            <option value="vipPrice">VIP</option>
+                                if (orderedQuantity.orderedFirstPriceQuantity<20)
+                                    <option value="firstPrice">Thương gia</option>
+                                if (orderedQuantity.orderedEcoPriceQuantity<150)
+                                    <option value="ecoPrice">Phổ thông</option>
+                                if (orderedQuantity.orderedBusinessPriceQuantity<20)
+                                    <option value="businessPrice">Kinh doanh</option>
+                                if (orderedQuantity.orderedVipPriceQuantity<10)
+                                    <option value="vipPrice">VIP</option>
                         </select>
                         button(
                             type="submit"

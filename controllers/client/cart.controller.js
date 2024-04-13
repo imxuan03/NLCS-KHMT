@@ -1,5 +1,6 @@
 const Cart = require("../../models/cart.model");
 const Flight = require("../../models/flight.model");
+const Order = require("../../models/order.model");
 
 // [GET] /cart
 module.exports.index = async (req, res) => {
@@ -20,17 +21,17 @@ module.exports.index = async (req, res) => {
 
                 //thêm một key vào object item
                 item.flightInfor = flightInfor;
-                
+
                 //price các loại
-                let price = 0 ;
-                if(item.typeTicket == "firstPrice"){
-                    price  = item.flightInfor.price[0].price;
-                }else if (item.typeTicket == "ecoPrice"){
-                    price  = item.flightInfor.price[1].price;
-                }else if (item.typeTicket == "businessPrice"){
-                    price  = item.flightInfor.price[2].price;
-                }else if (item.typeTicket == "vipPrice"){
-                    price  = item.flightInfor.price[3].price;
+                let price = 0;
+                if (item.typeTicket == "firstPrice") {
+                    price = item.flightInfor.price[0].price;
+                } else if (item.typeTicket == "ecoPrice") {
+                    price = item.flightInfor.price[1].price;
+                } else if (item.typeTicket == "businessPrice") {
+                    price = item.flightInfor.price[2].price;
+                } else if (item.typeTicket == "vipPrice") {
+                    price = item.flightInfor.price[3].price;
                 }
                 item.price = price;
                 item.totalPrice = item.quantity * price;
@@ -61,7 +62,54 @@ module.exports.addPost = async (req, res) => {
         const cart = await Cart.findOne({
             _id: cartId,
         });
+
         
+        // #####################################################################
+        // ràng buộc số lượng vé khi add cart
+        const orders = await Order.find({});
+
+        let orderedQuantity = 0;
+
+        orders.forEach(order => {
+            order.flights.forEach(flight => {
+                if(flight.typeTicket == typeTicket && flightId == flight.flight_id){
+                    orderedQuantity+= flight.quantity;
+                }
+            });
+    
+        });
+        if(typeTicket == 'firstPrice'){
+            if(orderedQuantity+quantity>20){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'ecoPrice'){
+            if(orderedQuantity+quantity>150){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'businessPrice'){
+            if(orderedQuantity+quantity>20){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'vipPrice'){
+            if(orderedQuantity+quantity>10){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }
+
+        // #####################################################################
+
+
+
+
+
         // nếu mà chuyến bay đó đã tồn tại rồi thì nếu thêm vào sẽ thay đổi số lượng đặt
 
         //với cùng chuyến (khác loại vé) ==> cũng lưu riêng biệt 
@@ -84,27 +132,27 @@ module.exports.addPost = async (req, res) => {
         } else {
 
             const flight = await Flight.findOne({
-                _id:flightId,
+                _id: flightId,
             })
-            
+
             let price = 0;
-            if(typeTicket == "firstPrice"){
+            if (typeTicket == "firstPrice") {
                 price = flight.price[0].price;
-            }else if(typeTicket=="ecoPrice"){
+            } else if (typeTicket == "ecoPrice") {
                 price = flight.price[1].price;
-            }else if(typeTicket=="businessPrice"){
+            } else if (typeTicket == "businessPrice") {
                 price = flight.price[2].price;
-            }else if(typeTicket=="vipPrice"){
+            } else if (typeTicket == "vipPrice") {
                 price = flight.price[3].price;
             }
-            
+
             const objectCart = {
                 flight_id: flightId,
                 quantity: quantity,
-                typeTicket:typeTicket,
-                price:price,
+                typeTicket: typeTicket,
+                price: price,
             };
-        
+
 
             await Cart.updateOne(
                 {
