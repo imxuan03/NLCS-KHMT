@@ -55,13 +55,19 @@ body {
   .sider .inner-menu ul li a {
     color: #fff;
     display: block;
-    padding: 6px 10px;
+    padding: 16px 10px;
     border-bottom: 1px solid #515151;
-    margin: 10px 10px;
+    margin: 20px 10px;
     border-radius: 8px;
   }
   .sider .inner-menu ul li a:hover {
     background-color: rgb(163, 23, 23);
+  }
+
+  .sider .logout-sider-admin{
+    margin-top: 40px;
+    bottom: 0px; /* Điều chỉnh khoảng cách từ đáy màn hình */
+    width: 100%;
   }
   /* End Sider */
 
