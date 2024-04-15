@@ -352,3 +352,24 @@ document.querySelectorAll('.vnd-price').forEach(function(element) {
 
 
 
+//############################################################
+//Dropdown create flight admin điểm khởi hành và điểm đến
+
+// Bắt sự kiện khi người dùng thay đổi điểm khởi hành
+$('#departureCity').on('change', function() {
+    var selectedDepartureCity = $(this).val();
+    var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
+
+    // Xóa các options cũ
+    $('#arrivalCity').empty();
+
+    // Thêm các options mới cho điểm đến
+    selectedRoute.arrivalCity.forEach(function(arrivalCity) {
+        $('#arrivalCity').append($('<option>', {
+            value: arrivalCity,
+            text: arrivalCity
+        }));
+    });
+});
+
+//end Dropdown create flight admin điểm khởi hành và điểm đến

@@ -1,4 +1,5 @@
 const Flight = require("../../models/flight.model");
+const FlightRoute = require("../../models/flight-route.model");
 
 const priceHelper = require("../../helpers/price");
 const filterStatusHelper = require("../../helpers/filter-status");
@@ -128,8 +129,11 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/flights/create
 module.exports.create = async (req, res) => {
+    const flightRoutes = await FlightRoute.find({deleted:false});
+
     res.render("admin/pages/flights/create", {
         pageTitle: "Tạo mới chuyến bay",
+        flightRoutes:flightRoutes,
     });
 }
 

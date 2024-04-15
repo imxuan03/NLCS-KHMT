@@ -74,16 +74,16 @@ block main
         .row 
             div(class="form-group col-6")
                 label(for="departureCity") Điểm khởi hành
-                input(
-                    type="text"
+                select(
                     class="form-control"
                     id="departureCity"
                     name="departureCity"      
                 )
+                    each route in flightRoutes
+                        option(value=route.departureCity)= route.departureCity
             div(class="form-group col-6")
                 label(for="arrivalCity") Điểm đến
-                input(
-                    type="text"
+                select(
                     class="form-control"
                     id="arrivalCity"
                     name="arrivalCity"      
@@ -219,4 +219,5 @@ block main
             ) Tạo mới
 
         
-        
+    script.
+        var flightRoutesData = !{JSON.stringify(flightRoutes)};
