@@ -86,8 +86,14 @@ block main
                                             p.vnd-price(style="margin:0;") #{i.price}
 
                                 td 
-                                    div Khởi hành: #{item.departureDate} , #{item.departureTime}
-                                    div Đến: #{item.arrivalDate} , #{item.arrivalTime}
+                                    div 
+                                        span Khởi hành: 
+                                        span.date-format #{item.departureDate}
+                                        span , #{item.departureTime}
+                                    div 
+                                        span Đến: 
+                                        span.date-format #{item.arrivalDate}
+                                        span , #{item.arrivalTime}
                                 td #{item.availableSeats}
                                 td
                                     if(item.status == "active")

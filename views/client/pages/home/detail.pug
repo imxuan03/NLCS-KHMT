@@ -19,8 +19,14 @@ block main
                 .detail-price-flight-header Thông tin đặt chỗ
                 .detail-price-flight-body
                     h6 #{record.title} 
-                    p(style="margin-bottom:8px;") Ngày đi: #{record.departureDate} | #{record.departureTime}
-                    p(style="margin-bottom:8px;") Ngày đến: #{record.arrivalDate} | #{record.arrivalTime}
+                    div(style="margin-bottom:8px;") 
+                        span Ngày đi: 
+                        span.date-format #{record.departureDate}
+                        span  | #{record.departureTime}
+                    div(style="margin-bottom:8px;") 
+                        span Ngày đến: 
+                        span.date-format #{record.arrivalDate}
+                        span  | #{record.arrivalTime}
                     p(style="margin-bottom:8px;") Giá:
                     div(class="detail-price-flight-body-desc")
                         //- span(style="font-size:600; background: #32CD32; color: #F8F8FF; padding:5px;border-radius:5px;") #{record.price} VNĐ

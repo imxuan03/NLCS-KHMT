@@ -311,6 +311,27 @@ document.querySelectorAll('.vnd-price').forEach(function(element) {
 //end VND Price - adjust price format
 
 
+//format date
+//###########################################
+// Lấy tất cả các phần tử có class '.date-format'
+const dateElements = document.querySelectorAll('.date-format');
+// Lặp qua từng phần tử và thay đổi nội dung
+dateElements.forEach(dateElement => {
+    // Lấy ngày tháng từ phần tử
+    const dateString = dateElement.textContent.trim();
+    // Tách thành phần ngày, tháng và năm
+    const [year, month, day] = dateString.split('-');
+    // Chuyển đổi tháng và ngày thành chuỗi và thêm số 0 nếu cần
+    const formattedMonth = month.length === 1 ? '0' + month : month;
+    const formattedDay = day.length === 1 ? '0' + day : day;
+    // Tạo chuỗi mới với định dạng mong muốn
+    const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+    // Gán chuỗi mới vào phần tử
+    dateElement.textContent = formattedDate;
+});
+//###########################################
+//end format date
+
 //Create chuyến bay chọn lịch trình  theo tuần
 
     //thêm ở nhiều thời gian khác nhau

@@ -69,8 +69,14 @@ block main
                                             p Hạng VIP
                                     td.vnd-price #{item.price}
                                     td 
-                                        div Khởi hành: #{item.flightInfor.departureDate} , #{item.flightInfor.departureTime}
-                                        div Đến: #{item.flightInfor.arrivalDate} , #{item.flightInfor.arrivalTime}
+                                        div 
+                                            span Khởi hành: 
+                                            span.date-format #{item.flightInfor.departureDate}
+                                            span , #{item.flightInfor.departureTime}
+                                        div 
+                                            span Đến: 
+                                            span.date-format #{item.flightInfor.arrivalDate}
+                                            span , #{item.flightInfor.arrivalTime}
                                     td #{item.quantity}
                                     td.vnd-price #{item.totalPrice}
                         else 

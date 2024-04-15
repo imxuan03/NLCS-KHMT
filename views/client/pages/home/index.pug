@@ -101,7 +101,9 @@ block main
                             .inner-content 
                                 .inner-title 
                                     h4 #{item.title}
-                                    p Khởi hành #{item.departureDate}
+                                    div 
+                                        span Khởi hành: 
+                                        span.date-format #{item.departureDate}
                                 
                                 .inner-price    
                                     p Giá chỉ từ
