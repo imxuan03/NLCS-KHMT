@@ -1,0 +1,36 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    h2(class="mb-4") Thêm mới đường bay
+
+    +alert-success(4000)
+    +alert-error(4000)
+
+    form(
+        action=`/${prefixAdmin}/flight-routes/create`
+        method="POST"
+    )
+        div(class="form-group")
+            label(for="departureCity") Điểm xuất phát
+            input(
+                type="text"
+                class="form-control"
+                id="departureCity"
+                name="departureCity"
+                required
+            )
+        div(class="form-group")
+            label(for="arrivalCity") Điểm đến
+            input(
+                type="text"
+                class="form-control"
+                id="arrivalCity"
+                name="arrivalCity"
+                required
+            )
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Thêm đường bay

@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    h2(class="mb-4") Chỉnh sửa đường bay
+    +alert-success(4000)
+    +alert-error(4000)
+
+    div(class="form-group")
+            label(for="departureCity") Điểm xuất phát
+            input(
+                type="text"
+                class="form-control"
+                id="departureCity"
+                name="departureCity"
+                value=record.departureCity
+            )
+
+   
+    table(class="table table-hover table-sm")
+        thead
+            tr
+                th STT
+                th Điểm đến
+                th Hành động
+
+        tbody
+            each arrivalCity, index in record.arrivalCity
+                tr
+                    td #{index+1}
+                    td #{arrivalCity}
+                    td
+                        form(action=`/admin/flight-routes/${record._id}/delete-arrivalCity`, method="POST")
+                            input(type="hidden", name="arrivalCityIndex", value=index)
+                            button(type="submit", class="btn btn-danger btn-sm ml-1") Xóa

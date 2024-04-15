@@ -23,7 +23,7 @@ module.exports.index = async  (req, res) => {
     }
 
     res.render('admin/pages/orders/index', {
-        pageTitle: "Quản lý đơn vé",
+        pageTitle: "Quản Lý Đơn Vé",
         records: records,
     })
 }

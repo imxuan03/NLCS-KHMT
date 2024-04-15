@@ -48,7 +48,7 @@ module.exports.index = async (req, res) => {
         .skip(objectPagination.skip);
 
     res.render("admin/pages/flights/index", {
-        pageTitle: "Dịch Vụ Chuyến Bay",
+        pageTitle: "Quản Lý Chuyến Bay",
         flights: flights,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,

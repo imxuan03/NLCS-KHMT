@@ -11,6 +11,8 @@ const authRoutes = require("./auth.route")
 const myAccountRoutes = require("./my-account.route");
 const userRoutes = require("./user.route");
 const orderRoutes = require("./order.route");
+//Các đường bay cho dropdown trong chức năng create chuyến bay
+const flightRouteRoutes = require("./flight-route.route");
 
 module.exports = (app)=>{
 
@@ -50,4 +52,11 @@ module.exports = (app)=>{
         authMiddleware.requireAuth, 
         orderRoutes
     );
+
+    app.use(
+        PATH_ADMIN+"/flight-routes",
+        authMiddleware.requireAuth, 
+        flightRouteRoutes
+    );
+
 }

@@ -16,7 +16,7 @@ module.exports.index = async (req, res) => {
     const records = await User.find(find)
 
     res.render('admin/pages/users/index', {
-        pageTitle: "Quản lý tài khoản User",
+        pageTitle: "Quản Lý Tài Khoản User",
         filterStatus:filterStatus,
         records: records,
     })
