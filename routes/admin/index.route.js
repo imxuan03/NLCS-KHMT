@@ -44,6 +44,7 @@ module.exports = (app)=>{
     app.use(
         PATH_ADMIN+"/users",
         authMiddleware.requireAuth, 
+        authAdminMiddleware.requireAuthAdmin,
         userRoutes
     );
 

@@ -78,7 +78,8 @@ block main
                     class="form-control"
                     id="departureCity"
                     name="departureCity"      
-                )
+                )   
+                    option(value="") 
                     each route in flightRoutes
                         option(value=route.departureCity)= route.departureCity
             div(class="form-group col-6")

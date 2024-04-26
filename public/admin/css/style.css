@@ -46,6 +46,17 @@ body {
   /* End Body */
   
   /* Sider */
+  .sider {
+    position: relative;
+    overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá kích thước */
+    max-height: 100%; /* Đặt chiều cao tối đa cho .sider */
+}
+
+.logout-sider-admin {
+  bottom: 0;
+  left: 0;
+}
+
 .sider .inner-menu ul {
     list-style: none;
     padding: 0;
