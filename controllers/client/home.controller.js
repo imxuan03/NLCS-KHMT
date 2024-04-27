@@ -95,14 +95,7 @@ module.exports.detail = async (req, res) => {
             });
     
         });
-
-
         // #####################################################################
-
-
-
-
-
         res.render('client/pages/home/detail', {
             pageTitle: "Chi tiết sản phẩm",
             record:record,
