@@ -349,7 +349,7 @@ module.exports.detail = async (req, res) => {
 
         const record = await Flight.findOne({
             _id: id,
-            deleted: false,
+            // deleted: false,
         })
 
         res.render("admin/pages/flights/detail", {

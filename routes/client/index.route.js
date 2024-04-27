@@ -15,7 +15,7 @@ module.exports = (app) => {
 
     app.use(userMiddleWare.inforUser);
 
-    app.use('/', homeRoutes)
+    app.use('/home', homeRoutes)
 
     app.use('/cart', cartRoutes);  
     

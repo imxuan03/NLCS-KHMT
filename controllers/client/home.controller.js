@@ -2,7 +2,7 @@ const Flight =require("../../models/flight.model");
 const Order = require("../../models/order.model");
 const paginationHelper = require("../../helpers/pagination");
 const searchFEHelper = require("../../helpers/searchFE");
-// [GET] / 
+// [GET] /home
 module.exports.index = async (req, res) => {
     const objectSearch = searchFEHelper(req.query);
 
@@ -61,7 +61,7 @@ module.exports.index = async (req, res) => {
     })
 }
 
-// [GET] /detail/:slug 
+// [GET] /home/detail/:slug 
 module.exports.detail = async (req, res) => {
     try {
         const slug = req.params.slug;
@@ -109,6 +109,6 @@ module.exports.detail = async (req, res) => {
             orderedQuantity:orderedQuantity,
         })
     } catch (error) {
-        res.redirect("/")
+        res.redirect("/home")
     }
 }

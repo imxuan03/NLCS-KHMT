@@ -62,7 +62,7 @@ module.exports.registerPost = async  (req, res) => {
         }
     )
 
-    res.redirect("/");
+    res.redirect("/home");
 
 }
 
@@ -108,7 +108,7 @@ module.exports.loginPost = async  (req, res) => {
         res.cookie("cartId",user.cart_id);
     }
 
-    res.redirect("/");
+    res.redirect("/home");
 }
 
 // [GET] /user/logout
@@ -116,7 +116,7 @@ module.exports.logout =  (req, res) => {
     res.clearCookie("tokenUser");
     res.clearCookie("cartId");
     
-    res.redirect("/");
+    res.redirect("/home");
 }
 
 // [GET] /user/password/forgot
@@ -224,7 +224,7 @@ module.exports.resetPasswordPost = async  (req, res) => {
         }
     );
     req.flash('success', `Đổi mật khẩu thành công!`);
-    res.redirect("/");
+    res.redirect("/home");
 }
 
 // [GET] /user/infor

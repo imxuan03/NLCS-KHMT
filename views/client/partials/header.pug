@@ -3,7 +3,7 @@ Header.header
         .row.align-items-center 
             .col-xl-3.col-3 
                 .inner-logo 
-                    a(href="/")
+                    a(href="/home")
                         img(src="/images/logo.png", alt="Logo")
             .col-xl-9.col-8
                 .inner-menu
@@ -33,18 +33,18 @@ Header.header
                     .nav__pc 
                         ul    
                             li 
-                                a(href="/") TRANG CHỦ
+                                a(href="/home" class="nav_header_link_active") TRANG CHỦ
                             li 
-                                a(href="/cart") GIỎ HÀNG (#{miniCart ? miniCart.totalQuantity : "0"})
+                                a(href="/cart" class="nav_header_link_active") GIỎ HÀNG (#{miniCart ? miniCart.totalQuantity : "0"})
                             li 
                                 if(user)
-                                    a(href="/user/myflight") CHUYẾN BAY CỦA TÔI
+                                    a(href="/user/myflight" class="nav_header_link_active") CHUYẾN BAY CỦA TÔI
                                 else
-                                    a(href="/myflight") CHUYẾN BAY CỦA TÔI
+                                    a(href="/myflight" class="nav_header_link_active") CHUYẾN BAY CỦA TÔI
                             li 
-                                a(href="/service/serviceFlight") DỊCH VỤ CHUYẾN BAY
+                                a(href="/service/serviceFlight" class="nav_header_link_active") DỊCH VỤ CHUYẾN BAY
                             li 
-                                a(href="/service/extendService") DỊCH VỤ KHÁC
+                                a(href="/service/extendService" class="nav_header_link_active") DỊCH VỤ KHÁC
             
         
             label(class="col-1 nav__bars" for="nav-mobile-input")
@@ -60,27 +60,27 @@ Header.header
                 ul.nav__mobile-list    
                     li 
                         
-                        a(href="/" class="nav__mobile-link") 
+                        a(href="/home" class="nav__mobile-link nav_header_link_active") 
                             <i class="fa-solid fa-house mr-3"></i>
                             span TRANG CHỦ
                     li 
-                        a(href="/cart" class="nav__mobile-link")
+                        a(href="/cart" class="nav__mobile-link nav_header_link_active")
                             <i class="fa-solid fa-cart-shopping mr-3"></i>
                             span GIỎ HÀNG(#{miniCart ? miniCart.totalQuantity : "0"})
                     li 
                         if(user)
-                            a(href="/user/myflight" class="nav__mobile-link") 
+                            a(href="/user/myflight" class="nav__mobile-link nav_header_link_active") 
                                 <i class="fa-solid fa-plane-departure  mr-3"></i>
                                 span CHUYẾN BAY CỦA TÔI
                         else
-                            a(href="/myflight" class="nav__mobile-link") 
+                            a(href="/myflight" class="nav__mobile-link nav_header_link_active") 
                                 <i class="fa-solid fa-plane-departure  mr-3"></i>
                                 span CHUYẾN BAY CỦA TÔI
                     li 
-                        a(href="/service/serviceFlight" class="nav__mobile-link")
+                        a(href="/service/serviceFlight" class="nav__mobile-link nav_header_link_active")
                             <i class="fa-solid fa-briefcase mr-3"></i>
                             span DỊCH VỤ CHUYẾN BAY
                     li 
-                        a(href="/service/extendService" class="nav__mobile-link")   
+                        a(href="/service/extendService" class="nav__mobile-link nav_header_link_active")   
                             <i class="fa-brands fa-servicestack mr-3"></i>
                             span DỊCH VỤ KHÁC

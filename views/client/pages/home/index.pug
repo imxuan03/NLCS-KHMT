@@ -95,9 +95,9 @@ block main
                 .col-6
         .row 
             each item in flights
-                .col-4.mb-3 
+                .col-12.mb-3.col-md-6.col-lg-4
                     .flight-item
-                        a(href=`/detail/${item.slug}`) 
+                        a(href=`/home/detail/${item.slug}`) 
                             .inner-content 
                                 .inner-title 
                                     h4 #{item.title}

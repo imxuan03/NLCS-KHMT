@@ -1,3 +1,25 @@
+//NAV Header
+// Lấy đường dẫn path hiện tại của trang (không bao gồm domain)
+const currentPath = window.location.pathname;
+
+// Lấy tất cả các đường link
+const links = document.querySelectorAll('.nav_header_link_active');
+// Lặp qua từng đường link
+links.forEach(link => {
+    // Lấy đường dẫn path từ href của đường link
+    const linkPath = link.getAttribute('href');
+    // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
+    if (currentPath.startsWith(linkPath)) {
+        // Nếu có, thêm class active-link
+        link.classList.add('active-link');
+    }
+    if( (currentPath.startsWith("/checkout"))  && linkPath==="/cart"){
+        link.classList.add('active-link');
+    }
+});
+
+//End NAV Header
+
 // Sort 
 const sort = document.querySelector("[sort]");
 

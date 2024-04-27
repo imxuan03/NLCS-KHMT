@@ -1,3 +1,25 @@
+//Sider
+
+// Lấy đường dẫn path hiện tại của trang (không bao gồm domain)
+const currentPath = window.location.pathname;
+
+// Lấy tất cả các đường link
+const links = document.querySelectorAll('.inner-menu ul li a');
+
+// Lặp qua từng đường link
+links.forEach(link => {
+    // Lấy đường dẫn path từ href của đường link
+    const linkPath = link.getAttribute('href');
+    // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
+    if (currentPath.startsWith(linkPath)) {
+        // Nếu có, thêm class active-link
+        link.classList.add('active-link');
+    }
+});
+
+//End Sider
+
+
 // Button Status 
 const buttonStatus = document.querySelectorAll("[button-status]");
 

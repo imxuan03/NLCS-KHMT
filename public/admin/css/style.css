@@ -46,6 +46,11 @@ body {
   /* End Body */
   
   /* Sider */
+
+  .active-link {
+    background-color: rgb(163, 23, 23);
+    text-decoration: underline; /* Gạch chân dưới đường link */
+  }
   .sider {
     position: relative;
     overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá kích thước */
