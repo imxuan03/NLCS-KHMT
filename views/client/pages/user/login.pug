@@ -5,65 +5,101 @@ block main
 
     +alert-success(4000)
     +alert-error(4000)
-    
-    style.
-        .form-login {
-            width: 100%;
-            max-width: 500px;
-            height: 350px;
-            padding: 20px;
-            margin-top: 10px;
-            background-color: #f5f5f5;
-            /* background-color: transparent; */
+
+
+    style. 
+        .form-register-user{
+            background-color: #ffffff;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-top:15px;
+            //- .col-md-5.col-xl-4
         }
-        .input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: transparent;
+        .box-register{
+            display: flex; /* Sử dụng flexbox */
+            flex-direction: column; /* Căn nội dung theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            height: 100%; /* Đảm bảo chiều cao đủ để căn giữa */
+        }
+        .img-register{
+            width:100%; 
+            height: auto;
         }
 
-    .container
-        .row.justify-content-center
-            .col-8.col-md-5.col-xl-4
-                .form-login
-                    h2(class="text-center") Đăng nhập tài khoản
-                    form(
-                        action=`/user/login`
-                        method="POST"
-                        style="max-width:350px;"
-                    )
-                        div(class="form-group")
-                            label(for="email") Email
-                            input(
-                                type="email"
-                                class="form-control input"
-                                id="email"
-                                name="email"
-                                required
-                            )
-                        div(class="form-group")
-                            label(for="password") Password
-                            input(
-                                type="password"
-                                class="form-control input"
-                                id="password"
-                                name="password"
-                                required
-                            )
+        @media (max-width: 768px) {
+            .hide-on-mobile {
+                display: none;
+            }
+            .box-register{
+            height: 100%; /* Đảm bảo chiều cao đủ để căn giữa */
+             
+            }
+            .form-register-user{
+            position: relative;
+             top: 75px;
+            }
+            .container.pt-3 {
+            min-height: 10vh !important; /* Ensures the container fills the viewport height */
+            }
+        }
+        @media (max-width : 991px) {
+            .img-register{
+                height :388px;
+                width:auto;
+            }
 
-                        div(class="form-group")
-                            a(href="/user/password/forgot" class="mb-3") Quên mật khẩu?
+            .container.pt-3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 85vh; /* Ensures the container fills the viewport height */
+            }
+        }
+        
 
+
+    .container.pt-3.pb-3(style="display: flex; justify-content: center; align-items: center;")
+        .row
+            .col-12.col-md-5.form-register-user
+                div.box-register 
+                    h2(class="text-center") Đăng nhập
+                    .form-login
+                        form(
+                            action=`/user/login`
+                            method="POST"
+                            style="max-width:350px;"
+                        )
+                            div(class="form-group")
+                                label(for="email") Email
+                                input(
+                                    type="email"
+                                    class="form-control input"
+                                    id="email"
+                                    name="email"
+                                    required
+                                )
+                            div(class="form-group")
+                                label(for="password") Password
+                                input(
+                                    type="password"
+                                    class="form-control input"
+                                    id="password"
+                                    name="password"
+                                    required
+                                )
+
+                            div(class="form-group")
+                                a(href="/user/password/forgot" class="mb-3") Quên mật khẩu?
+
+                            div(class="form-group")
+                                button(
+                                    type="submit"
+                                    class="btn btn-primary btn-block"
+                                ) Đăng nhập
+                            
                         div(class="form-group")
-                            button(
-                                type="submit"
-                                class="btn btn-primary btn-block"
-                            ) Đăng nhập
-                        
-                    div(class="form-group")
-                        a(href="/user/register" class="mb-3") Đăng ký tài khoản mới   
+                            a(href="/user/register" class="mb-3") Đăng ký tài khoản mới 
+            .col-12.col-md-7.p-0.hide-on-mobile
+                img(src="/images/register2.png", class="img-register" alt="" style=" border-top-right-radius: 5px;border-bottom-right-radius: 5px;")

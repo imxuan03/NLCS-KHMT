@@ -1,7 +1,16 @@
 extends ../../layouts/default.pug 
 include ../../mixins/box-head.pug
 
-block main 
+block main
+
+    style. 
+        .table-information{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
     .container.pt-3.pb-3
         .row 
             .col-12 
@@ -12,9 +21,9 @@ block main
                 if(flights.length>0)
                     div(class="alert alert-success")
                         | Chúc mừng bạn đã đặt vé máy bay thành công! Hi vọng bạn sẽ có những trải nghiệm tuyệt vời tại VietJetAir.   
-
-        if(order)
-            .row 
+                    
+        .row.table-information.pt-3 
+            if(order)
                 .col-12 
                     h4(class="mb-2") Thông tin cá nhân 
                     table(class="table table-borderd")
@@ -31,8 +40,7 @@ block main
                                 td Địa chỉ
                                 td 
                                     b #{order.userInfor.address}
-                    
-        .row 
+
             .col-12 
                 table(class="table table-bordered")
                     thead 
@@ -80,8 +88,10 @@ block main
                                     td #{item.quantity}
                                     td.vnd-price #{item.totalPrice}
                         else 
-                            tr 
-                                td(colspan="7" class="text-center") Chưa có vé nào được đặt!
+                            tr
+                                td(colspan="12" class="text-center") 
+                                    div(style="height:200px; display: flex; justify-content: center; align-items: center;") 
+                                        p(style="margin: 0;") Chưa có vé nào được đặt!
                        
                 if totalOrder > 0
                     div.text-right

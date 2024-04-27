@@ -21,22 +21,23 @@ block main
                     | Chúc mừng bạn đã đặt vé máy bay thành công! Hi vọng bạn sẽ có những trải nghiệm tuyệt vời tại VietJetAir.   
                     
         .row.table-information.pt-3 
-            .col-12
-                    h4(class="mb-2") Thông tin cá nhân 
-                    table(class="table table-borderd")
-                        tbody 
-                            tr 
-                                td Họ tên 
-                                td 
-                                    b #{order.userInfor.fullName}
-                            tr 
-                                td Số điện thoại 
-                                td 
-                                    b #{order.userInfor.phone}
-                            tr 
-                                td Địa chỉ
-                                td 
-                                    b #{order.userInfor.address}
+            if(order)
+                .col-12
+                        h4(class="mb-2") Thông tin cá nhân 
+                        table(class="table table-borderd")
+                            tbody 
+                                tr 
+                                    td Họ tên 
+                                    td 
+                                        b #{order.userInfor.fullName}
+                                tr 
+                                    td Số điện thoại 
+                                    td 
+                                        b #{order.userInfor.phone}
+                                tr 
+                                    td Địa chỉ
+                                    td 
+                                        b #{order.userInfor.address}
             .col-12
                 h4(class="mb-2") Chi tiết đặt vé 
                 table(class="table table-bordered")

@@ -6,44 +6,100 @@ block main
     +alert-success(4000)
     +alert-error(4000)
 
-    .container
-        .row.justify-content-center
-            .col-8.col-md-5.col-xl-4
-                h2(class="text-center") Đăng kí tài khoản
-                form(
-                    action=`/user/register`
-                    method="POST"
-                    style="max-width:350px;"
-                )
-                    div(class="form-group")
-                        label(for="fullName") Họ và tên
-                        input(
-                            type="text"
-                            class="form-control"
-                            id="fullName"
-                            name="fullName"
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="email") Email
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="password") Password
-                        input(
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        )
-                    div(class="form-group")
-                        button(
-                            type="submit"
-                            class="btn btn-dark btn-block login-submit-btn"
-                        ) Đăng kí
+
+    style. 
+        .form-register-user{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-top:15px;
+            //- .col-md-5.col-xl-4
+        }
+        .box-register{
+            display: flex; /* Sử dụng flexbox */
+            flex-direction: column; /* Căn nội dung theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            height: 100%; /* Đảm bảo chiều cao đủ để căn giữa */
+        }
+        .img-register{
+            width:100%; 
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hide-on-mobile {
+                display: none;
+            }
+            .box-register{
+            height: 100%; /* Đảm bảo chiều cao đủ để căn giữa */
+             
+            }
+            .form-register-user{
+            position: relative;
+             top: 75px;
+            }
+            .container.pt-3 {
+            min-height: 10vh !important; /* Ensures the container fills the viewport height */
+            }
+        }
+        @media (max-width : 991px) {
+            .img-register{
+                height :361px;
+                width:auto;
+            }
+
+            .container.pt-3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 85vh; /* Ensures the container fills the viewport height */
+            }
+        }
+        
+
+
+    .container.pt-3.pb-3(style="display: flex; justify-content: center; align-items: center;")
+        .row
+            .col-12.col-md-5.form-register-user
+                div.box-register 
+                    h2(class="text-center") Đăng ký
+                    form(
+                        action=`/user/register`
+                        method="POST"
+                    )
+                        div(class="form-group")
+                            label(for="fullName") Họ và tên
+                            input(
+                                type="text"
+                                class="form-control"
+                                id="fullName"
+                                name="fullName"
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="email") Email
+                            input(
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="password") Password
+                            input(
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                required
+                            )
+                        div(class="form-group")
+                            button(
+                                type="submit"
+                                class="btn btn-dark btn-block login-submit-btn"
+                            ) Đăng ký
+            .col-12.col-md-7.p-0.hide-on-mobile
+                img(src="/images/register2.png", class="img-register" alt="" style=" border-top-right-radius: 5px;border-bottom-right-radius: 5px;")
