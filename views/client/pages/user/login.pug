@@ -5,43 +5,65 @@ block main
 
     +alert-success(4000)
     +alert-error(4000)
+    
+    style.
+        .form-login {
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            padding: 20px;
+            margin-top: 10px;
+            background-color: #f5f5f5;
+            /* background-color: transparent; */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: transparent;
+        }
 
     .container
         .row.justify-content-center
             .col-8.col-md-5.col-xl-4
-                h2(class="text-center") Đăng nhập tài khoản
-                form(
-                    action=`/user/login`
-                    method="POST"
-                    style="max-width:350px;"
-                )
-                    div(class="form-group")
-                        label(for="email") Email
-                        input(
-                            type="email"
-                            class="form-control"
-                            id="email"
-                            name="email"
-                            required
-                        )
-                    div(class="form-group")
-                        label(for="password") Password
-                        input(
-                            type="password"
-                            class="form-control"
-                            id="password"
-                            name="password"
-                            required
-                        )
+                .form-login
+                    h2(class="text-center") Đăng nhập tài khoản
+                    form(
+                        action=`/user/login`
+                        method="POST"
+                        style="max-width:350px;"
+                    )
+                        div(class="form-group")
+                            label(for="email") Email
+                            input(
+                                type="email"
+                                class="form-control input"
+                                id="email"
+                                name="email"
+                                required
+                            )
+                        div(class="form-group")
+                            label(for="password") Password
+                            input(
+                                type="password"
+                                class="form-control input"
+                                id="password"
+                                name="password"
+                                required
+                            )
 
-                    div(class="form-group")
-                        a(href="/user/password/forgot" class="mb-3") Quên mật khẩu?
+                        div(class="form-group")
+                            a(href="/user/password/forgot" class="mb-3") Quên mật khẩu?
 
+                        div(class="form-group")
+                            button(
+                                type="submit"
+                                class="btn btn-primary btn-block"
+                            ) Đăng nhập
+                        
                     div(class="form-group")
-                        button(
-                            type="submit"
-                            class="btn btn-primary btn-block"
-                        ) Đăng nhập
-                    
-                div(class="form-group")
-                    a(href="/user/register" class="mb-3") Đăng ký tài khoản mới   
+                        a(href="/user/register" class="mb-3") Đăng ký tài khoản mới   
