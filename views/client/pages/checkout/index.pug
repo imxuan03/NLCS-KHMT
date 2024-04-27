@@ -6,13 +6,22 @@ block main
     +alert-success(5000)
     +alert-error(5000)
 
+    style. 
+        .detail-flightticket{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-top:20px;
+        }
+
     .container.pb-3.pt-3
         .row 
             .col-12 
-                +box-head("Đặt hàng")
+                +box-head("Đặt vé")
         
         .row 
-            .col-12 
+            .col-12.detail-flightticket 
                 table(class="table table-bordered")
                     thead 
                         tr 
@@ -64,9 +73,12 @@ block main
                         h3(style="display: inline-block;" class="mr-2") Tổng tiền vé:
                         h3.vnd-price(style="display: inline-block;") #{cartDetail.totalPrice}
         
-        .row
-            .col-12
-                .card.p-4.my-4
+        .row 
+            .col-12.p-3 
+                +box-head("Thông tin người đặt")
+        .row.d-flex.align-items-center
+            .col-12.col-lg-4.p-0
+                .card.p-4
                     form(
                         action="/checkout/order"
                         method="POST"
@@ -103,5 +115,7 @@ block main
                             type="submit"
                             class="btn btn-success btn-block"
                         ) ORDER
+            .col-12.col-lg-8.p-1
+                img(src="images/checkout1.png", alt="" style="width:100%")
             
     script(src="/js/cart.js") 

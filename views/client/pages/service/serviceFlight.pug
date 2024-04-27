@@ -1,9 +1,24 @@
 extends ../../layouts/default.pug 
 include ../../mixins/box-head.pug
 
-block main 
+block main
+
+    style. 
+        .box-service-notification{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+            position: absolute;
+            top: 210px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            padding: 50px 10px;
+        }
     .container.pb-3.pt-3
-        .row 
+        .row
             .col-12 
                 .box-service-notification
-                    h1 “Chức năng đang được xây dựng”
+                    h4(class="mb-2 text-center") Chức năng đang được xây dựng

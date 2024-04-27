@@ -4,6 +4,12 @@ include ../../mixins/sort.pug
 include ../../mixins/pagination.pug
 
 block main 
+    style. 
+        .card-header{
+            background-color: #f7f7f7;
+        }
+
+
     .section-one
         #carouselIndicators.carousel.slide.carousel(data-ride="carousel")
             ol.carousel-indicators
@@ -51,7 +57,7 @@ block main
                             type="date"
                             class="form-control"
                             id="departureDate"
-                            name="departureDate"    
+                            name="departureDate"
                         )
                 .row
                     div(class="form-group col-6")
@@ -87,12 +93,12 @@ block main
                 +box-head("Danh sách các chuyến bay")
         
         .card.mb-3  
-        .card-header Sắp xếp 
-        .card-body 
-            .row 
-                .col-4 
-                    +sort()  
-                .col-6
+            .card-header Sắp xếp 
+            .card-body 
+                .row 
+                    .col-4 
+                        +sort()  
+                    .col-6
         .row 
             each item in flights
                 .col-12.mb-3.col-md-6.col-lg-4

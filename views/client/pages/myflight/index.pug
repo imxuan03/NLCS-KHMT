@@ -6,9 +6,29 @@ include ../../mixins/alert.pug
 block main 
     +alert-success(5000)
     +alert-error(5000)
+
+    style. 
+        .table-information{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .submit-find-ticketflight{
+            border: 1px solid #ffdd00;
+            width: 100%;
+            background-image: linear-gradient(315deg, #f5df2e 0%, #f07654 74%);
+            padding: 5px 20px;
+            font-weight: 600;
+            font-size: 20px;
+            font-style: italic;
+        }
+
     .container.pt-3.pb-3 
-        .row 
-            .col-4 
+        .row.table-information 
+            .col-4.pt-3.p-5 
                 .myflight-container 
                     h4 CHUYẾN BAY CỦA TÔI
                     p Bạn muốn xem chuyến bay đã đặt, đổi lịch trình bay hay mua thêm dịch vụ hành lý, chỗ ngồi, suất ăn..., vui lòng điền thông tin bên dưới:
@@ -37,9 +57,9 @@ block main
                         div(class="form-group form-submit")
                             button(
                                 type="submit"
-                                class="btn"
+                                class="btn submit-find-ticketflight"
                             ) Tìm kiếm
 
-            .col-8 
+            .col-8.p-0
                 .myflight-image
-                    img(src="/images/myflight1.jpg", alt="")
+                    img(src="/images/myflight1.jpg", alt="" style="width: 100%; height: auto;border-radius: 5px" )

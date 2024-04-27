@@ -191,9 +191,6 @@ body {
     color: white;
 }
 
-.footer div,.footer  li{
-    margin-bottom: 16px;
-}
 /* end footer  */
 
 
@@ -393,15 +390,20 @@ body {
     margin-bottom: 15px;
     border-radius: 8px;
     padding: 25px 15px;
-    background-color: rgb(255, 211, 213);
+    background-color: #ffffff;
+    /* background-color: transparent; */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   /* ------------------------ */
   .detail-price-flight{
     flex: 1;
     border-radius: 5px;
-    border: 1px solid black;
     margin-bottom: 15px;
     height: fit-content;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .detail-price-flight-header{
@@ -412,6 +414,8 @@ body {
     padding: 8px;
     font-size: 30px;
     margin-bottom: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
   
   .detail-price-flight-body{
@@ -516,20 +520,3 @@ body {
   }
   
   /* end image-preview  */
-
-/* Trang Service. Dịch vụ chuyến bay, dịch vụ khác */
-/* styles.css */
-.box-service-notification {
-    background-color: #dedede; /* Màu nền */
-    border: 1px solid #f5c6cb; /* Viền */
-    color: #721c24; /* Màu chữ */
-    padding: 15px; /* Khoảng cách bên trong */
-    margin-bottom: 20px; /* Khoảng cách dưới */
-    border-radius: 5px; /* Bo góc */
-    text-align: center; /* Căn giữa nội dung */
-}
-
-.box-service-notification h1 {
-    margin-top: 0; /* Loại bỏ khoảng trắng phía trên tiêu đề */
-}
-/*End Trang Service. Dịch vụ chuyến bay, dịch vụ khác */

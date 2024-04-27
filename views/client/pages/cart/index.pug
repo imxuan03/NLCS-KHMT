@@ -6,6 +6,16 @@ include ../../mixins/alert.pug
 block main 
     +alert-success(5000)
     +alert-error(5000)
+    style.
+        .detail-cart{
+            background-color: #ffffff;
+            /* background-color: transparent; */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-top:40px;
+            min-height:350px;
+        }
 
     .container.pb-3.pt-3
         .row 
@@ -13,7 +23,7 @@ block main
                 +box-head("Giỏ hàng")
         
         .row 
-            .col-12 
+            .col-12.detail-cart 
                 table(class="table table-bordered")
                     thead 
                         tr 
@@ -26,7 +36,7 @@ block main
                             th Số lượng
                             th Tổng tiền 
                             th Hành động
-                    tbody 
+                    tbody
                         if(cartDetail.flights.length > 0)
                             each item, index in cartDetail.flights
                                 tr 
@@ -74,8 +84,10 @@ block main
                                             class="btn btn-danger"
                                         ) Xóa
                         else
-                            tr 
-                                td(colspan="7" class="text-center") Vé máy bay chưa được thêm vào!
+                            tr
+                                td(colspan="12" class="text-center") 
+                                    div(style="height:200px; display: flex; justify-content: center; align-items: center;") 
+                                        p(style="margin: 0;") Vé máy bay chưa được thêm vào giỏ hàng!
                         
                        
                 if(cartDetail.totalPrice >0 )
