@@ -168,6 +168,13 @@ module.exports.createPost = async (req, res) => {
         const endDateRepeteString = req.body.endDateRepete;
         const endDateRepete = new Date(endDateRepeteString);
 
+        //Kiểm tra tính logic giữa ngày bắt đầu và ngày kết thúc có hiệu lực
+        if(endDateRepete<startDateRepete){
+            req.flash('error', `Ngày hết hiệu lực phải sau ngày bắt đầu hiệu lực khi tạo chuyến bay!`);
+            res.redirect(`/${systemConfig.prefixAdmin}/flights/create`);
+            return;
+        }
+
         const startMonth = startDateRepete.getMonth();
         const startYear = startDateRepete.getFullYear();
         const startDate = startDateRepete.getDate();
