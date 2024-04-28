@@ -7,10 +7,26 @@ block main
     +alert-success(4000)
     +alert-error(4000)
 
+    style. 
+        .form-detail-infor-user{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 50px 20px 0 20px;
+            //- .col-md-5.col-xl-4
+        }
+        .form-avt-infor-user{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
     .container.pb-3.pt-3
         h2(class="mb-4") Thông tin chi tiết tài khoản
         .detail-account 
-            .detail-desc-account
+            .detail-desc-account.form-detail-infor-user
                 div(class="form-group")
                     label(for="fullName") Họ tên *
                     input(
@@ -38,6 +54,7 @@ block main
                         class="form-control"
                         id="password"
                         name="password"
+                        readonly
                     )
                 div(class="form-group")
                     label(for="phone") Số điện thoại
@@ -77,7 +94,7 @@ block main
                         href=`/user/edit`
                         class="btn btn-primary"
                     ) Chỉnh sửa thông tin cá nhân
-            .detail-avatar-account
+            .detail-avatar-account.form-avt-infor-user
                 .detail-avatar-account-detail
                     h6 Ảnh đại diện
                 .detail-avatar-account-img
