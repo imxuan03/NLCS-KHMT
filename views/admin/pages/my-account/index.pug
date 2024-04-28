@@ -2,10 +2,27 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 
 block main
+
+    style.
+        .form-avt-infor-account{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-detail-infor-account{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+
     h2(class="mb-4") Thông tin chi tiết tài khoản
 
-    .detail-account 
-        .detail-desc-account
+    .detail-account
+        .detail-desc-account.form-detail-infor-account 
             div(class="form-group")
                 label(for="fullName") Họ tên *
                 input(
@@ -99,7 +116,7 @@ block main
                     href=`/${prefixAdmin}/my-account/edit`
                     class="btn btn-primary"
                 ) Chỉnh sửa thông tin cá nhân
-        .detail-avatar-account
+        .detail-avatar-account.form-avt-infor-account
             .detail-avatar-account-detail
                 h6 Ảnh đại diện
             .detail-avatar-account-img

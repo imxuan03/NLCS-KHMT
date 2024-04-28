@@ -302,6 +302,9 @@ module.exports.createPost = async (req, res) => {
 
 // [GET] /admin/flights/edit/:id
 module.exports.edit = async (req, res) => {
+    
+    const flightRoutes = await FlightRoute.find({deleted:false});
+    
     const id = req.params.id;
 
     const record = await Flight.findOne({
@@ -312,6 +315,7 @@ module.exports.edit = async (req, res) => {
     res.render("admin/pages/flights/edit", {
         pageTitle: "Chỉnh sửa chuyến bay",
         record: record,
+        flightRoutes:flightRoutes,
     });
 }
 

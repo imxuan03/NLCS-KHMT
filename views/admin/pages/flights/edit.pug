@@ -75,13 +75,16 @@ block main
         .row 
             div(class="form-group col-6")
                 label(for="departureCity") Điểm khởi hành
-                input(
-                    type="text"
+                select(
                     class="form-control"
                     id="departureCity"
-                    name="departureCity" 
-                    value=record.departureCity   
-                )
+                    name="departureCity"      
+                )   
+                    each route in flightRoutes
+                        if record.departureCity == route.departureCity
+                            option(value=route.departureCity selected)= route.departureCity
+                        else 
+                            option(value=route.departureCity)= route.departureCity
             div(class="form-group col-3")
                 label(for="departureDate") Ngày khởi hành
                 input(
@@ -103,12 +106,10 @@ block main
         .row 
             div(class="form-group col-6")
                 label(for="arrivalCity") Điểm đến
-                input(
-                    type="text"
+                select(
                     class="form-control"
                     id="arrivalCity"
                     name="arrivalCity"      
-                    value=record.arrivalCity 
                 )
             div(class="form-group col-3")
                 label(for="arrivalDate") Ngày đến
@@ -201,5 +202,6 @@ block main
                 class="btn btn-primary"
             ) Cập nhật
 
-        
-        
+    script.
+        var flightRoutesData = !{JSON.stringify(flightRoutes)};
+        var arrivalCityData = !{JSON.stringify(record.arrivalCity)};

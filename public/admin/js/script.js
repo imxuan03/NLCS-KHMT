@@ -313,12 +313,68 @@ if (sort) {
 }
 // End Sort 
 
+//############################################################
+//Dropdown create flight admin điểm khởi hành và điểm đến
+
+// Bắt sự kiện khi người dùng thay đổi điểm khởi hành
+
+$('#departureCity').on('change', function () {
+    var selectedDepartureCity = $(this).val();
+    var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
+
+    // Xóa các options cũ
+    $('#arrivalCity').empty();
+
+    // Thêm các options mới cho điểm đến
+    selectedRoute.arrivalCity.forEach(function (arrivalCity) {
+        $('#arrivalCity').append($('<option>', {
+            value: arrivalCity,
+            text: arrivalCity
+        }));
+    });
+});
+
+let urlEditFlight = new URL(window.location.href);
+// Kiểm tra xem URL có chứa chuỗi "admin/flights/edit" không
+if (urlEditFlight.href.includes("admin/flights/edit")) {
+    $(document).ready(function () {
+        // Bắt sự kiện khi trang đã được tải
+        var selectedDepartureCity = $('#departureCity').val();
+        var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
+
+        // Xóa các options cũ
+        $('#arrivalCity').empty();
+
+        // Thêm các options mới cho điểm đến
+        selectedRoute.arrivalCity.forEach(function (arrivalCity) {
+
+            var option = $('<option>', {
+                value: arrivalCity,
+                text: arrivalCity
+            });
+
+            // Nếu là phần tử đầu tiên, thêm thuộc tính selected
+            if (arrivalCity===arrivalCityData) {
+                option.prop('selected', true);
+            }
+
+            $('#arrivalCity').append(option);
+
+
+        });
+    });
+}
+
+
+
+//end Dropdown create flight admin điểm khởi hành và điểm đến
+
 
 // //VND Price - adjust price format
 
-document.querySelectorAll('.vnd-price').forEach(function(element) {
+document.querySelectorAll('.vnd-price').forEach(function (element) {
     var vndPrice = element.innerText;
-    
+
     // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
 
     const VND = new Intl.NumberFormat('vi-VN', {
@@ -356,63 +412,39 @@ dateElements.forEach(dateElement => {
 
 //Create chuyến bay chọn lịch trình  theo tuần
 
-    //thêm ở nhiều thời gian khác nhau
+//thêm ở nhiều thời gian khác nhau
 
-    function addRow() {
-        var formContainer = document.getElementById('form-time-multi');
-        var clone = formContainer.firstElementChild.cloneNode(true); // Clone first row
-        // Clear input values in the cloned row
-        clone.querySelectorAll('input').forEach(function(input) {
-            input.value = '';
-        });
-        formContainer.appendChild(clone); // Append cloned row
-    }
-
-    // Function to remove the row when remove button is clicked
-    function removeRow(event) {
-        event.preventDefault();
-        var formContainer = document.getElementById('form-time-multi');
-        var rows = formContainer.getElementsByClassName('row');
-        if (rows.length > 1) {
-            event.target.parentNode.remove();
-        }
-    }
-
-    // Event listener for the add button
-    document.getElementById('addButton').addEventListener('click', function() {
-        addRow();
+function addRow() {
+    var formContainer = document.getElementById('form-time-multi');
+    var clone = formContainer.firstElementChild.cloneNode(true); // Clone first row
+    // Clear input values in the cloned row
+    clone.querySelectorAll('input').forEach(function (input) {
+        input.value = '';
     });
+    formContainer.appendChild(clone); // Append cloned row
+}
 
-    // Event delegation for remove button
-    document.addEventListener('click', function(event) {
-        if (event.target && event.target.classList.contains('removeButton')) {
-            removeRow(event);
-        }
-    });
+// Function to remove the row when remove button is clicked
+function removeRow(event) {
+    event.preventDefault();
+    var formContainer = document.getElementById('form-time-multi');
+    var rows = formContainer.getElementsByClassName('row');
+    if (rows.length > 1) {
+        event.target.parentNode.remove();
+    }
+}
+
+// Event listener for the add button
+document.getElementById('addButton').addEventListener('click', function () {
+    addRow();
+});
+
+// Event delegation for remove button
+document.addEventListener('click', function (event) {
+    if (event.target && event.target.classList.contains('removeButton')) {
+        removeRow(event);
+    }
+});
 
 //End Create chuyến bay chọn lịch trình theo tháng hay theo tuần
 
-
-
-
-//############################################################
-//Dropdown create flight admin điểm khởi hành và điểm đến
-
-// Bắt sự kiện khi người dùng thay đổi điểm khởi hành
-$('#departureCity').on('change', function() {
-    var selectedDepartureCity = $(this).val();
-    var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
-
-    // Xóa các options cũ
-    $('#arrivalCity').empty();
-
-    // Thêm các options mới cho điểm đến
-    selectedRoute.arrivalCity.forEach(function(arrivalCity) {
-        $('#arrivalCity').append($('<option>', {
-            value: arrivalCity,
-            text: arrivalCity
-        }));
-    });
-});
-
-//end Dropdown create flight admin điểm khởi hành và điểm đến

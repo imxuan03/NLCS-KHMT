@@ -161,18 +161,27 @@ body {
   margin-top: 15px;
   border-radius: 8px;
   padding: 25px 15px;
-  background-color: rgb(255, 211, 213);
+  background-color: #ffffff;
+    /* background-color: transparent; */
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 /* ------------------------ */
 .detail-price-flight{
   flex: 1;
   border-radius: 5px;
-  border: 1px solid black;
   height: fit-content;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  top: 60px;
+  position: relative;
 }
 
 .detail-price-flight-header{
   background: linear-gradient(107.2deg, rgb(237, 52, 52) 10.6%, rgb(247, 0, 0) 91.1%);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   display: flex;
   justify-content: center;
   color: white;
