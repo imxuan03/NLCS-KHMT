@@ -6,8 +6,8 @@ router.post('/add/:flightId', controller.addPost)
 
 router.get('/', controller.index)
 
-router.get('/delete/:flightId', controller.delete)
+router.get('/delete/:flightId/:typeTicket', controller.delete)
 
-router.get('/update/:flightId/:quantity', controller.update)
+router.get('/update/:flightId/:quantity/:typeTicket', controller.update)
 
 module.exports = router;

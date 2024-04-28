@@ -47,7 +47,7 @@ block main
                                         else 
                                             img(src="/images/avatarAlter/flightAlter.jpg", alt="Chuyến bay 1" width="80px")
                                     td 
-                                        a(href=`/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
+                                        a(href=`/home/detail/${item.flightInfor.slug}`) #{item.flightInfor.title}
                                     td 
                                         if(item.typeTicket=="firstPrice")
                                             p Hạng thương gia
@@ -75,12 +75,13 @@ block main
                                             value=item.quantity
                                             min="1"
                                             flight-id=item.flight_id
+                                            type-ticket=item.typeTicket
                                             style="width:60px"
                                         )
                                     td.vnd-price #{item.totalPrice}
                                     td 
                                         a(
-                                            href=`/cart/delete/${item.flight_id}`
+                                            href=`/cart/delete/${item.flight_id}/${item.typeTicket}`
                                             class="btn btn-danger"
                                         ) Xóa
                         else

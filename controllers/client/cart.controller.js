@@ -178,14 +178,15 @@ module.exports.delete = async (req, res) => {
     try {
         const cartId = req.cookies.cartId;
         const flightId = req.params.flightId;
+        const typeTicket = req.params.typeTicket;
 
         await Cart.updateOne(
             {
-                _id: cartId
+                _id: cartId,
             },
             {
                 //dùng để xóa 1 chuyến bay ra khỏi Cart
-                "$pull": { flights: { "flight_id": flightId } }
+                "$pull": { flights: { "flight_id": flightId, "typeTicket": typeTicket } }
             },
         );
 
@@ -205,11 +206,13 @@ module.exports.update = async (req, res) => {
         const cartId = req.cookies.cartId;
         const flightId = req.params.flightId;
         const quantity = req.params.quantity;
+        const typeTicket = req.params.typeTicket;
 
         await Cart.updateOne(
             {
                 _id: cartId,
-                'flights.flight_id': flightId
+                'flights.flight_id': flightId,
+                'flights.typeTicket': typeTicket
             },
             {
                 'flights.$.quantity': quantity
