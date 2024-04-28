@@ -257,7 +257,11 @@ module.exports.createPost = async (req, res) => {
 
 
                     const month = currentDate.getMonth() + 1
-                    let stringDateDepart = currentDate.getFullYear() + "-" + month + "-" + currentDate.getDate();
+                    const formattedMonth = month < 10 ? '0' + month : month;
+                    const day = currentDate.getDate();
+                    const formattedDay = day < 10 ? '0' + day : day
+
+                    let stringDateDepart = currentDate.getFullYear() + "-" + formattedMonth + "-" + formattedDay;
                     req.body.departureDate = stringDateDepart;
 
                     //tính xem giờ đến nó có thuộc ngày mới hay không
@@ -268,13 +272,20 @@ module.exports.createPost = async (req, res) => {
                         currentDateArrival.setDate(currentDateArrival.getDate() + 1);
 
                         const month = currentDateArrival.getMonth() + 1;
+                        const formattedMonth = month < 10 ? '0' + month : month;
+                        const day = currentDateArrival.getDate();
+                        const formattedDay = day < 10 ? '0' + day : day;
 
-                        stringDateArrival = currentDateArrival.getFullYear() + "-" + month + "-" + currentDateArrival.getDate();
+                        stringDateArrival = currentDateArrival.getFullYear() + "-" + formattedMonth + "-" + formattedDay;
                         req.body.arrivalDate = stringDateArrival;
                     } else {
                         //vẫn ngày đó
                         const month = currentDate.getMonth() + 1
-                        stringDateArrival = currentDate.getFullYear() + "-" + month + "-" + currentDate.getDate();
+                        const formattedMonth = month < 10 ? '0' + month : month;
+                        const day = currentDate.getDate();
+                        const formattedDay = day < 10 ? '0' + day : day;
+
+                        stringDateArrival = currentDate.getFullYear() + "-" + formattedMonth + "-" + formattedDay;
                         req.body.arrivalDate = stringDateArrival;
                     }
 
