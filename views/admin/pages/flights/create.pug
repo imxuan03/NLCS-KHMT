@@ -13,7 +13,7 @@ block main
         enctype="multipart/form-data"
     )
         div(class="form-group")
-            label(for="title") Chuyến bay
+            label(for="title") Chuyến bay *
             input(
                 type="text"
                 class="form-control col-8"
@@ -32,66 +32,68 @@ block main
             )
         .row
             div(class="form-group col-3")
-                label(for="firstPrice") Giá hạng thương gia
+                label(for="firstPrice") Giá hạng thương gia *
                 input(
                     type="number"
                     class="form-control"
                     id="firstPrice"
                     name="firstPrice"
-                    value="0"
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
-                label(for="ecoPrice") Giá hạng phổ thông
+                label(for="ecoPrice") Giá hạng phổ thông *
                 input(
                     type="number"
                     class="form-control"
                     id="ecoPrice"
                     name="ecoPrice"
-                    value="0"
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
-                label(for="businessPrice") Giá hạng kinh doanh
+                label(for="businessPrice") Giá hạng kinh doanh *
                 input(
                     type="number"
                     class="form-control"
                     id="businessPrice"
                     name="businessPrice"
-                    value="0"
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
-                label(for="vipPrice") Giá hạng VIP
+                label(for="vipPrice") Giá hạng VIP *
                 input(
                     type="number"
                     class="form-control"
                     id="vipPrice"
                     name="vipPrice"
-                    value="0"
                     min="0"
+                    required
                 )
         .row 
             div(class="form-group col-6")
-                label(for="departureCity") Điểm khởi hành
+                label(for="departureCity") Điểm khởi hành *
                 select(
                     class="form-control"
                     id="departureCity"
-                    name="departureCity"      
+                    name="departureCity"
+                    required      
                 )   
                     option(value="") 
                     each route in flightRoutes
                         option(value=route.departureCity)= route.departureCity
             div(class="form-group col-6")
-                label(for="arrivalCity") Điểm đến
+                label(for="arrivalCity") Điểm đến *
                 select(
                     class="form-control"
                     id="arrivalCity"
-                    name="arrivalCity"      
+                    name="arrivalCity"    
+                    required  
                 )
             
         div(class="form-group")
-            label(for="availableSeats") Loại máy bay
+            label(for="availableSeats") Loại máy bay *
             select(
                 class="form-control"
                 id="availableSeats"
@@ -173,37 +175,41 @@ block main
                 hr
                 .row
                     div(class="form-group col-5")
-                        label(for="startDateRepete" class="mr-3") Ngày có hiệu lực lực từ:
+                        label(for="startDateRepete" class="mr-3") Ngày có hiệu lực lực từ (*):
                         input(
                             type="date"
                             id="startDateRepete"
-                            name="startDateRepete"      
+                            name="startDateRepete" 
+                            required     
                         )
                     div(class="form-group col-5")
-                        label(for="endDateRepete" class="mr-3") Ngày hết hiệu lực:
+                        label(for="endDateRepete" class="mr-3") Ngày hết hiệu lực (*):
                         input(
                             type="date"
                             id="endDateRepete"
                             name="endDateRepete"      
+                            required
                         )
                 hr
                 div(id="form-time-multi")
                     .row(class="mb-3")
                         div(class="form-group col-3")
-                            label(for="departureTime") Thời gian khởi hành
+                            label(for="departureTime") Thời gian khởi hành *
                             input(
                                 type="time"
                                 class="form-control"
                                 id="departureTime"
-                                name="departureTime"      
+                                name="departureTime"    
+                                required  
                             )
                         div(class="form-group col-3")
-                            label(for="arrivalTime") Thời gian đến
+                            label(for="arrivalTime") Thời gian đến *
                             input(
                                 type="time"
                                 class="form-control"
                                 id="arrivalTime"
                                 name="arrivalTime"      
+                                required
                             )
                         <button class="removeButton btn btn-danger" type="button" >Xóa</button>
                 <button id="addButton" type="button" class="btn btn-primary" >Thêm</button>

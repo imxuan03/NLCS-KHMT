@@ -41,6 +41,7 @@ block main
                     name="firstPrice"
                     value=record.price[0].price
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
                 label(for="ecoPrice") Giá hạng phổ thông
@@ -51,6 +52,7 @@ block main
                     name="ecoPrice"
                     value=record.price[1].price
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
                 label(for="businessPrice") Giá hạng kinh doanh
@@ -61,6 +63,7 @@ block main
                     name="businessPrice"
                     value=record.price[2].price
                     min="0"
+                    required
                 )
             div(class="form-group col-3")
                 label(for="vipPrice") Giá hạng VIP
@@ -71,6 +74,7 @@ block main
                     name="vipPrice"
                     value=record.price[3].price
                     min="0"
+                    required
                 )
         .row 
             div(class="form-group col-6")
@@ -78,7 +82,8 @@ block main
                 select(
                     class="form-control"
                     id="departureCity"
-                    name="departureCity"      
+                    name="departureCity"   
+                    required   
                 )   
                     each route in flightRoutes
                         if record.departureCity == route.departureCity
@@ -92,7 +97,8 @@ block main
                     class="form-control"
                     id="departureDate"
                     name="departureDate"  
-                    value=record.departureDate       
+                    value=record.departureDate  
+                    required     
                 )
             div(class="form-group col-3")
                 label(for="departureTime") Thời gian khởi hành
@@ -101,7 +107,8 @@ block main
                     class="form-control"
                     id="departureTime"
                     name="departureTime"   
-                    value=record.departureTime      
+                    value=record.departureTime  
+                    required   
                 )
         .row 
             div(class="form-group col-6")
@@ -109,7 +116,8 @@ block main
                 select(
                     class="form-control"
                     id="arrivalCity"
-                    name="arrivalCity"      
+                    name="arrivalCity"    
+                    required  
                 )
             div(class="form-group col-3")
                 label(for="arrivalDate") Ngày đến
@@ -118,7 +126,8 @@ block main
                     class="form-control"
                     id="arrivalDate"
                     name="arrivalDate"  
-                    value=record.arrivalDate     
+                    value=record.arrivalDate  
+                    required   
                 )
             div(class="form-group col-3")
                 label(for="arrivalTime") Thời gian đến
@@ -128,6 +137,7 @@ block main
                     id="arrivalTime"
                     name="arrivalTime"      
                     value=record.arrivalTime
+                    required
                 )
             
         div(class="form-group" style="display:none;")
