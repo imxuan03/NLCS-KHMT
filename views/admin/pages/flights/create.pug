@@ -91,15 +91,18 @@ block main
                 )
             
         div(class="form-group")
-            label(for="availableSeats") Số lượng ghế
-            input(
-                type="number"
-                class="form-control col-3"
+            label(for="availableSeats") Loại máy bay
+            select(
+                class="form-control"
                 id="availableSeats"
-                name="availableSeats"
-                value="0"
-                min="0"      
+                name="availableSeats"  
+                style="width:300px"    
             )
+                option(value="200") Boeing 737 MAX 200 (200 ghế)
+                option(value="244") Airbus A321 (244 ghế)
+                option(value="244") Airbus A321 NEO (244 ghế)
+                option(value="180") Airbus A320 (180 ghế)
+                option(value="180") Airbus A320 NEO (180 ghế)
         div(
             class="form-group"
             upload-image
@@ -169,14 +172,14 @@ block main
                         <input type="checkbox" class="mr-2" id="sunday" name="sunday" value="sunday">
                 hr
                 .row
-                    div(class="form-group col-4")
+                    div(class="form-group col-5")
                         label(for="startDateRepete" class="mr-3") Ngày có hiệu lực lực từ:
                         input(
                             type="date"
                             id="startDateRepete"
                             name="startDateRepete"      
                         )
-                    div(class="form-group col-4")
+                    div(class="form-group col-5")
                         label(for="endDateRepete" class="mr-3") Ngày hết hiệu lực:
                         input(
                             type="date"

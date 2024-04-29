@@ -33,13 +33,13 @@ block main
                         each i in record.price 
                             if( i.price > 0 )
                                 if(i.priceName=="firstPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng thương gia: (Số ghế còn lại #{20-orderedQuantity.orderedFirstPriceQuantity})
+                                    p(style="margin:0;" class="text-danger") Giá hạng thương gia: (Số ghế còn lại #{numberOfTypeSeats.first-orderedQuantity.orderedFirstPriceQuantity})
                                 if(i.priceName=="ecoPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng phổ thông: (Số ghế còn lại #{150-orderedQuantity.orderedEcoPriceQuantity})
+                                    p(style="margin:0;" class="text-danger") Giá hạng phổ thông: (Số ghế còn lại #{numberOfTypeSeats.eco-orderedQuantity.orderedEcoPriceQuantity})
                                 if(i.priceName=="businessPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng kinh doanh: (Số ghế còn lại #{20-orderedQuantity.orderedBusinessPriceQuantity})
+                                    p(style="margin:0;" class="text-danger") Giá hạng kinh doanh: (Số ghế còn lại #{numberOfTypeSeats.business-orderedQuantity.orderedBusinessPriceQuantity})
                                 if(i.priceName=="vipPrice")
-                                    p(style="margin:0;" class="text-danger") Giá hạng VIP: (Số ghế còn lại #{10-orderedQuantity.orderedVipPriceQuantity})
+                                    p(style="margin:0;" class="text-danger") Giá hạng VIP: (Số ghế còn lại #{numberOfTypeSeats.vip-orderedQuantity.orderedVipPriceQuantity})
                                 p(style="margin:0;" class="vnd-price") #{i.price}
                     div(class="detail-price-flight-body-desc") Số lượng chỗ: #{record.availableSeats}
                     if(record.status)
@@ -66,13 +66,13 @@ block main
                         )
                         <label for="typeTicket">Chọn loại vé: </label>
                             <select name="typeTicket" id="typeTicket">
-                                if (orderedQuantity.orderedFirstPriceQuantity<20)
+                                if (orderedQuantity.orderedFirstPriceQuantity<numberOfTypeSeats.first)
                                     <option value="firstPrice">Thương gia</option>
-                                if (orderedQuantity.orderedEcoPriceQuantity<150)
+                                if (orderedQuantity.orderedEcoPriceQuantity<numberOfTypeSeats.eco)
                                     <option value="ecoPrice">Phổ thông</option>
-                                if (orderedQuantity.orderedBusinessPriceQuantity<20)
+                                if (orderedQuantity.orderedBusinessPriceQuantity<numberOfTypeSeats.business)
                                     <option value="businessPrice">Kinh doanh</option>
-                                if (orderedQuantity.orderedVipPriceQuantity<10)
+                                if (orderedQuantity.orderedVipPriceQuantity<numberOfTypeSeats.vip)
                                     <option value="vipPrice">VIP</option>
                         </select>
                         button(

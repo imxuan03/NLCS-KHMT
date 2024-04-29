@@ -71,6 +71,29 @@ module.exports.detail = async (req, res) => {
             status: "active"
         })
 
+        let numberOfTypeSeats = {
+            first: 0,
+            eco: 0, 
+            business: 0, 
+            vip: 0
+        } 
+        if(record.availableSeats == 200){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 150;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }else if(record.availableSeats == 244){
+            numberOfTypeSeats.first = 25;
+            numberOfTypeSeats.eco = 182;
+            numberOfTypeSeats.business = 25;
+            numberOfTypeSeats.vip = 12;
+        }else if(record.availableSeats == 180){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 130;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }
+
         // #####################################################################
         // ràng buộc số lượng vé khi add cart
         const orders = await Order.find({});
@@ -100,6 +123,7 @@ module.exports.detail = async (req, res) => {
             pageTitle: "Chi tiết sản phẩm",
             record:record,
             orderedQuantity:orderedQuantity,
+            numberOfTypeSeats:numberOfTypeSeats,
         })
     } catch (error) {
         res.redirect("/home")

@@ -65,6 +65,36 @@ module.exports.addPost = async (req, res) => {
             _id: cartId,
         });
 
+        //######################################################################
+        // Số lượng các loại vé 
+        // Boeing 737 MAX 200 của Vietjet Air : 200 (first: 20, eco: 150, business: 20, vip: 10)
+        // Airbus A321 và Airbus A321 neo của Vietjet Air: 244
+        // Airbus A320 và A320 neo của Vietjet Air: 180
+        const flight1 = await Flight.findOne({
+            _id: flightId,
+        })
+        let numberOfTypeSeats = {
+            first: 0,
+            eco: 0, 
+            business: 0, 
+            vip: 0
+        } 
+        if(flight1.availableSeats == 200){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 150;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }else if(flight1.availableSeats == 244){
+            numberOfTypeSeats.first = 25;
+            numberOfTypeSeats.eco = 182;
+            numberOfTypeSeats.business = 25;
+            numberOfTypeSeats.vip = 12;
+        }else if(flight1.availableSeats == 180){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 130;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }
         
         // #####################################################################
         // ràng buộc số lượng vé khi add cart
@@ -81,25 +111,25 @@ module.exports.addPost = async (req, res) => {
     
         });
         if(typeTicket == 'firstPrice'){
-            if(orderedQuantity+quantity>20){
+            if(orderedQuantity+quantity>numberOfTypeSeats.first){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'ecoPrice'){
-            if(orderedQuantity+quantity>150){
+            if(orderedQuantity+quantity>numberOfTypeSeats.eco){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'businessPrice'){
-            if(orderedQuantity+quantity>20){
+            if(orderedQuantity+quantity>numberOfTypeSeats.business){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'vipPrice'){
-            if(orderedQuantity+quantity>10){
+            if(orderedQuantity+quantity>numberOfTypeSeats.vip){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
@@ -210,6 +240,79 @@ module.exports.update = async (req, res) => {
         const quantity = req.params.quantity;
         const typeTicket = req.params.typeTicket;
 
+                //######################################################################
+        // Số lượng các loại vé 
+        // Boeing 737 MAX 200 của Vietjet Air : 200 (first: 20, eco: 150, business: 20, vip: 10)
+        // Airbus A321 và Airbus A321 neo của Vietjet Air: 244
+        // Airbus A320 và A320 neo của Vietjet Air: 180
+        const flight1 = await Flight.findOne({
+            _id: flightId,
+        })
+        let numberOfTypeSeats = {
+            first: 0,
+            eco: 0, 
+            business: 0, 
+            vip: 0
+        } 
+        if(flight1.availableSeats == 200){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 150;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }else if(flight1.availableSeats == 244){
+            numberOfTypeSeats.first = 25;
+            numberOfTypeSeats.eco = 182;
+            numberOfTypeSeats.business = 25;
+            numberOfTypeSeats.vip = 12;
+        }else if(flight1.availableSeats == 180){
+            numberOfTypeSeats.first = 20;
+            numberOfTypeSeats.eco = 130;
+            numberOfTypeSeats.business = 20;
+            numberOfTypeSeats.vip = 10;
+        }
+
+        // ràng buộc số lượng vé khi add cart
+        const orders = await Order.find({});
+
+        let orderedQuantity = 0;
+
+        orders.forEach(order => {
+            order.flights.forEach(flight => {
+                if(flight.typeTicket == typeTicket && flightId == flight.flight_id){
+                    orderedQuantity+= flight.quantity;
+                }
+            });
+    
+        });
+        if(typeTicket == 'firstPrice'){
+            if(orderedQuantity+quantity>numberOfTypeSeats.first){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'ecoPrice'){
+            if(orderedQuantity+quantity>numberOfTypeSeats.eco){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'businessPrice'){
+            if(orderedQuantity+quantity>numberOfTypeSeats.business){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }else if(typeTicket == 'vipPrice'){
+            if(orderedQuantity+quantity>numberOfTypeSeats.vip){
+                req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                res.redirect("back");
+                return;
+            }
+        }
+
+
+        //=================================================================
+
         await Cart.updateOne(
             {
                 _id: cartId,
@@ -227,4 +330,5 @@ module.exports.update = async (req, res) => {
         req.flash('error', `Đã xảy ra lỗi dữ liệu.`);
         res.redirect("back");
     }
+    
 }
