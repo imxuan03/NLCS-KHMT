@@ -4,19 +4,22 @@ const currentPath = window.location.pathname;
 
 // Lấy tất cả các đường link
 const links = document.querySelectorAll('.nav_header_link_active');
-// Lặp qua từng đường link
-links.forEach(link => {
-    // Lấy đường dẫn path từ href của đường link
-    const linkPath = link.getAttribute('href');
-    // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
-    if (currentPath.startsWith(linkPath)) {
-        // Nếu có, thêm class active-link
-        link.classList.add('active-link');
-    }
-    if( (currentPath.startsWith("/checkout"))  && linkPath==="/cart"){
-        link.classList.add('active-link');
-    }
-});
+if(links){
+    // Lặp qua từng đường link
+    links.forEach(link => {
+        // Lấy đường dẫn path từ href của đường link
+        const linkPath = link.getAttribute('href');
+        // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
+        if (currentPath.startsWith(linkPath)) {
+            // Nếu có, thêm class active-link
+            link.classList.add('active-link');
+        }
+        if ((currentPath.startsWith("/checkout")) && linkPath === "/cart") {
+            link.classList.add('active-link');
+        }
+    });
+}
+
 
 //End NAV Header
 
@@ -160,21 +163,25 @@ if(uploadImage){
     })
 }
 //end upload image
+const vndPriceFormat = document.querySelectorAll('.vnd-price');
+if(vndPriceFormat.length>0){
+    // //VND Price - adjust price format
+    vndPriceFormat.forEach(function (element) {
+        var vndPrice = element.innerText;
 
-// //VND Price - adjust price format
-document.querySelectorAll('.vnd-price').forEach(function(element) {
-    var vndPrice = element.innerText;
-    
-    // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
+        // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
 
-    const VND = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
+        const VND = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+
+        const newPrice = VND.format(vndPrice);
+        element.innerText = newPrice;
     });
 
-    const newPrice = VND.format(vndPrice);
-    element.innerText = newPrice;
-});
+}
+
 
 //end VND Price - adjust price format
 
@@ -183,19 +190,22 @@ document.querySelectorAll('.vnd-price').forEach(function(element) {
 //###########################################
 // Lấy tất cả các phần tử có class '.date-format'
 const dateElements = document.querySelectorAll('.date-format');
+if(dateElements.length>0){
+    dateElements.forEach(dateElement => {
+        // Lấy ngày tháng từ phần tử
+        const dateString = dateElement.textContent.trim();
+        // Tách thành phần ngày, tháng và năm
+        const [year, month, day] = dateString.split('-');
+        // Chuyển đổi tháng và ngày thành chuỗi và thêm số 0 nếu cần
+        const formattedMonth = month.length === 1 ? '0' + month : month;
+        const formattedDay = day.length === 1 ? '0' + day : day;
+        // Tạo chuỗi mới với định dạng mong muốn
+        const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+        // Gán chuỗi mới vào phần tử
+        dateElement.textContent = formattedDate;
+    });
+}
 // Lặp qua từng phần tử và thay đổi nội dung
-dateElements.forEach(dateElement => {
-    // Lấy ngày tháng từ phần tử
-    const dateString = dateElement.textContent.trim();
-    // Tách thành phần ngày, tháng và năm
-    const [year, month, day] = dateString.split('-');
-    // Chuyển đổi tháng và ngày thành chuỗi và thêm số 0 nếu cần
-    const formattedMonth = month.length === 1 ? '0' + month : month;
-    const formattedDay = day.length === 1 ? '0' + day : day;
-    // Tạo chuỗi mới với định dạng mong muốn
-    const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
-    // Gán chuỗi mới vào phần tử
-    dateElement.textContent = formattedDate;
-});
+
 //###########################################
 //end format date

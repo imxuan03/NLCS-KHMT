@@ -6,18 +6,65 @@ const currentPath = window.location.pathname;
 // Lấy tất cả các đường link
 const links = document.querySelectorAll('.inner-menu ul li a');
 
-// Lặp qua từng đường link
-links.forEach(link => {
-    // Lấy đường dẫn path từ href của đường link
-    const linkPath = link.getAttribute('href');
-    // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
-    if (currentPath.startsWith(linkPath)) {
-        // Nếu có, thêm class active-link
-        link.classList.add('active-link');
-    }
-});
+if (links) {
+    // Lặp qua từng đường link
+    links.forEach(link => {
+        // Lấy đường dẫn path từ href của đường link
+        const linkPath = link.getAttribute('href');
+        // Kiểm tra xem đường dẫn path hiện tại có bắt đầu bằng đường dẫn path của đường link hay không
+        if (currentPath.startsWith(linkPath)) {
+            // Nếu có, thêm class active-link
+            link.classList.add('active-link');
+        }
+    });
+}
 
 //End Sider
+
+
+//Thống kê Statistic
+const statisticTimeButton = document.querySelectorAll("[button-statistic]")
+
+if (statisticTimeButton.length > 0) {
+
+    let url = new URL(window.location.href);
+
+    statisticTimeButton.forEach(button => {
+        if (!url.href.includes("statistic")) {
+            url.searchParams.set("statistictime", 3);
+            //chuyển hướng theo url đó
+            window.location.href = url.href;
+        }
+
+        button.addEventListener("click", () => {
+            const monthNumber = button.getAttribute("button-statistic");
+
+            url.searchParams.set("statistictime", monthNumber);
+
+            //chuyển hướng theo url đó
+            window.location.href = url.href;
+
+        });
+
+
+        //=====================
+        const monthNumber = button.getAttribute("button-statistic");
+
+        // Kiểm tra nếu giá trị của tham số "statistictime" trong URL khớp với giá trị của nút
+        if (url.searchParams.get("statistictime") === monthNumber) {
+            // Nếu khớp, thêm lớp btn-info
+            button.classList.add("btn-info");
+        } else {
+            // Nếu không khớp, xóa lớp btn-info (nếu có)
+            button.classList.remove("btn-info");
+        }
+
+
+
+
+    });
+}
+//End Thống kê Statistic
 
 
 // Button Status 
@@ -317,22 +364,26 @@ if (sort) {
 //Dropdown create flight admin điểm khởi hành và điểm đến
 
 // Bắt sự kiện khi người dùng thay đổi điểm khởi hành
+const departureCityCreate = document.getElementById("departureCity");
+if (departureCityCreate) {
+    $('#departureCity').on('change', function () {
+        var selectedDepartureCity = $(this).val();
+        var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
 
-$('#departureCity').on('change', function () {
-    var selectedDepartureCity = $(this).val();
-    var selectedRoute = flightRoutesData.find(route => route.departureCity === selectedDepartureCity);
+        // Xóa các options cũ
+        $('#arrivalCity').empty();
 
-    // Xóa các options cũ
-    $('#arrivalCity').empty();
-
-    // Thêm các options mới cho điểm đến
-    selectedRoute.arrivalCity.forEach(function (arrivalCity) {
-        $('#arrivalCity').append($('<option>', {
-            value: arrivalCity,
-            text: arrivalCity
-        }));
+        // Thêm các options mới cho điểm đến
+        selectedRoute.arrivalCity.forEach(function (arrivalCity) {
+            $('#arrivalCity').append($('<option>', {
+                value: arrivalCity,
+                text: arrivalCity
+            }));
+        });
     });
-});
+}
+
+
 
 let urlEditFlight = new URL(window.location.href);
 // Kiểm tra xem URL có chứa chuỗi "admin/flights/edit" không
@@ -354,7 +405,7 @@ if (urlEditFlight.href.includes("admin/flights/edit")) {
             });
 
             // Nếu là phần tử đầu tiên, thêm thuộc tính selected
-            if (arrivalCity===arrivalCityData) {
+            if (arrivalCity === arrivalCityData) {
                 option.prop('selected', true);
             }
 
@@ -372,19 +423,23 @@ if (urlEditFlight.href.includes("admin/flights/edit")) {
 
 // //VND Price - adjust price format
 
-document.querySelectorAll('.vnd-price').forEach(function (element) {
-    var vndPrice = element.innerText;
+const vndPriceFormat = document.querySelectorAll('.vnd-price')
+if (vndPriceFormat.length > 0) {
+    vndPriceFormat.forEach(function (element) {
+        var vndPrice = element.innerText;
 
-    // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
+        // Thực hiện các thay đổi định dạng ở đây cho mỗi phần tử
 
-    const VND = new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND',
+        const VND = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+
+        const newPrice = VND.format(vndPrice);
+        element.innerText = newPrice;
     });
+}
 
-    const newPrice = VND.format(vndPrice);
-    element.innerText = newPrice;
-});
 
 //end VND Price - adjust price format
 
@@ -393,20 +448,23 @@ document.querySelectorAll('.vnd-price').forEach(function (element) {
 //###########################################
 // Lấy tất cả các phần tử có class '.date-format'
 const dateElements = document.querySelectorAll('.date-format');
-// Lặp qua từng phần tử và thay đổi nội dung
-dateElements.forEach(dateElement => {
-    // Lấy ngày tháng từ phần tử
-    const dateString = dateElement.textContent.trim();
-    // Tách thành phần ngày, tháng và năm
-    const [year, month, day] = dateString.split('-');
-    // Chuyển đổi tháng và ngày thành chuỗi và thêm số 0 nếu cần
-    const formattedMonth = month.length === 1 ? '0' + month : month;
-    const formattedDay = day.length === 1 ? '0' + day : day;
-    // Tạo chuỗi mới với định dạng mong muốn
-    const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
-    // Gán chuỗi mới vào phần tử
-    dateElement.textContent = formattedDate;
-});
+if (dateElements) {
+    // Lặp qua từng phần tử và thay đổi nội dung
+    dateElements.forEach(dateElement => {
+        // Lấy ngày tháng từ phần tử
+        const dateString = dateElement.textContent.trim();
+        // Tách thành phần ngày, tháng và năm
+        const [year, month, day] = dateString.split('-');
+        // Chuyển đổi tháng và ngày thành chuỗi và thêm số 0 nếu cần
+        const formattedMonth = month.length === 1 ? '0' + month : month;
+        const formattedDay = day.length === 1 ? '0' + day : day;
+        // Tạo chuỗi mới với định dạng mong muốn
+        const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
+        // Gán chuỗi mới vào phần tử
+        dateElement.textContent = formattedDate;
+    });
+}
+
 //###########################################
 //end format date
 
@@ -435,16 +493,19 @@ function removeRow(event) {
 }
 
 // Event listener for the add button
-document.getElementById('addButton').addEventListener('click', function () {
-    addRow();
-});
+const addButtonCreateTime = document.getElementById('addButton');
+if (addButtonCreateTime) {
+    addButtonCreateTime.addEventListener('click', function () {
+        addRow();
+    });
+}
+
 
 // Event delegation for remove button
 document.addEventListener('click', function (event) {
     if (event.target && event.target.classList.contains('removeButton')) {
         removeRow(event);
     }
-});
-
+})
 //End Create chuyến bay chọn lịch trình theo tháng hay theo tuần
 

@@ -13,6 +13,7 @@ block main
             border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding : 30px 20px;
+            width:30%;
         }
         .form-component-box p{
             font-weight: bold;
@@ -35,24 +36,31 @@ block main
             padding:20px 10px;
             margin-top: 20px;
         }
+        .chart-number-ordered button{
+            border-color: blue;
+        }
+        .vnd-price{
+            font-weight:600;
+            font-size:16px
+        }
     
     .container 
-        .row(style="justify-content: space-around;")
-            .col-3.form-component-box
+        .row(style="justify-content: space-between;")
+            .form-component-box
                 div.d-flex.flex-row.align-items-center
                     div 
                         <i class="fa-solid fa-chart-simple"></i>
                     div 
                         p Số lượng chuyến bay
                         p(style="color: black;") #{numberOfFlight} (đang hoạt động)
-            .col-3.form-component-box
+            .form-component-box
                 div.d-flex.flex-row.align-items-center
                     div 
                         <i class="fa-solid fa-shop"></i>
                     div 
                         p Số lượng vé được đặt
                         p(style="color: black;") #{quantityTicketFLightOrdered}
-            .col-3.form-component-box
+            .form-component-box
                 div.d-flex.flex-row.align-items-center
                     div 
                         <i class="fa-solid fa-user"></i>
@@ -60,10 +68,28 @@ block main
                         p Số lượng hội viên
                         p(style="color: black;") #{numberOfUser}
 
-        .row.justify-content-center
-            .col-11.chart-number-ordered
-                h5 Số lượng đặt vé theo loại ghế
+        .row.justify-content-center.chart-number-ordered
+            .col-10
+                div 
+                    button(class="btn m-2" button-statistic=3) 3 tháng gần nhất
+                    button(class="btn m-2" button-statistic=6) 6 tháng gần nhất 
+                    button(class="btn m-2" button-statistic=12) 1 năm gần nhất
+                h5 Số lượng đặt vé theo loại hạng ghế bay
                 canvas(id="myChart")
+                h5.m-2 Doanh thu theo từng loại hạng ghế bay
+        .row.justify-content-center.chart-number-ordered
+            div.col-3.text-center 
+                span Hạng thương gia: 
+                span.vnd-price #{totalPriceTypeTicketFlightOrdered.first}
+            div.col-3.text-center  
+                span Hạng thương gia: 
+                span.vnd-price #{totalPriceTypeTicketFlightOrdered.eco}
+            div.col-3.text-center  
+                span Hạng thương gia: 
+                span.vnd-price #{totalPriceTypeTicketFlightOrdered.business}
+            div.col-3.text-center  
+                span Hạng thương gia: 
+                span.vnd-price #{totalPriceTypeTicketFlightOrdered.vip}
 
 
     script.
