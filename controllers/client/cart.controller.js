@@ -59,6 +59,8 @@ module.exports.addPost = async (req, res) => {
         const quantity = parseInt(req.body.quantity);
         const typeTicket = req.body.typeTicket;
 
+        
+
         const cart = await Cart.findOne({
             _id: cartId,
         });

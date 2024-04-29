@@ -5,5 +5,111 @@ block main
 
     +alert-success(4000)
     +alert-error(4000)
+
+    style. 
+        .form-component-box{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding : 30px 20px;
+        }
+        .form-component-box p{
+            font-weight: bold;
+            color: #7f7f7f;
+            margin:0;
+        }
+
+        .form-component-box i{
+            padding: 10px;
+            background-color: #e5e5e5;
+            border-radius: 50%;
+            margin-right: 12px;
+            color: #09b4d2;
+        }
+        .chart-number-ordered{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding:20px 10px;
+            margin-top: 20px;
+        }
     
-    h2(class="mb-4") Trang tong quan
+    .container 
+        .row(style="justify-content: space-around;")
+            .col-3.form-component-box
+                div.d-flex.flex-row.align-items-center
+                    div 
+                        <i class="fa-solid fa-chart-simple"></i>
+                    div 
+                        p Số lượng chuyến bay
+                        p(style="color: black;") #{numberOfFlight} (đang hoạt động)
+            .col-3.form-component-box
+                div.d-flex.flex-row.align-items-center
+                    div 
+                        <i class="fa-solid fa-shop"></i>
+                    div 
+                        p Số lượng vé được đặt
+                        p(style="color: black;") #{quantityTicketFLightOrdered}
+            .col-3.form-component-box
+                div.d-flex.flex-row.align-items-center
+                    div 
+                        <i class="fa-solid fa-user"></i>
+                    div 
+                        p Số lượng hội viên
+                        p(style="color: black;") #{numberOfUser}
+
+        .row.justify-content-center
+            .col-11.chart-number-ordered
+                h5 Số lượng đặt vé theo loại ghế
+                canvas(id="myChart")
+
+
+    script.
+        // Get chart canvas element
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Create chart using data passed from server
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: !{JSON.stringify(chartData)}, // Sử dụng JSON.stringify để chuyển đổi đối tượng JavaScript thành chuỗi JSON
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Tắt hiển thị chú thích nếu không cần thiết
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 10, // Điều chỉnh khoảng cách bên trái biểu đồ
+                        right: 10, // Điều chỉnh khoảng cách bên phải biểu đồ
+                        top: 10, // Điều chỉnh khoảng cách phía trên biểu đồ
+                        bottom: 10 // Điều chỉnh khoảng cách phía dưới biểu đồ
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false // Tắt hiển thị lưới trên trục x nếu không cần thiết
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1 // Đặt bước chia thành 1 để hiển thị số nguyên trên trục y
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderRadius: 10 // Điều chỉnh bán kính góc của cột
+                    }
+                },
+            }
+        });

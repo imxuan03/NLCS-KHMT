@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "chart.js": "^3.9.1",
+    "chartjs-node-canvas": "^4.1.6",
     "cookie-parser": "^1.4.6",
     "date-fns": "^3.6.0",
     "dotenv": "^16.3.1",
@@ -27,6 +29,7 @@
     "node-cron": "^3.0.3",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.9",
+    "plotly": "^1.0.6",
     "pug": "^3.0.2",
     "session": "^0.1.0",
     "tinymce": "^6.8.2"
