@@ -4,7 +4,9 @@ const Order = require("../../models/order.model");
 
 // [GET] /cart
 module.exports.index = async (req, res) => {
+    
     try {
+        // res.redirect("/cart");
         const cartId = req.cookies.cartId;
 
         const cart = await Cart.findOne({
@@ -34,6 +36,126 @@ module.exports.index = async (req, res) => {
                     price = item.flightInfor.price[3].price;
                 }
                 item.price = price;
+
+                //=======================================================
+                //#######################################################
+                // Ràng buộc quantity 
+                let numberOfTypeSeats = {
+                    first: 0,
+                    eco: 0,
+                    business: 0,
+                    vip: 0
+                }
+                if (flightInfor.availableSeats == 200) {
+                    numberOfTypeSeats.first = 20;
+                    numberOfTypeSeats.eco = 150;
+                    numberOfTypeSeats.business = 20;
+                    numberOfTypeSeats.vip = 10;
+                } else if (flightInfor.availableSeats == 244) {
+                    numberOfTypeSeats.first = 25;
+                    numberOfTypeSeats.eco = 182;
+                    numberOfTypeSeats.business = 25;
+                    numberOfTypeSeats.vip = 12;
+                } else if (flightInfor.availableSeats == 180) {
+                    numberOfTypeSeats.first = 20;
+                    numberOfTypeSeats.eco = 130;
+                    numberOfTypeSeats.business = 20;
+                    numberOfTypeSeats.vip = 10;
+                }
+                //============================
+                const orders = await Order.find({});
+
+                let orderedQuantity = 0;
+
+                orders.forEach(order => {
+                    order.flights.forEach(flight => {
+                        if (flight.typeTicket == item.typeTicket && item.flight_id == flight.flight_id) {
+                            orderedQuantity += flight.quantity;
+                        }
+                    });
+
+                });
+                
+                if (item.typeTicket == 'firstPrice') {
+                    if (orderedQuantity + item.quantity > numberOfTypeSeats.first) {
+                        const availableSeatsOrder = numberOfTypeSeats.first-orderedQuantity;
+                        
+                        await Cart.updateOne(
+                            {
+                                _id: cartId,
+                                'flights.flight_id': item.flight_id,
+                                'flights.typeTicket': item.typeTicket
+                            },
+                            {
+                                'flights.$.quantity': availableSeatsOrder
+                            }
+                        );
+                        // req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                        res.redirect("back");
+                        // return;
+                    }
+                } else if (item.typeTicket == 'ecoPrice') {
+                    if (orderedQuantity + item.quantity > numberOfTypeSeats.eco) {
+                        const availableSeatsOrder = numberOfTypeSeats.eco-orderedQuantity;
+                        
+                        await Cart.updateOne(
+                            {
+                                _id: cartId,
+                                'flights.flight_id': item.flight_id,
+                                'flights.typeTicket': item.typeTicket
+                            },
+                            {
+                                'flights.$.quantity': availableSeatsOrder
+                            }
+                        );
+                        // req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                        // res.redirect("back");
+                        // return;
+                    }
+                } else if (item.typeTicket == 'businessPrice') {
+                    if (orderedQuantity + item.quantity > numberOfTypeSeats.business) {
+                        const availableSeatsOrder = numberOfTypeSeats.business-orderedQuantity;
+                        
+                        await Cart.updateOne(
+                            {
+                                _id: cartId,
+                                'flights.flight_id': item.flight_id,
+                                'flights.typeTicket': item.typeTicket
+                            },
+                            {
+                                'flights.$.quantity': availableSeatsOrder
+                            }
+                        );
+                        // req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                        // res.redirect("back");
+                        // return;
+                    }
+                } else if (item.typeTicket == 'vipPrice') {
+                    if (orderedQuantity + item.quantity > numberOfTypeSeats.vip) {
+                        const availableSeatsOrder = numberOfTypeSeats.vip-orderedQuantity;
+                        
+                        await Cart.updateOne(
+                            {
+                                _id: cartId,
+                                'flights.flight_id': item.flight_id,
+                                'flights.typeTicket': item.typeTicket
+                            },
+                            {
+                                'flights.$.quantity': availableSeatsOrder
+                            }
+                        );
+                        // req.flash('error', `Số lượng ghế không hợp lệ!.`);
+                        // res.redirect("back");
+                        // return;
+                    }
+                }
+
+
+                // item.quantity = 9;
+
+                //=======================================================
+                //#######################################################
+
                 item.totalPrice = item.quantity * price;
             }
         }
@@ -110,26 +232,37 @@ module.exports.addPost = async (req, res) => {
             });
     
         });
+
+        
+        // Số lượng trong card 
+        let numberFlightInCard = 0 ;
+        cart.flights.forEach(flight => {
+            if(flight.typeTicket == typeTicket && flightId == flight.flight_id){
+                numberFlightInCard+= flight.quantity;
+            }
+        });
+        
+
         if(typeTicket == 'firstPrice'){
-            if(orderedQuantity+quantity>numberOfTypeSeats.first){
+            if(orderedQuantity+quantity+numberFlightInCard>numberOfTypeSeats.first){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'ecoPrice'){
-            if(orderedQuantity+quantity>numberOfTypeSeats.eco){
+            if(orderedQuantity+quantity+numberFlightInCard>numberOfTypeSeats.eco){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'businessPrice'){
-            if(orderedQuantity+quantity>numberOfTypeSeats.business){
+            if(orderedQuantity+quantity+numberFlightInCard>numberOfTypeSeats.business){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
             }
         }else if(typeTicket == 'vipPrice'){
-            if(orderedQuantity+quantity>numberOfTypeSeats.vip){
+            if(orderedQuantity+quantity+numberFlightInCard>numberOfTypeSeats.vip){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
                 res.redirect("back");
                 return;
@@ -237,7 +370,7 @@ module.exports.update = async (req, res) => {
     try {
         const cartId = req.cookies.cartId;
         const flightId = req.params.flightId;
-        const quantity = req.params.quantity;
+        const quantity = parseInt(req.params.quantity);
         const typeTicket = req.params.typeTicket;
 
                 //######################################################################
@@ -284,6 +417,7 @@ module.exports.update = async (req, res) => {
             });
     
         });
+        
         if(typeTicket == 'firstPrice'){
             if(orderedQuantity+quantity>numberOfTypeSeats.first){
                 req.flash('error', `Số lượng ghế không hợp lệ!.`);
