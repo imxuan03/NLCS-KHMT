@@ -91,7 +91,7 @@ module.exports.index = async (req, res) => {
                             }
                         );
                         // req.flash('error', `Số lượng ghế không hợp lệ!.`);
-                        res.redirect("back");
+                        // res.redirect("back");
                         // return;
                     }
                 } else if (item.typeTicket == 'ecoPrice') {
@@ -329,7 +329,7 @@ module.exports.addPost = async (req, res) => {
             );
 
         }
-        req.flash('success', 'Đặt vé thành công!');
+        req.flash('success', 'Thêm vé vào giỏ hàng thành công!');
         res.redirect(`/cart`);
     } catch (error) {
         req.flash('error', `Đã xảy ra lỗi dữ liệu.`);

@@ -26,3 +26,9 @@ module.exports.cartId = async (req, res, next) => {
 
     next();
 }
+
+
+module.exports.reload = async (req, res, next) => {
+
+    next();
+}
