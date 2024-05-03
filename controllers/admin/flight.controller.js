@@ -141,6 +141,8 @@ module.exports.create = async (req, res) => {
 module.exports.createPost = async (req, res) => {
     try {
 
+        req.body.title = req.body.departureCity + " - " + req.body.arrivalCity;
+
         //gọi từ Helper price
         let price = priceHelper(req.body);
 

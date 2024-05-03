@@ -12,16 +12,37 @@ block main
         method="POST"
         enctype="multipart/form-data"
     )
-        div(class="form-group")
-            label(for="title") Chuyến bay *
-            input(
-                type="text"
-                class="form-control col-8"
-                id="title"
-                name="title"
-                placeholder="TP HCM - Cần Thơ"
-                required
-            )
+        //- div(class="form-group")
+        //-     label(for="title") Chuyến bay *
+        //-     input(
+        //-         type="text"
+        //-         class="form-control col-8"
+        //-         id="title"
+        //-         name="title"
+        //-         placeholder="TP HCM - Cần Thơ"
+        //-         required
+        //-     )
+        .row 
+            div(class="form-group col-6")
+                label(for="departureCity") Điểm khởi hành *
+                select(
+                    class="form-control"
+                    id="departureCity"
+                    name="departureCity"
+                    required      
+                )   
+                    option(value="") 
+                    each route in flightRoutes
+                        option(value=route.departureCity)= route.departureCity
+            div(class="form-group col-6")
+                label(for="arrivalCity") Điểm đến *
+                select(
+                    class="form-control"
+                    id="arrivalCity"
+                    name="arrivalCity"    
+                    required  
+                )
+
         div(class="form-group")
             label(for="desc") Mô tả
             textarea(
@@ -70,26 +91,6 @@ block main
                     name="vipPrice"
                     min="0"
                     required
-                )
-        .row 
-            div(class="form-group col-6")
-                label(for="departureCity") Điểm khởi hành *
-                select(
-                    class="form-control"
-                    id="departureCity"
-                    name="departureCity"
-                    required      
-                )   
-                    option(value="") 
-                    each route in flightRoutes
-                        option(value=route.departureCity)= route.departureCity
-            div(class="form-group col-6")
-                label(for="arrivalCity") Điểm đến *
-                select(
-                    class="form-control"
-                    id="arrivalCity"
-                    name="arrivalCity"    
-                    required  
                 )
             
         div(class="form-group")
