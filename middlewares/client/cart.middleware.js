@@ -29,7 +29,7 @@ module.exports.cartId = async (req, res, next) => {
     next();
 }
 
-
+//update lại số lượng của chuyến bay giỏ hàng 
 module.exports.reload = async (req, res, next) => {
 
     const cartId = req.cookies.cartId;
@@ -102,9 +102,6 @@ module.exports.reload = async (req, res, next) => {
                             'flights.$.quantity': availableSeatsOrder
                         }
                     );
-                    // req.flash('error', `Số lượng ghế không hợp lệ!.`);
-                    // res.redirect("back");
-                    // return;
                 }
             } else if (item.typeTicket == 'ecoPrice') {
                 if (orderedQuantity + item.quantity > numberOfTypeSeats.eco) {
@@ -120,9 +117,6 @@ module.exports.reload = async (req, res, next) => {
                             'flights.$.quantity': availableSeatsOrder
                         }
                     );
-                    // req.flash('error', `Số lượng ghế không hợp lệ!.`);
-                    // res.redirect("back");
-                    // return;
                 }
             } else if (item.typeTicket == 'businessPrice') {
                 if (orderedQuantity + item.quantity > numberOfTypeSeats.business) {
@@ -138,9 +132,6 @@ module.exports.reload = async (req, res, next) => {
                             'flights.$.quantity': availableSeatsOrder
                         }
                     );
-                    // req.flash('error', `Số lượng ghế không hợp lệ!.`);
-                    // res.redirect("back");
-                    // return;
                 }
             } else if (item.typeTicket == 'vipPrice') {
                 if (orderedQuantity + item.quantity > numberOfTypeSeats.vip) {
@@ -156,9 +147,6 @@ module.exports.reload = async (req, res, next) => {
                             'flights.$.quantity': availableSeatsOrder
                         }
                     );
-                    // req.flash('error', `Số lượng ghế không hợp lệ!.`);
-                    // res.redirect("back");
-                    // return;
                 }
             }
         }

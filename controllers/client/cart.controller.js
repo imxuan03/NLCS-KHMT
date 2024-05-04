@@ -6,7 +6,6 @@ const Order = require("../../models/order.model");
 module.exports.index = async (req, res) => {
     
     try {
-        // res.redirect("/cart");
         const cartId = req.cookies.cartId;
 
         const cart = await Cart.findOne({
