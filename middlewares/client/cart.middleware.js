@@ -153,3 +153,26 @@ module.exports.reload = async (req, res, next) => {
     }
     next();
 }
+
+
+
+module.exports.checkDayAddFlight = async (req, res, next) => {
+
+    const flightId = req.params.flightId;
+    
+    const flight = await Flight.findById(flightId);
+
+    const departureDate = new Date(flight.departureDate);
+
+    const currentDate = new Date();
+
+    // Ngày hiện tại sau ngày khởi hành
+    if (currentDate > departureDate) {
+        console.log("Ngày hiện tại sau ngày khởi hành");
+        req.flash('error', `Không thể thực hiện đặt chuyến bay vì chuyến bay đã cất cánh!.`);
+        res.redirect("back");
+        return;
+    }
+
+    next();
+}

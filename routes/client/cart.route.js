@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../../controllers/client/cart.controller")
 const cartMiddleWare = require("../../middlewares/client/cart.middleware")
 
-router.post('/add/:flightId', controller.addPost)
+router.post('/add/:flightId',cartMiddleWare.checkDayAddFlight, controller.addPost)
 
 router.get('/',cartMiddleWare.reload, controller.index)
 

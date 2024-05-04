@@ -2,6 +2,9 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
+    +alert-success(5000)
+    +alert-error(5000)
+    
     style. 
         .table-information{
             background-color: #ffffff;
