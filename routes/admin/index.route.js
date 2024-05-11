@@ -2,6 +2,7 @@ const systemConfig = require("../../config/system")
 
 const authMiddleware = require("../../middlewares/admin/auth.middleware");
 const authAdminMiddleware = require("../../middlewares/admin/authAdmin.middleware");
+const flightMiddleware = require("../../middlewares/admin/flight.middleware");
 
 
 const dashboardRoutes = require("./dashboard.route")
@@ -26,6 +27,7 @@ module.exports = (app)=>{
     app.use(
         PATH_ADMIN+"/flights",
         authMiddleware.requireAuth, 
+        flightMiddleware.checkStatusFlight,
         flightRoutes
     );
     app.use(PATH_ADMIN+"/accounts",
