@@ -120,19 +120,20 @@ block main
                                         name="position"
                                     ) 
                                 td 
-                                    a(
-                                        href=`/${prefixAdmin}/flights/detail/${item.id}`
-                                        class="btn btn-secondary btn-sm mr-1"
-                                    ) Chi tiết
-                                    a(
-                                        href=`/${prefixAdmin}/flights/edit/${item.id}`
-                                        class="btn btn-warning btn-sm"
-                                    ) Sửa
-                                    button(
-                                        class="btn btn-danger btn-sm ml-1"
-                                        button-delete 
-                                        data-id = item.id
-                                    ) Xóa 
+                                    div(style="display: flex; flex-direction: column;gap: 5px;")
+                                        a(
+                                            href=`/${prefixAdmin}/flights/detail/${item.id}`
+                                            class="btn btn-secondary btn-sm"
+                                        ) Chi tiết
+                                        a(
+                                            href=`/${prefixAdmin}/flights/edit/${item.id}`
+                                            class="btn btn-warning btn-sm"
+                                        ) Sửa
+                                        button(
+                                            class="btn btn-danger btn-sm"
+                                            button-delete 
+                                            data-id = item.id
+                                        ) Xóa 
 
                     else 
                         tr 

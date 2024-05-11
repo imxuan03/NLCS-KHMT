@@ -49,6 +49,13 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 // Routes 
 route(app);
 routeAdmin(app);
+
+//route cho trang 404 not found
+app.get("*", (req, res)=>{
+  res.render("admin/pages/notfound/404",{
+    pageTitle: "404 Not Found",
+  });
+});
 // End Routes 
 
 app.listen(port, () => {

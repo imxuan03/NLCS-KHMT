@@ -9,7 +9,9 @@ module.exports.requireAuthAdmin = async (req, res, next) => {
 
     if(user.role_id != "admin"){
         req.flash('error', `Chỉ có tài khoản Quản Trị Viên được truy cập!`);
-        res.redirect(`/${systemConfig.prefixAdmin}/dashboard`);
+        res.render("admin/pages/notfound/accessdenied.pug",{
+            pageTitle: "Truy cập bị từ chối",
+        });
         return;
     }
 
