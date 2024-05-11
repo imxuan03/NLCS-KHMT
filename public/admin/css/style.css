@@ -95,6 +95,20 @@ body {
   z-index: 9999;
 }
 
+
+  .alert-success{
+    background-color: #70b771;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .alert-danger{
+    background-color: #c95e53;
+    color: #fff;
+    font-weight: 600;
+  }
+
+
 [show-alert].alert-hidden{
   animation-name: alert-hidden;
   animation-duration: 0.5s;;
@@ -111,7 +125,7 @@ body {
 }
 
 [show-alert] [close-alert]{
-  background: #ffffffc4;
+  /* background: #ffffffc4; */
   display: inline-block;
   width: 24px;
   height: 24px;
