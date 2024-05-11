@@ -12,7 +12,7 @@ const md5 = require("md5");
 module.exports.register =  (req, res) => {
     
     res.render('client/pages/user/register', {
-        pageTitle: "Đăng ký tài khoản"
+        pageTitle: "Vietjet Air | Đăng ký tài khoản"
     })
 }
 
@@ -70,7 +70,7 @@ module.exports.registerPost = async  (req, res) => {
 module.exports.login =  (req, res) => {
     
     res.render('client/pages/user/login', {
-        pageTitle: "Đăng nhập tài khoản"
+        pageTitle: "Vietjet Air | Đăng nhập tài khoản"
     })
 }
 
@@ -122,7 +122,7 @@ module.exports.logout =  (req, res) => {
 // [GET] /user/password/forgot
 module.exports.forgotPassword =  (req, res) => {
     res.render('client/pages/user/forgot-password', {
-        pageTitle: "Quên mật khẩu"
+        pageTitle: "Vietjet Air | Quên mật khẩu"
     })
 }
 
@@ -171,7 +171,7 @@ module.exports.otpPassword =  (req, res) => {
     const email = req.query.email;
 
     res.render("client/pages/user/otp-password",{
-        pageTitle: "Nhập mã OTP",
+        pageTitle: "Vietjet Air | Nhập mã OTP",
         email:email
     });
 }
@@ -205,7 +205,7 @@ module.exports.otpPasswordPost = async (req, res) => {
 module.exports.resetPassword = async  (req, res) => {
   
     res.render("client/pages/user/reset-password",{
-        pageTitle: "Đổi mật khẩu"
+        pageTitle: "Vietjet Air | Đổi mật khẩu"
     });
 }
 
@@ -231,7 +231,7 @@ module.exports.resetPasswordPost = async  (req, res) => {
 module.exports.infor = async  (req, res) => {
   
     res.render("client/pages/user/infor",{
-        pageTitle: "Thông tin cá nhân"
+        pageTitle: "Vietjet Air | Thông tin cá nhân"
     });
 }
 
@@ -239,7 +239,7 @@ module.exports.infor = async  (req, res) => {
 module.exports.edit = async  (req, res) => {
   
     res.render("client/pages/user/edit",{
-        pageTitle: "Cập nhật thông tin cá nhân"
+        pageTitle: "Vietjet Air | Cập nhật thông tin cá nhân"
     });
 }
 
@@ -316,7 +316,7 @@ module.exports.myflight = async  (req, res) => {
         orders.totalPrice = totalOrder;
         
         res.render("client/pages/user/myflight",{
-            pageTitle: "Chuyến bay của tôi",
+            pageTitle: "Vietjet Air | Chuyến bay của tôi",
             flights:flights,
             order:order, 
             totalOrder:orders.totalPrice,

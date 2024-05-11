@@ -4,7 +4,7 @@ const Flight = require("../../models/flight.model");
 module.exports.index = async (req, res) => {
 
     res.render('client/pages/myflight/index', {
-        pageTitle: "Trang Chủ",
+        pageTitle: "Vietjet Air | Chuyến bay của tôi",
     })
 }
 
@@ -39,7 +39,7 @@ module.exports.search = async (req, res) => {
         order.totalPrice = order.flights.reduce((sum, item) => sum+item.totalPrice, 0);
            
         res.render('client/pages/myflight/search', {
-            pageTitle: "Thông tin đặt vé",
+            pageTitle: "Vietjet Air | Thông tin đặt vé",
             order:order,
         })      
     } catch (error) {

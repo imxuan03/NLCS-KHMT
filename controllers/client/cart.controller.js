@@ -43,7 +43,7 @@ module.exports.index = async (req, res) => {
         //tính tổng tiền cả giỏ hàng
         cart.totalPrice = cart.flights.reduce((sum, item) => sum + item.totalPrice, 0);
         res.render('client/pages/cart/index', {
-            pageTitle: "Chuyến bay của tôi",
+            pageTitle: "Vietjet Air | Giỏ hàng",
             cartDetail: cart
         })
     } catch (error) {

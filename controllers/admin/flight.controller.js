@@ -49,7 +49,7 @@ module.exports.index = async (req, res) => {
         .skip(objectPagination.skip);
 
     res.render("admin/pages/flights/index", {
-        pageTitle: "Quản Lý Chuyến Bay",
+        pageTitle: "Vietjet Air | Quản lý chuyến bay",
         flights: flights,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
@@ -132,7 +132,7 @@ module.exports.create = async (req, res) => {
     const flightRoutes = await FlightRoute.find({deleted:false});
 
     res.render("admin/pages/flights/create", {
-        pageTitle: "Tạo mới chuyến bay",
+        pageTitle: "Vietjet Air | Tạo mới chuyến bay",
         flightRoutes:flightRoutes,
     });
 }
@@ -326,7 +326,7 @@ module.exports.edit = async (req, res) => {
     })
 
     res.render("admin/pages/flights/edit", {
-        pageTitle: "Chỉnh sửa chuyến bay",
+        pageTitle: "Vietjet Air | Chỉnh sửa chuyến bay",
         record: record,
         flightRoutes:flightRoutes,
     });
@@ -377,7 +377,7 @@ module.exports.detail = async (req, res) => {
         })
 
         res.render("admin/pages/flights/detail", {
-            pageTitle: "Chi tiết chuyến bay",
+            pageTitle: "Vietjet Air | Chi tiết chuyến bay",
             record: record,
         });
 

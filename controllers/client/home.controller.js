@@ -59,7 +59,7 @@ module.exports.index = async (req, res) => {
         .skip(objectPagination.skip);
 
     res.render('client/pages/home/index', {
-        pageTitle: "Trang Chủ",
+        pageTitle: "Vietjet Air | Website chính thức",
         flights: flights,
         pagination: objectPagination,
     })
@@ -124,7 +124,7 @@ module.exports.detail = async (req, res) => {
         });
         // #####################################################################
         res.render('client/pages/home/detail', {
-            pageTitle: "Chi tiết sản phẩm",
+            pageTitle: "Vietjet Air | Chi tiết sản phẩm",
             record: record,
             orderedQuantity: orderedQuantity,
             numberOfTypeSeats: numberOfTypeSeats,

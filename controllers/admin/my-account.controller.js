@@ -5,14 +5,14 @@ const systemConfig = require("../../config/system");
 // [GET] /admin/my-account 
 module.exports.index =  (req, res) => {
     res.render('admin/pages/my-account/index', {
-        pageTitle: "Thông Tin Cá Nhân"
+        pageTitle: "Vietjet Air | Thông Tin Cá Nhân"
     })
 }
 
 // [GET] /admin/my-account/edit 
 module.exports.edit =  (req, res) => {
     res.render('admin/pages/my-account/edit', {
-        pageTitle: "Chỉnh sửa thông tin cá nhân"
+        pageTitle: "Vietjet Air | Chỉnh sửa thông tin cá nhân"
     })
 }
 

@@ -45,7 +45,7 @@ module.exports.index = async (req, res) => {
         cart.totalPrice = cart.flights.reduce((sum, item) => sum + item.totalPrice, 0);
 
         res.render('client/pages/checkout/index', {
-            pageTitle: "Đặt hàng",
+            pageTitle: "Vietjet Air | Đặt vé",
             cartDetail: cart
         })
     } catch (error) {
@@ -75,7 +75,7 @@ module.exports.success = async (req, res) => {
         order.totalPrice = order.flights.reduce((sum, item) => sum + item.totalPrice, 0);
 
         res.render('client/pages/checkout/success', {
-            pageTitle: "Đặt hàng thành công",
+            pageTitle: "Vietjet Air | Đặt hàng thành công",
             order: order
         })
     } catch (error) {

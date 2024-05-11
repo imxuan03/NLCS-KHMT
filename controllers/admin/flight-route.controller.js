@@ -6,7 +6,7 @@ module.exports.index = async (req, res) => {
     const flightRoutes = await FlightRoute.find({deleted:false});
 
     res.render('admin/pages/flight-routes/index', {
-        pageTitle: "Quản Lý Đường Bay",
+        pageTitle: "Vietjet Air | Quản lý đường bay",
         flightRoutes: flightRoutes,
     })
 }
@@ -14,7 +14,7 @@ module.exports.index = async (req, res) => {
 // [GET] /admin/flight-routes/create
 module.exports.create = async (req, res) => {
     res.render("admin/pages/flight-routes/create", {
-        pageTitle: "Tạo Mới Đường Bay",
+        pageTitle: "Vietjet Air | Tạo mới đường bay",
     });
 }
 
@@ -86,7 +86,7 @@ module.exports.edit = async (req, res) => {
     })
 
     res.render("admin/pages/flight-routes/edit", {
-        pageTitle: "Chỉnh sửa đường bay",
+        pageTitle: "Vietjet Air | Chỉnh sửa đường bay",
         record: record,
     });
 }

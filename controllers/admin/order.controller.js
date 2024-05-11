@@ -23,7 +23,7 @@ module.exports.index = async  (req, res) => {
     }
 
     res.render('admin/pages/orders/index', {
-        pageTitle: "Quản Lý Đơn Vé",
+        pageTitle: "Vietjet Air | Quản lý đơn vé",
         records: records,
     })
 }

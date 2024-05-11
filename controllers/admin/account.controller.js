@@ -21,7 +21,7 @@ module.exports.index = async (req, res) => {
     const records = await Account.find(find)
     
     res.render('admin/pages/accounts/index', {
-        pageTitle: "Quản lý tài khoản Admin",
+        pageTitle: "Vietjet Air | Quản lý tài khoản Admin",
         filterStatus:filterStatus,
         records: records,
     })
@@ -30,7 +30,7 @@ module.exports.index = async (req, res) => {
 // [GET] /admin/accounts/create 
 module.exports.create = async (req, res) => {
     res.render('admin/pages/accounts/create', {
-        pageTitle: "Tạo mới tài khoản",
+        pageTitle: "Vietjet Air | Tạo mới tài khoản",
     })
 }
 
@@ -64,7 +64,7 @@ module.exports.edit = async (req, res) => {
     })
 
     res.render('admin/pages/accounts/edit', {
-        pageTitle: "Chỉnh sửa tài khoản",
+        pageTitle: "Vietjet Air | Chỉnh sửa tài khoản",
         record: record,
     })
 }
@@ -112,7 +112,7 @@ module.exports.detail = async (req, res) => {
     })
 
     res.render('admin/pages/accounts/detail', {
-        pageTitle: "Thông tin chi tiết tài khoản",
+        pageTitle: "Vietjet Air | Thông tin chi tiết tài khoản",
         record: record,
     })
 

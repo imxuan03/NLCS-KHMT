@@ -16,7 +16,7 @@ module.exports.index = async (req, res) => {
     const records = await User.find(find)
 
     res.render('admin/pages/users/index', {
-        pageTitle: "Quản Lý Tài Khoản User",
+        pageTitle: "Vietjet Air | Quản lý tài khoản User",
         filterStatus:filterStatus,
         records: records,
     })
@@ -30,7 +30,7 @@ module.exports.detail = async (req, res) => {
     })
 
     res.render('admin/pages/users/detail', {
-        pageTitle: "Thông tin chi tiết tài khoản User",
+        pageTitle: "Vietjet Air | Thông tin chi tiết tài khoản User",
         record: record,
     })
 

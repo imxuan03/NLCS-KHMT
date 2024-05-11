@@ -98,7 +98,7 @@ module.exports.index = async (req, res) => {
 
 
     res.render('admin/pages/dashboard/index', {
-        pageTitle: "Trang Chủ",
+        pageTitle: "Vietjet Air | Website chính thức",
         numberOfFlight: numberOfFlight,
         numberOfUser: numberOfUser,
         quantityTicketFLightOrdered: quantityTicketFLightOrdered,
