@@ -74,10 +74,12 @@ block main
                     button(class="btn m-2" button-statistic=3) 3 tháng gần nhất
                     button(class="btn m-2" button-statistic=6) 6 tháng gần nhất 
                     button(class="btn m-2" button-statistic=12) 1 năm gần nhất
-                h5 Số lượng đặt vé theo loại hạng ghế bay
+                h5.text-center Số lượng đặt vé theo loại hạng ghế bay
                 canvas(id="myChart")
-                h5.m-2 Doanh thu theo từng loại hạng ghế bay
+                
         .row.justify-content-center.chart-number-ordered
+            .col-12 
+                h5.m-2.text-center Doanh thu theo từng loại hạng ghế bay
             div.col-3.text-center 
                 span Hạng thương gia: 
                 span.vnd-price #{totalPriceTypeTicketFlightOrdered.first}
