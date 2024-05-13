@@ -9,13 +9,13 @@ module.exports = (query) => {
     }
 
     if(query.departureCity){
-        objectSearch.departureCity = query.departureCity;
+        objectSearch.departureCity = query.departureCity.trim();
         const regex = new RegExp(objectSearch.departureCity, "i");
         objectSearch.regexDepartureCity = regex;
     }
 
     if(query.arrivalCity){
-        objectSearch.arrivalCity = query.arrivalCity;
+        objectSearch.arrivalCity = query.arrivalCity.trim();
         const regex = new RegExp(objectSearch.arrivalCity, "i");
         objectSearch.regexArrivalCity = regex;
     }

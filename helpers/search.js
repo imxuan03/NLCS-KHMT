@@ -5,7 +5,7 @@ module.exports = (query) => {
     }
 
     if(query.keyword){
-        objectSearch.keyword = query.keyword;
+        objectSearch.keyword = query.keyword.trim();
         //link tham khao
         //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
         const regex = new RegExp(objectSearch.keyword, "i");

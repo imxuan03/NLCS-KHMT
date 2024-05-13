@@ -21,11 +21,11 @@ module.exports.index = async (req, res) => {
     }
 
     if (req.query.departureDate) {
-        find.departureDate = objectSearch.departureDate;
+        find.departureDate = req.query.departureDate;
     }
 
     if (req.query.arrivalDate) {
-        find.arrivalDate = objectSearch.arrivalDate;
+        find.arrivalDate = req.query.arrivalDate;
     }
     //End Search FE
 
@@ -49,10 +49,8 @@ module.exports.index = async (req, res) => {
     }
     // end sort 
 
-    const currentDate = new Date().toISOString().split('T')[0];
     const flights = await Flight.find({
         ...find,
-        departureDate: { $gte: currentDate } // Lấy các chuyến bay có departureDate lớn hơn hoặc bằng ngày hiện tại
     })
         .sort(sort)
         .limit(objectPagination.limitItems)
