@@ -12,7 +12,7 @@ block main
             border: 1px solid #ccc;
             border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding : 30px 20px;
+            //- padding : 30px 20px;
             width:30%;
         }
         .form-component-box p{
@@ -47,26 +47,29 @@ block main
     .container 
         .row(style="justify-content: space-between;")
             .form-component-box
-                div.d-flex.flex-row.align-items-center
-                    div 
-                        <i class="fa-solid fa-chart-simple"></i>
-                    div 
-                        p Số lượng chuyến bay
-                        p(style="color: black;") #{numberOfFlight} (đang hoạt động)
+                a(href="/admin/flights?status=active")
+                    div.d-flex.flex-row.align-items-center(style="padding : 30px 20px;")
+                        div 
+                            <i class="fa-solid fa-chart-simple"></i>
+                        div 
+                            p Số lượng chuyến bay
+                            p(style="color: black;") #{numberOfFlight} (đang hoạt động)
             .form-component-box
-                div.d-flex.flex-row.align-items-center
-                    div 
-                        <i class="fa-solid fa-shop"></i>
-                    div 
-                        p Số lượng vé được đặt
-                        p(style="color: black;") #{quantityTicketFLightOrdered}
+                a(href="/admin/orders")
+                    div.d-flex.flex-row.align-items-center(style="padding : 30px 20px;")
+                        div 
+                            <i class="fa-solid fa-shop"></i>
+                        div 
+                            p Số lượng vé được đặt
+                            p(style="color: black;") #{quantityTicketFLightOrdered}
             .form-component-box
-                div.d-flex.flex-row.align-items-center
-                    div 
-                        <i class="fa-solid fa-user"></i>
-                    div 
-                        p Số lượng hội viên
-                        p(style="color: black;") #{numberOfUser}
+                a(href="/admin/users?status=active") 
+                    div.d-flex.flex-row.align-items-center(style="padding : 30px 20px;")
+                        div 
+                            <i class="fa-solid fa-user"></i>
+                        div 
+                            p Số lượng hội viên
+                            p(style="color: black;") #{numberOfUser} (đang hoạt động)
 
         .row.justify-content-center.chart-number-ordered
             .col-10
