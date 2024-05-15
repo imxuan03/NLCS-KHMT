@@ -17,17 +17,18 @@
                 a(href=`/${prefixAdmin}/orders`) 
                     <i class="fa-solid fa-shop  mr-3"></i>
                     span Quản lý Đơn vé
-            li 
-                a(href=`/${prefixAdmin}/accounts`) 
-                    <i class="fa-solid fa-user-tie mr-3"></i>
-                    span Quản lý Tài khoản Admin
-            li 
-                a(href=`/${prefixAdmin}/users`)
-                    <i class="fa-solid fa-user mr-3"></i>
-                    span Quản lý Tài khoản Client
-    a(
-        href=`/${prefixAdmin}/auth/logout`
-        class="btn btn-danger btn-sm logout-sider-admin"
-    ) Đăng xuất 
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            if user.role_id==="admin"
+                li 
+                    a(href=`/${prefixAdmin}/accounts`) 
+                        <i class="fa-solid fa-user-tie mr-3"></i>
+                        span Quản lý Tài khoản Admin
+                li 
+                    a(href=`/${prefixAdmin}/users`)
+                        <i class="fa-solid fa-user mr-3"></i>
+                        span Quản lý Tài khoản Client
+    //- a(
+    //-     href=`/${prefixAdmin}/auth/logout`
+    //-     class="btn btn-danger btn-sm logout-sider-admin"
+    //- ) Đăng xuất 
+    //-     <i class="fa-solid fa-arrow-right-from-bracket"></i>
 
