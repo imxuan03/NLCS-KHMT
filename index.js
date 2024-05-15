@@ -6,6 +6,8 @@ const flash = require('express-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const path = require('path');
+validationResult = require('express-validator');
+const validator = require('validator');
 
 
 require('dotenv').config() //gọi file .env
@@ -45,6 +47,25 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 //End Variables
+
+//=====================================
+//làm sạch dữ liệu, lỗ hỏng XSS, NoSQL Injection
+
+// Middleware để làm sạch dữ liệu đầu vào
+const sanitizeInput = (req, res, next) => {
+  // Làm sạch các trường dữ liệu của yêu cầu
+  for (let key in req.body) {
+      if (typeof req.body[key] === 'string') {
+          req.body[key] = validator.escape(req.body[key].trim());
+      }
+  }
+  next();
+};
+
+// Sử dụng middleware sanitizeInput cho tất cả các route
+app.use(sanitizeInput);
+// end làm sạch dữ liệu, lỗ hỏng XSS, NoSQL Injection
+//===============================
 
 // Routes 
 route(app);
