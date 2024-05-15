@@ -38,7 +38,11 @@ module.exports.loginPost = async (req, res) => {
         return;
     }
 
-    res.cookie("token", user.token);
+    res.cookie("token", user.token, {
+        httpOnly: true ,
+        secure: true, // Chỉ gửi cookie qua kênh HTTPS nếu truy cập trang web bằng HTTPS
+        sameSite: 'Strict' // Ngăn chặn CSRF
+    });
 
 
     res.redirect(`/${systemConfig.prefixAdmin}/dashboard`)

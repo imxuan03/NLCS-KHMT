@@ -9,8 +9,8 @@ const sendMailHelper = require("../../helpers/sendMail");
 const md5 = require("md5");
 
 // [GET] /user/register
-module.exports.register =  (req, res) => {
-    
+module.exports.register = (req, res) => {
+
     res.render('client/pages/user/register', {
         pageTitle: "Vietjet Air | Đăng ký tài khoản"
     })
@@ -18,14 +18,14 @@ module.exports.register =  (req, res) => {
 
 
 // [Post] /user/register
-module.exports.registerPost = async  (req, res) => {
-    
+module.exports.registerPost = async (req, res) => {
+
     const existEmail = await User.findOne({
         email: req.body.email,
-        deleted:false
+        deleted: false
     })
 
-    if(existEmail){
+    if (existEmail) {
         req.flash('error', `Email đã tồn tại!`);
         res.redirect("back");
         return;
@@ -39,27 +39,31 @@ module.exports.registerPost = async  (req, res) => {
 
     const user = new User(req.body);
     await user.save();
-    
 
-    res.cookie("tokenUser", user.tokenUser);
+
+    res.cookie("tokenUser", user.tokenUser, {
+        httpOnly: true,
+        secure: true, // Chỉ gửi cookie qua kênh HTTPS nếu truy cập trang web bằng HTTPS
+        sameSite: 'Strict' // Ngăn chặn CSRF
+    });
 
 
     //Lưu user_id vào collection carts
     await Cart.updateOne(
         {
             _id: req.cookies.cartId
-        },{
-            user_id: user.id
-        }
+        }, {
+        user_id: user.id
+    }
     )
     //Lưu cart_id vào collection user
-            //Lưu user_id vào collection carts
+    //Lưu user_id vào collection carts
     await User.updateOne(
         {
             _id: user.id
-        },{
-            cart_id: req.cookies.cartId
-        }
+        }, {
+        cart_id: req.cookies.cartId
+    }
     )
 
     res.redirect("/home");
@@ -67,60 +71,68 @@ module.exports.registerPost = async  (req, res) => {
 }
 
 // [GET] /user/login
-module.exports.login =  (req, res) => {
-    
+module.exports.login = (req, res) => {
+
     res.render('client/pages/user/login', {
         pageTitle: "Vietjet Air | Đăng nhập tài khoản"
     })
 }
 
 // [POST] /user/login
-module.exports.loginPost = async  (req, res) => {
+module.exports.loginPost = async (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
 
     const user = await User.findOne({
-        email:email,
-        deleted:false,
+        email: email,
+        deleted: false,
     })
 
-    if(!user){
+    if (!user) {
         req.flash('error', `Email không tồn tại!`);
         res.redirect("back");
         return;
     }
 
-    if(user.password != md5(password)){
+    if (user.password != md5(password)) {
         req.flash('error', `Sai mật khẩu!`);
         res.redirect("back");
         return;
     }
-    if(user.status == "inactive"){
+    if (user.status == "inactive") {
         req.flash('error', `Tài khoản bị khóa!`);
         res.redirect("back");
         return;
     }
 
-    res.cookie("tokenUser", user.tokenUser);
+    res.cookie("tokenUser", user.tokenUser, {
+        httpOnly: true,
+        secure: true, // Chỉ gửi cookie qua kênh HTTPS nếu truy cập trang web bằng HTTPS
+        sameSite: 'Strict' // Ngăn chặn CSRF
+    });
 
-    if(user.cart_id){
-        res.cookie("cartId",user.cart_id);
+    if (user.cart_id) {
+        res.cookie("cartId", user.cart_id, {
+            httpOnly: true,
+            secure: true, // Chỉ gửi cookie qua kênh HTTPS nếu truy cập trang web bằng HTTPS
+            sameSite: 'Strict' // Ngăn chặn CSRF
+        });
     }
 
     res.redirect("/home");
 }
 
 // [GET] /user/logout
-module.exports.logout =  (req, res) => {
+module.exports.logout = (req, res) => {
     res.clearCookie("tokenUser");
     res.clearCookie("cartId");
-    
+
     res.redirect("/home");
 }
 
 // [GET] /user/password/forgot
-module.exports.forgotPassword =  (req, res) => {
+module.exports.forgotPassword = (req, res) => {
     res.render('client/pages/user/forgot-password', {
         pageTitle: "Vietjet Air | Quên mật khẩu"
     })
@@ -131,11 +143,11 @@ module.exports.forgotPasswordPost = async (req, res) => {
     const email = req.body.email;
 
     const user = await User.findOne({
-        email:email,
-        deleted:false,
+        email: email,
+        deleted: false,
     })
 
-    if(!user){
+    if (!user) {
         req.flash('error', `Email không tồn tại!`);
         res.redirect("back");
         return;
@@ -145,10 +157,10 @@ module.exports.forgotPasswordPost = async (req, res) => {
     const otp = generateHelper.generateRandomNumber(8);
     const objectForgotPassword = {
         email: email,
-        otp:otp,
+        otp: otp,
         expireAt: Date.now()
     }
-    
+
     const forgotPassword = new ForgotPassword(objectForgotPassword);
     await forgotPassword.save();
 
@@ -167,12 +179,12 @@ module.exports.forgotPasswordPost = async (req, res) => {
 }
 
 // [GET] /user/password/otp
-module.exports.otpPassword =  (req, res) => {
+module.exports.otpPassword = (req, res) => {
     const email = req.query.email;
 
-    res.render("client/pages/user/otp-password",{
+    res.render("client/pages/user/otp-password", {
         pageTitle: "Vietjet Air | Nhập mã OTP",
-        email:email
+        email: email
     });
 }
 
@@ -186,38 +198,42 @@ module.exports.otpPasswordPost = async (req, res) => {
         otp: otp,
     })
 
-    if(!result){
+    if (!result) {
         req.flash('error', `OTP không hợp lệ`);
         res.redirect("back");
         return;
     }
 
     const user = await User.findOne({
-        email:email
+        email: email
     })
 
-    res.cookie("tokenUser", user.tokenUser);
+    res.cookie("tokenUser", user.tokenUser, {
+        httpOnly: true,
+        secure: true, // Chỉ gửi cookie qua kênh HTTPS nếu truy cập trang web bằng HTTPS
+        sameSite: 'Strict' // Ngăn chặn CSRF
+    });
 
     res.redirect("/user/password/reset");
 }
 
 // [GET] /user/password/reset
-module.exports.resetPassword = async  (req, res) => {
-  
-    res.render("client/pages/user/reset-password",{
+module.exports.resetPassword = async (req, res) => {
+
+    res.render("client/pages/user/reset-password", {
         pageTitle: "Vietjet Air | Đổi mật khẩu"
     });
 }
 
 // [POST] /user/password/reset
-module.exports.resetPasswordPost = async  (req, res) => {
-  
+module.exports.resetPasswordPost = async (req, res) => {
+
     const password = req.body.password;
     const tokenUser = req.cookies.tokenUser;
 
     await User.updateOne(
         {
-            tokenUser:tokenUser
+            tokenUser: tokenUser
         },
         {
             password: md5(password)
@@ -228,17 +244,17 @@ module.exports.resetPasswordPost = async  (req, res) => {
 }
 
 // [GET] /user/infor
-module.exports.infor = async  (req, res) => {
-  
-    res.render("client/pages/user/infor",{
+module.exports.infor = async (req, res) => {
+
+    res.render("client/pages/user/infor", {
         pageTitle: "Vietjet Air | Thông tin cá nhân"
     });
 }
 
 // [GET] /user/edit
-module.exports.edit = async  (req, res) => {
-  
-    res.render("client/pages/user/edit",{
+module.exports.edit = async (req, res) => {
+
+    res.render("client/pages/user/edit", {
         pageTitle: "Vietjet Air | Cập nhật thông tin cá nhân"
     });
 }
@@ -246,84 +262,84 @@ module.exports.edit = async  (req, res) => {
 
 // [PATCH] /admin/my-account/edit
 module.exports.editPatch = async (req, res) => {
-    if(req.body.password){
-        req.body.password = md5( req.body.password);
-    }else{
+    if (req.body.password) {
+        req.body.password = md5(req.body.password);
+    } else {
         delete req.body.password;
     }
 
     // Đặt tên lại theo đường dẫn 
-    if(req.file && req.file.filename){
-        req.body.avatar = `/uploads/${ req.file.filename}`
+    if (req.file && req.file.filename) {
+        req.body.avatar = `/uploads/${req.file.filename}`
     }
 
-    await User.updateOne({_id: res.locals.user.id}, req.body)
+    await User.updateOne({ _id: res.locals.user.id }, req.body)
 
     req.flash('success', `Chỉnh sửa tài khoản thành công!`);
     res.redirect(`/user/infor`);
 }
 
 // [GET] /user/myflight
-module.exports.myflight = async  (req, res) => {
+module.exports.myflight = async (req, res) => {
     try {
-        if(req.cookies.tokenUser){
+        if (req.cookies.tokenUser) {
             var user = await User.findOne({
                 tokenUser: req.cookies.tokenUser,
                 deleted: false,
             }).select("-password");
-    
-            if(user){
+
+            if (user) {
                 res.locals.user = user;
             }
         }
-    
+
         //truy cập vào Cart (user_id) -> truy cập vào Order (cart_id)
-    
+
         const cart = await Cart.findOne({
             user_id: user.id
         })
-    
-        
+
+
         const orders = await Order.find({
             cart_id: cart.id,
         })
-    
+
         //Để lấy thông tin order đó (user, .....)
         const order = await Order.findOne({
             cart_id: cart.id,
         })
-    
+
         //chạy cho nhiều đơn order khác nhau, nhưng cùng một user order
         let totalOrder = 0;
         let flights = []; // lưu một mảng các order từ các đơn hàng khác nhau, nhưng cùng một user order
-        for(const eachOrder of orders){
-            for(const flight of eachOrder.flights ){
+        for (const eachOrder of orders) {
+            for (const flight of eachOrder.flights) {
                 const flightInfor = await Flight.findOne({
                     _id: flight.flight_id
                 });
-    
+
                 //thêm key vào mỗi flight trong flights
                 flight.flightInfor = flightInfor;
                 flight.totalPrice = flight.quantity * flight.price;
                 flight.id_order = eachOrder.id_order;
                 flights.push(flight);
-    
+
             }
-            totalOrder += eachOrder.flights.reduce((sum, item) => sum+item.totalPrice, 0);
-           
+            totalOrder += eachOrder.flights.reduce((sum, item) => sum + item.totalPrice, 0);
+
         }
-    
+
         orders.totalPrice = totalOrder;
-        
-        res.render("client/pages/user/myflight",{
+
+        res.render("client/pages/user/myflight", {
             pageTitle: "Vietjet Air | Chuyến bay của tôi",
-            flights:flights,
-            order:order, 
-            totalOrder:orders.totalPrice,
+            flights: flights,
+            order: order,
+            totalOrder: orders.totalPrice,
         });
     } catch (error) {
         req.flash('error', `Đã xảy ra lỗi dữ liệu.`);
         res.redirect("back");
     }
-    
+
 }
