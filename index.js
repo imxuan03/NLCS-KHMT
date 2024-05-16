@@ -23,6 +23,13 @@ database.connect(); //Gọi hàm connect để kết nối database
 const port = process.env.PORT;
 const app = express();
 
+// Lỗ hỏng bảo mật ClickJacking
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "frame-ancestors 'self'");
+  next();
+});
+
+
 app.set('views', './views')
 app.set('view engine', 'pug')
 app.use(express.static('public'))
